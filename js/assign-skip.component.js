@@ -23,7 +23,6 @@ AFRAME.registerComponent('assign-skip', {
           getIndex += len;
         }
       }
-      console.log(getIndex)
       data.container.setAttribute("slide-container", "index:" + getIndex);
     })
   },
