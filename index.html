@@ -1,195 +1,193 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>EML Intro To WebVR</title>
-    <meta name="description" content="EML Intro To WebVR">
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
-    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.1/dist/aframe-physics-system.min.js"></script>
-    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
-    <script src="./js/raycaster-autorefresh.component.js"></script>
-    <script src="./js/hide-if-not-mobile.component.js"></script>
-    <script src="./js/override-material.component.js"></script>
-    <script src="./js/assign-rotate.component.js"></script>
-    <script src="./js/scale-brain.component.js"></script>
-    <script src="./js/expand-brain.component.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
-    <script src="aframe.propagate.js"></script>
-    <script src="./js/assign-microglia.component.js"></script>
-    <script src="./js/assign-channel.component.js"></script>
-    <script src="./js/scale-cells.component.js"></script>
-    <script src="./js/assign-skip.component.js"></script>
-    <script src="./js/slide-container.component.js"></script>
-    <script src="./js/play-button.component.js"></script>
-    <script src="./js/show-mri.component.js"></script>
-    <script src="./js/rotate-mri.component.js"></script>
-    <script src="./js/rotate-mriroom.component.js"></script>
-    <script src="./js/slice-controller.component.js"></script>
-    <script src="./js/slice-renderer.component.js"></script>
-    <script type="text/javascript">
+
+<head>
+  <title>EML Intro To WebVR</title>
+  <meta name="description" content="EML Intro To WebVR">
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+  <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+  <script src="./js/raycaster-autorefresh.component.js"></script>
+  <script src="./js/hide-if-not-mobile.component.js"></script>
+  <script src="./js/override-material.component.js"></script>
+  <script src="./js/assign-rotate.component.js"></script>
+  <script src="./js/scale-brain.component.js"></script>
+  <script src="./js/expand-brain.component.js"></script>
+  <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+  <script src="aframe.propagate.js"></script>
+  <script src="./js/assign-microglia.component.js"></script>
+  <script src="./js/assign-channel.component.js"></script>
+  <script src="./js/scale-cells.component.js"></script>
+  <script src="./js/assign-skip.component.js"></script>
+  <script src="./js/slide-container.component.js"></script>
+  <script src="./js/play-button.component.js"></script>
+  <script src="./js/show-mri.component.js"></script>
+  <script src="./js/rotate-mri.component.js"></script>
+  <script src="./js/rotate-mriroom.component.js"></script>
+  <script src="./js/slice-controller.component.js"></script>
+  <script src="./js/slice-renderer.component.js"></script>
+  <script type="text/javascript">
     AFRAME.registerComponent('main-ui', {
       schema: {
-        events: {type: 'string', default: ''},
+        events: { type: 'string', default: '' },
       },
-      init: function ()
-      {
-          var viewButton = document.querySelector('#center-tile-cta')
-          var mainCamera = document.querySelector('#main-camera')
-          var mainBg = document.querySelector('#main-bg')
-          var tiles = document.querySelectorAll('.tile')
+      init: function () {
+        var viewButton = document.querySelector('#center-tile-cta')
+        var mainCamera = document.querySelector('#main-camera')
+        var mainBg = document.querySelector('#main-bg')
+        var tiles = document.querySelectorAll('.tile')
 
-          viewButton.addEventListener('click', function (e) {
+        viewButton.addEventListener('click', function (e) {
 
-            // Tell the camera to start its animation forward
-            mainCamera.emit('viewDetail')
-            
-            // Wait till the last millisecond to swap the background
-            // and make it brighter.
-            // Finally hide the tiles.
-            setTimeout(function()
-            {
-                mainBg.setAttribute('material', 'src', '#detail-bg')
-                mainBg.setAttribute('material', 'color', '#fff');
-                mainBg.setAttribute('rotation', { x: 0, y: -90, z: 0 });
-                hideTiles()
-            }, 999)
+          // Tell the camera to start its animation forward
+          mainCamera.emit('viewDetail')
 
-            function hideTiles () 
-            {
-              for (var i = 0; i< tiles.length; i++) {
-                tiles[i].setAttribute('visible', false)
-              }
+          // Wait till the last millisecond to swap the background
+          // and make it brighter.
+          // Finally hide the tiles.
+          setTimeout(function () {
+            mainBg.setAttribute('material', 'src', '#detail-bg')
+            mainBg.setAttribute('material', 'color', '#fff');
+            mainBg.setAttribute('rotation', { x: 0, y: -90, z: 0 });
+            hideTiles()
+          }, 999)
+
+          function hideTiles() {
+            for (var i = 0; i < tiles.length; i++) {
+              tiles[i].setAttribute('visible', false)
             }
-          })
+          }
+        })
       }
     });
-    </script>
-    <script>
-            function isolate()
-            {
-              var col=document.getElementById("Thalamus");
-              col.style.color="#FF0000";
-            }
-    </script>
-    <script>
-      AFRAME.registerComponent('change-color-on-hover', {
-        schema: {
-          color: {default: 'green'}
-        },
+  </script>
+  <script>
+    function isolate() {
+      var col = document.getElementById("Thalamus");
+      col.style.color = "#FF0000";
+    }
+  </script>
+  <script>
+    AFRAME.registerComponent('change-color-on-hover', {
+      schema: {
+        color: { default: 'green' }
+      },
 
-        init: function () {
-          var data = this.data;
-          var el = this.el;  // <a-box>
-          var defaultColor = el.getAttribute('material').color;
+      init: function () {
+        var data = this.data;
+        var el = this.el;  // <a-box>
+        var defaultColor = el.getAttribute('material').color;
 
-          el.addEventListener('mouseenter', function () {
-            el.setAttribute('color', data.color);
-          });
+        el.addEventListener('mouseenter', function () {
+          el.setAttribute('color', data.color);
+        });
 
-          el.addEventListener('mouseleave', function () {
-            el.setAttribute('color', defaultColor);
-          });
-        }
-      });
-    </script>
-    
-    <script>
-            function myThalFunction() {
-              document.getElementById("isolated-Thalamus").setAttribute('color', 'yellow');
-            }
-    </script>
-    <script>
-            function mySubThalFunction() {
-              document.getElementById("isolated-Subthalamic").setAttribute('color', 'purple');
-            }
-    </script>
-    <script>
-            function mySubstanFunction() {
-              document.getElementById("isolated-Lsubstantianigra").setAttribute('color', 'red');
-              document.getElementById("isolated-Rsubstantianigra").setAttribute('color', 'red');
-            }
-    </script>
-    <script>
-            function myPutaFunction() {
-              document.getElementById("isolated-Lputamen").setAttribute('color', 'orange');
-              document.getElementById("isolated-Rputamen").setAttribute('color', 'orange');
-            }
-    </script>
-    <script>
-            function myCaudFunction() {
-              document.getElementById("isolated-Lcaudate").setAttribute('color', 'teal');
-              document.getElementById("isolated-Rcaudate").setAttribute('color', 'teal');
-            }
-    </script>
-    <script>
-            function myGlobFunction() {
-              document.getElementById("isolated-Lglobuspallidus").setAttribute('color', 'green');
-              document.getElementById("isolated-Rglobuspallidus").setAttribute('color', 'green')
-            }
-    </script>
-  </head>
-  <body>
-    <!-- Your A-Frame scene goes here! -->
-    <a-scene raycaster-autorefresh main-ui>
-      <a-assets>
-       <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
-       <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
-       <a-asset-item id="thalamus" src="public/assets/thalamus.obj"></a-asset-item>
-       <a-asset-item id="lcaudate" src="public/assets/left_caudate.obj"></a-asset-item>
-       <a-asset-item id="subthalamic" src="public/assets/left_and_right_subthalamic.obj"></a-asset-item>
-       <a-asset-item id="lsubstantianigra" src="public/assets/left_substantia_nigra.obj"></a-asset-item>
-       <a-asset-item id="lglobuspallidus" src="public/assets/left_globus_pallidus.obj"></a-asset-item>
-       <a-asset-item id="lputamen" src="public/assets/left_putamen.obj"></a-asset-item>      
-       <a-asset-item id="rcaudate" src="public/assets/right_caudate.obj"></a-asset-item>
-       <a-asset-item id="rsubstantianigra" src="public/assets/right_substantia_nigra.obj"></a-asset-item>
-       <a-asset-item id="rglobuspallidus" src="public/assets/right_globus_pallidus.obj"></a-asset-item>
-       <a-asset-item id="rputamen" src="public/assets/right_putamen.obj"></a-asset-item>  
-        
-        <img id="left-tile-image" src="public/assets/panorama.jpg">
-        <img id="center-tile-image" src="public/assets/download.jpg">
-        <img id="right-tile-image" src="public/assets/MSK_360.jpeg">
-        <a-mixin id="overlay-fade-in" animation="property: opacity; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from:0; to: .75; startEvents: clickDown;"></a-mixin>
-        
-        <a-asset-item id="microglia0" src="public/assets/0.obj"></a-asset-item>
-        <a-asset-item id="microglia2" src="public/assets/2.obj"></a-asset-item>
-        <a-asset-item id="microglia4" src="public/assets/4.obj"></a-asset-item>
-        <a-asset-item id="microglia6" src="public/assets/6.obj"></a-asset-item>
-        <a-asset-item id="microglia8" src="public/assets/8.obj"></a-asset-item>
-        <a-asset-item id="microglia10" src="public/assets/10.obj"></a-asset-item>
-        <a-asset-item id="microglia12" src="public/assets/12.obj"></a-asset-item>
-        <a-asset-item id="microglia14" src="public/assets/14.obj"></a-asset-item>
-        <a-asset-item id="microglia16" src="public/assets/16.obj"></a-asset-item>
-        <a-asset-item id="microglia18" src="public/assets/18.obj"></a-asset-item>
-        <a-asset-item id="microglia20" src="public/assets/20.obj"></a-asset-item>
-        <a-asset-item id="microglia22" src="public/assets/22.obj"></a-asset-item>
-        <a-asset-item id="microglia24" src="public/assets/24.obj"></a-asset-item>
-        <a-asset-item id="microglia26" src="public/assets/26.obj"></a-asset-item>
-        <a-asset-item id="microglia28" src="public/assets/28.obj"></a-asset-item>
-        <a-asset-item id="microglia30" src="public/assets/30.obj"></a-asset-item>
-        <a-asset-item id="microglia32" src="public/assets/32.obj"></a-asset-item>
-        <a-asset-item id="microglia34" src="public/assets/34.obj"></a-asset-item>
-        <a-asset-item id="microglia36" src="public/assets/36.obj"></a-asset-item>
-        <a-asset-item id="microglia38" src="public/assets/38.obj"></a-asset-item>
-        <a-asset-item id="microglia40" src="public/assets/40.obj"></a-asset-item>
-        <a-asset-item id="microglia42" src="public/assets/42.obj"></a-asset-item>
-        <a-asset-item id="microglia44" src="public/assets/44.obj"></a-asset-item>
-        <a-asset-item id="microglia46" src="public/assets/46.obj"></a-asset-item>
-        
-        <a-asset-item id="channel 1" src="public/assets/Segment_1_100_islands_200_fill_holes_10B%20(1).obj"></a-asset-item>
-        <a-asset-item id="channel 2" src="public/assets/channel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj"></a-asset-item>
-        
-        
-       <img id="wall" src="public/assets/wall-texture.jpg"/>
-       <img id="rotate-icon" src="public/assets/rotate-icon.png"/>
-       <img id="MRI-button" src="public/assets/MRI-rough.jpg"/>
-        <img id="bg1" src="public/assets/cell_360.jpg"/>
-      <img id="bg2" src="public/assets/fMRI_360.jpg"/>
-        <img id="bg3" src="public/assets/bg1.jpeg"/>
-        <img id="bg4" src="public/assets/bg3.jpeg"/>
+        el.addEventListener('mouseleave', function () {
+          el.setAttribute('color', defaultColor);
+        });
+      }
+    });
+  </script>
 
-           <script id="sceneEducational" type="text/html">
+  <script>
+    function myThalFunction() {
+      document.getElementById("isolated-Thalamus").setAttribute('color', 'yellow');
+    }
+  </script>
+  <script>
+    function mySubThalFunction() {
+      document.getElementById("isolated-Subthalamic").setAttribute('color', 'purple');
+    }
+  </script>
+  <script>
+    function mySubstanFunction() {
+      document.getElementById("isolated-Lsubstantianigra").setAttribute('color', 'red');
+      document.getElementById("isolated-Rsubstantianigra").setAttribute('color', 'red');
+    }
+  </script>
+  <script>
+    function myPutaFunction() {
+      document.getElementById("isolated-Lputamen").setAttribute('color', 'orange');
+      document.getElementById("isolated-Rputamen").setAttribute('color', 'orange');
+    }
+  </script>
+  <script>
+    function myCaudFunction() {
+      document.getElementById("isolated-Lcaudate").setAttribute('color', 'teal');
+      document.getElementById("isolated-Rcaudate").setAttribute('color', 'teal');
+    }
+  </script>
+  <script>
+    function myGlobFunction() {
+      document.getElementById("isolated-Lglobuspallidus").setAttribute('color', 'green');
+      document.getElementById("isolated-Rglobuspallidus").setAttribute('color', 'green')
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Your A-Frame scene goes here! -->
+  <a-scene raycaster-autorefresh main-ui>
+    <a-assets>
+      <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
+      <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
+      <a-asset-item id="thalamus" src="public/assets/thalamus.obj"></a-asset-item>
+      <a-asset-item id="lcaudate" src="public/assets/left_caudate.obj"></a-asset-item>
+      <a-asset-item id="subthalamic" src="public/assets/left_and_right_subthalamic.obj"></a-asset-item>
+      <a-asset-item id="lsubstantianigra" src="public/assets/left_substantia_nigra.obj"></a-asset-item>
+      <a-asset-item id="lglobuspallidus" src="public/assets/left_globus_pallidus.obj"></a-asset-item>
+      <a-asset-item id="lputamen" src="public/assets/left_putamen.obj"></a-asset-item>
+      <a-asset-item id="rcaudate" src="public/assets/right_caudate.obj"></a-asset-item>
+      <a-asset-item id="rsubstantianigra" src="public/assets/right_substantia_nigra.obj"></a-asset-item>
+      <a-asset-item id="rglobuspallidus" src="public/assets/right_globus_pallidus.obj"></a-asset-item>
+      <a-asset-item id="rputamen" src="public/assets/right_putamen.obj"></a-asset-item>
+
+      <img id="left-tile-image" src="public/assets/panorama.jpg">
+      <img id="center-tile-image" src="public/assets/download.jpg">
+      <img id="right-tile-image" src="public/assets/MSK_360.jpeg">
+      <a-mixin id="overlay-fade-in" animation="property: opacity; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from:0; to: .75; startEvents: clickDown;"></a-mixin>
+
+      <a-asset-item id="microglia0" src="public/assets/0.obj"></a-asset-item>
+      <a-asset-item id="microglia2" src="public/assets/2.obj"></a-asset-item>
+      <a-asset-item id="microglia4" src="public/assets/4.obj"></a-asset-item>
+      <a-asset-item id="microglia6" src="public/assets/6.obj"></a-asset-item>
+      <a-asset-item id="microglia8" src="public/assets/8.obj"></a-asset-item>
+      <a-asset-item id="microglia10" src="public/assets/10.obj"></a-asset-item>
+      <a-asset-item id="microglia12" src="public/assets/12.obj"></a-asset-item>
+      <a-asset-item id="microglia14" src="public/assets/14.obj"></a-asset-item>
+      <a-asset-item id="microglia16" src="public/assets/16.obj"></a-asset-item>
+      <a-asset-item id="microglia18" src="public/assets/18.obj"></a-asset-item>
+      <a-asset-item id="microglia20" src="public/assets/20.obj"></a-asset-item>
+      <a-asset-item id="microglia22" src="public/assets/22.obj"></a-asset-item>
+      <a-asset-item id="microglia24" src="public/assets/24.obj"></a-asset-item>
+      <a-asset-item id="microglia26" src="public/assets/26.obj"></a-asset-item>
+      <a-asset-item id="microglia28" src="public/assets/28.obj"></a-asset-item>
+      <a-asset-item id="microglia30" src="public/assets/30.obj"></a-asset-item>
+      <a-asset-item id="microglia32" src="public/assets/32.obj"></a-asset-item>
+      <a-asset-item id="microglia34" src="public/assets/34.obj"></a-asset-item>
+      <a-asset-item id="microglia36" src="public/assets/36.obj"></a-asset-item>
+      <a-asset-item id="microglia38" src="public/assets/38.obj"></a-asset-item>
+      <a-asset-item id="microglia40" src="public/assets/40.obj"></a-asset-item>
+      <a-asset-item id="microglia42" src="public/assets/42.obj"></a-asset-item>
+      <a-asset-item id="microglia44" src="public/assets/44.obj"></a-asset-item>
+      <a-asset-item id="microglia46" src="public/assets/46.obj"></a-asset-item>
+
+      <a-asset-item id="channel 1" src="public/assets/Segment_1_100_islands_200_fill_holes_10B%20(1).obj"></a-asset-item>
+      <a-asset-item id="channel 2" src="public/assets/channel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj"></a-asset-item>
+
+
+      <img id="wall" src="public/assets/wall-texture.jpg" />
+      <img id="rotate-icon" src="public/assets/rotate-icon.png" />
+      <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
+      <img id="bg1" src="public/assets/cell_360.jpg" />
+      <img id="bg2" src="public/assets/fMRI_360.jpg" />
+      <img id="bg3" src="public/assets/bg1.jpeg" />
+      <img id="bg4" src="public/assets/bg3.jpeg" />
+
+      <script id="sceneEducational" type="text/html">
       <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
             material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg1"
@@ -468,10 +466,6 @@
       
       
     <!--
-      
-      
-      
-      
          <a-gui-button id="navCell-button" position = "4 -1 -1.5" rotation= "0 90 0"
 	         width="1" 
            height="1" 
@@ -498,13 +492,8 @@
            font-family="Helvetica"
 	         margin="0 0 0.05 0" 
            onclick="nextScene_Edu_fMRI()"></a-gui-button>
-      
-      
-      
       -->
-      
-    
-      
+
       <a-image 
         id="left-tile" 
         class="tile"
@@ -563,8 +552,8 @@
     
       
     </script>
-<!-- BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ -->      
-    <script id="sceneCell" type="text/html">
+      <!-- BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ -->
+      <script id="sceneCell" type="text/html">
       
       <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
@@ -816,8 +805,8 @@
       
       </a-entity>  
         </script>
-      
-<!-- MRI room ! MRI room ! MRI room ! -->      
+
+      <!-- MRI room ! MRI room ! MRI room ! -->
       <script id="sceneMRI" type="text/html">
       <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
@@ -1017,7 +1006,7 @@
         animation="property: opacity; dir: normal; dur: 1500;
                    easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
       </script>
-        <script id="scenefMRI" type="text/html">  
+      <script id="scenefMRI" type="text/html">  
             
     <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
@@ -1170,39 +1159,40 @@
         animation="property: opacity; dir: normal; dur: 1500;
                    easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
   </script>
-        </a-assets>
+    </a-assets>
 
-     <a-entity template="src:#sceneEducational"></a-entity>
-      <a-entity id="player" wasd-controls>
-        <a-camera active="true" user-height="0" position="0 2 0" look-controls> 
-            <a-ring cursor="fuse: false" position="0 0 -3" color="white" scale="0.05 0.05 0.05">
-            </a-ring>
-        </a-camera>
-      </a-entity>
+    <a-entity template="src:#sceneEducational"></a-entity>
+    <a-entity id="player" wasd-controls>
+      <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+        <a-ring cursor="fuse: false" position="0 0 -3" color="white" scale="0.05 0.05 0.05">
+        </a-ring>
+      </a-camera>
+    </a-entity>
 
-    </a-scene>
-    <script type="text/javascript">
+  </a-scene>
+  <script type="text/javascript">
     function nextScene_Edu() {
-        console.log("going to edu room")
-        document.querySelector("[template]").setAttribute("template", "src:#sceneEducational")
-  }
-      
-      function nextScene_Cell() {
-        console.log("going to cell room")
-        document.querySelector("[template]").setAttribute("template", "src: #sceneCell")
-  }
-      
-      function nextScene_MRI() {
-        console.log("going to mri room")
-        document.querySelector("[template]").setAttribute("template", "src: #sceneMRI")
-  }
-      
-      
-      function nextScene_fMRI() {
-        console.log("going to fmri room")
-        document.querySelector("[template]").setAttribute("template", "src: #scenefMRI")
-  }
-    </script>
-      
-  </body>
+      console.log("going to edu room")
+      document.querySelector("[template]").setAttribute("template", "src:#sceneEducational")
+    }
+
+    function nextScene_Cell() {
+      console.log("going to cell room")
+      document.querySelector("[template]").setAttribute("template", "src: #sceneCell")
+    }
+
+    function nextScene_MRI() {
+      console.log("going to mri room")
+      document.querySelector("[template]").setAttribute("template", "src: #sceneMRI")
+    }
+
+
+    function nextScene_fMRI() {
+      console.log("going to fmri room")
+      document.querySelector("[template]").setAttribute("template", "src: #scenefMRI")
+    }
+  </script>
+
+</body>
+
 </html>
