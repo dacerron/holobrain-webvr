@@ -1,0 +1,23 @@
+{
+  "name": "holobrain-webvr",
+  "version": "1.0.0",
+  "description": "Built with [A-Frame](https://aframe.io), a web framework for building virtual reality experiences. Make WebVR with HTML and Entity-Component. Works on Vive, Rift, desktop, mobile platforms.",
+  "main": "aframe.propagate.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dacerron/holobrain-webvr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dacerron/holobrain-webvr/issues"
+  },
+  "homepage": "https://github.com/dacerron/holobrain-webvr#readme"
+}
