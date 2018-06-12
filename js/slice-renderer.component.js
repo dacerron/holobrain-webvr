@@ -89,7 +89,9 @@ AFRAME.registerComponent("slice-renderer", {
       case "z":
         for(var slice of data.slices) {
           if(!!!data.invert) {
-            if(this.getBoundary(slice, data.axis) <= data.bound) {
+            let boundary = this.getBoundary(slice, data.axis)
+            console.log("boundary for slice: " + boundary)
+            if(boundary <= data.bound) {
               slice.setAttribute("animation", this.zAnimation(slice, -1))
             } else {
               slice.setAttribute("animation", this.zAnimation(slice, 1))
