@@ -135,60 +135,60 @@
     <!-- Your A-Frame scene goes here! -->
     <a-scene raycaster-autorefresh main-ui>
       <a-assets>
-       <a-asset-item id="cortex" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fcortex_low.obj?1523989239670"></a-asset-item>
-       <a-asset-item id="ventricle" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fventricle.obj?1524169676859"></a-asset-item>
-       <a-asset-item id="thalamus" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fthalamus.obj?1524506474792"></a-asset-item>
-       <a-asset-item id="lcaudate" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fleft_caudate.obj?1524508095310"></a-asset-item>
-       <a-asset-item id="subthalamic" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fleft_and_right_subthalamic.obj?1524506891870"></a-asset-item>
-       <a-asset-item id="lsubstantianigra" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fleft_substantia_nigra.obj?1524506891705"></a-asset-item>
-       <a-asset-item id="lglobuspallidus" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fleft_globus_pallidus.obj?1524506891907"></a-asset-item>
-       <a-asset-item id="lputamen" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fleft_putamen.obj?1524506892142"></a-asset-item>      
-       <a-asset-item id="rcaudate" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fright_caudate.obj?1524507663495"></a-asset-item>
-       <a-asset-item id="rsubstantianigra" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fright_substantia_nigra.obj?1524507663338"></a-asset-item>
-       <a-asset-item id="rglobuspallidus" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fright_globus_pallidus.obj?1524507663224"></a-asset-item>
-       <a-asset-item id="rputamen" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Fright_putamen.obj?1524507663388"></a-asset-item>  
+       <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
+       <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
+       <a-asset-item id="thalamus" src="public/assets/thalamus.obj"></a-asset-item>
+       <a-asset-item id="lcaudate" src="public/left_caudate.obj"></a-asset-item>
+       <a-asset-item id="subthalamic" src="public/assets/left_and_right_subthalamic.obj"></a-asset-item>
+       <a-asset-item id="lsubstantianigra" src="public/assets/left_substantia_nigra.obj"></a-asset-item>
+       <a-asset-item id="lglobuspallidus" src="public/assets/left_globus_pallidus.obj"></a-asset-item>
+       <a-asset-item id="lputamen" src="public/assets/left_putamen.obj"></a-asset-item>      
+       <a-asset-item id="rcaudate" src="public/assets/right_caudate.obj"></a-asset-item>
+       <a-asset-item id="rsubstantianigra" src="public/assets/right_substantia_nigra.obj"></a-asset-item>
+       <a-asset-item id="rglobuspallidus" src="public/assets/right_globus_pallidus.obj"></a-asset-item>
+       <a-asset-item id="rputamen" src="public/assets/right_putamen.obj"></a-asset-item>  
         
-        <img id="left-tile-image" src="https://cdn.glitch.com/f0136ce2-c8c0-4ad8-9265-5e42eb54bcc0%2Fpanorama.jpg?1526064762203">
-        <img id="center-tile-image" src="https://cdn.glitch.com/f0136ce2-c8c0-4ad8-9265-5e42eb54bcc0%2Fdownload.jpg?1526064762114">
-        <img id="right-tile-image" src="https://cdn.glitch.com/f0136ce2-c8c0-4ad8-9265-5e42eb54bcc0%2FMSK_360.JPG?1526064884253">
+        <img id="left-tile-image" src="public/assets/panorama.jpg">
+        <img id="center-tile-image" src="public/assets/download.jpg">
+        <img id="right-tile-image" src="public/assets/MSK_360.JPG">
         <a-mixin id="overlay-fade-in" animation="property: opacity; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from:0; to: .75; startEvents: clickDown;"></a-mixin>
         
-        <a-asset-item id="microglia0" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F0.obj?1527713658953"></a-asset-item>
-        <a-asset-item id="microglia2" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F2.obj?1527716230303"></a-asset-item>
-        <a-asset-item id="microglia4" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F4.obj?1527716228270"></a-asset-item>
-        <a-asset-item id="microglia6" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F6.obj?1527716232819"></a-asset-item>
-        <a-asset-item id="microglia8" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F8.obj?1527716232476"></a-asset-item>
-        <a-asset-item id="microglia10" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F10.obj?1527716230304"></a-asset-item>
-        <a-asset-item id="microglia12" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F12.obj?1527716239914"></a-asset-item>
-        <a-asset-item id="microglia14" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F14.obj?1527716231113"></a-asset-item>
-        <a-asset-item id="microglia16" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F16.obj?1527716232227"></a-asset-item>
-        <a-asset-item id="microglia18" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F18.obj?1527716231933"></a-asset-item>
-        <a-asset-item id="microglia20" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F20.obj?1527716233811"></a-asset-item>
-        <a-asset-item id="microglia22" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F22.obj?1527716233434"></a-asset-item>
-        <a-asset-item id="microglia24" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F24.obj?1527716239626"></a-asset-item>
-        <a-asset-item id="microglia26" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F26.obj?1527716233224"></a-asset-item>
-        <a-asset-item id="microglia28" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F28.obj?1527716234316"></a-asset-item>
-        <a-asset-item id="microglia30" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F30.obj?1527716237147"></a-asset-item>
-        <a-asset-item id="microglia32" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F32.obj?1527716235564"></a-asset-item>
-        <a-asset-item id="microglia34" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F34.obj?1527716234686"></a-asset-item>
-        <a-asset-item id="microglia36" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F36.obj?1527716236027"></a-asset-item>
-        <a-asset-item id="microglia38" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F38.obj?1527716236497"></a-asset-item>
-        <a-asset-item id="microglia40" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F40.obj?1527716236844"></a-asset-item>
-        <a-asset-item id="microglia42" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F42.obj?1527716237688"></a-asset-item>
-        <a-asset-item id="microglia44" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F44.obj?1527716230302"></a-asset-item>
-        <a-asset-item id="microglia46" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2F46.obj?1527716230302"></a-asset-item>
+        <a-asset-item id="microglia0" src="public/assets/0.obj"></a-asset-item>
+        <a-asset-item id="microglia2" src="public/assets/2.obj"></a-asset-item>
+        <a-asset-item id="microglia4" src="public/assets/4.obj"></a-asset-item>
+        <a-asset-item id="microglia6" src="public/assets/6.obj"></a-asset-item>
+        <a-asset-item id="microglia8" src="public/assets/8.obj"></a-asset-item>
+        <a-asset-item id="microglia10" src="public/assets/10.obj"></a-asset-item>
+        <a-asset-item id="microglia12" src="public/assets/12.obj"></a-asset-item>
+        <a-asset-item id="microglia14" src="public/assets/14.obj"></a-asset-item>
+        <a-asset-item id="microglia16" src="public/assets/16.obj"></a-asset-item>
+        <a-asset-item id="microglia18" src="public/assets/18.obj"></a-asset-item>
+        <a-asset-item id="microglia20" src="public/assets/20.obj"></a-asset-item>
+        <a-asset-item id="microglia22" src="public/assets/22.obj"></a-asset-item>
+        <a-asset-item id="microglia24" src="public/assets/24.obj"></a-asset-item>
+        <a-asset-item id="microglia26" src="public/assets/26.obj"></a-asset-item>
+        <a-asset-item id="microglia28" src="public/assets/28.obj"></a-asset-item>
+        <a-asset-item id="microglia30" src="public/assets/30.obj"></a-asset-item>
+        <a-asset-item id="microglia32" src="public/assets/32.obj"></a-asset-item>
+        <a-asset-item id="microglia34" src="public/assets/34.obj"></a-asset-item>
+        <a-asset-item id="microglia36" src="public/assets/36.obj"></a-asset-item>
+        <a-asset-item id="microglia38" src="public/assets/38.obj"></a-asset-item>
+        <a-asset-item id="microglia40" src="public/assets/40.obj"></a-asset-item>
+        <a-asset-item id="microglia42" src="public/assets/42.obj"></a-asset-item>
+        <a-asset-item id="microglia44" src="public/assets/44.obj"></a-asset-item>
+        <a-asset-item id="microglia46" src="public/assets/46.obj"></a-asset-item>
         
-        <a-asset-item id="channel 1" src="https://cdn.glitch.com/f0136ce2-c8c0-4ad8-9265-5e42eb54bcc0%2FSegment_1_100_islands_200_fill_holes_10B%20(1).obj?1526081351283"></a-asset-item>
-        <a-asset-item id="channel 2" src="https://cdn.glitch.com/f0136ce2-c8c0-4ad8-9265-5e42eb54bcc0%2Fchannel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj?1526081350688"></a-asset-item>
+        <a-asset-item id="channel 1" src="public/assets/Segment_1_100_islands_200_fill_holes_10B%20(1).obj"></a-asset-item>
+        <a-asset-item id="channel 2" src="public/assets/channel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj"></a-asset-item>
         
         
-       <img id="wall" src="https://cdn.glitch.com/e3172488-56da-4bed-8010-cecd1f7f03fd%2Fwall-texture.jpg?1520378646891"/>
-       <img id="rotate-icon" src="https://cdn.glitch.com/0f2b3b6a-c8ca-49f5-a2f2-b0afa7722152%2Frotate-icon.png?1523993051007"/>
-       <img id="MRI-button" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2FMRI-rough.jpg?1527794551986"/>
-        <img id="bg1" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2Fcell_360.jpg?1527789878204"/>
-      <img id="bg2" src="https://cdn.glitch.com/9a62372b-19c7-4aa3-93e8-03706f48852d%2FfMRI_360.jpg?1527789879961"/>
-        <img id="bg3" src="https://cdn.glitch.com/7479b59d-1fb3-49f7-acbf-523e4f1a16c9%2Fbg1.jpeg?1528252134099"/>
-        <img id="bg4" src="https://cdn.glitch.com/7479b59d-1fb3-49f7-acbf-523e4f1a16c9%2Fbg3.jpeg?1528252138752"/>
+       <img id="wall" src="public/assets/wall-texture.jpg"/>
+       <img id="rotate-icon" src="public/assets/rotate-icon.png"/>
+       <img id="MRI-button" src="public/assets/MRI-rough.jpg"/>
+        <img id="bg1" src="public/assets/cell_360.jpg"/>
+      <img id="bg2" src="public/assets/fMRI_360.jpg"/>
+        <img id="bg3" src="public/assets/bg1.jpeg"/>
+        <img id="bg4" src="public/assets/bg3.jpeg"/>
 
            <script id="sceneEducational" type="text/html">
       <a-entity 
