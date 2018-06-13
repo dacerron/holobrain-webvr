@@ -13,14 +13,18 @@ AFRAME.registerComponent("slice-renderer", {
     this.getBoundary = function(el, axis) {
       switch(axis) {
         case "z":
-          return parseFloat((el.getAttribute("position").z + (1/2) * el.getAttribute("scale").z).toPrecision(3))
+          return this.round(el.getAttribute("position").z + (1/2) * el.getAttribute("scale").z, 2)
           break
         case "y":
-          return parseFloat((el.getAttribute("position").y + (1/2) * el.getAttribute("scale").y).toPrecision(3))
+          return this.round(el.getAttribute("position").y + (1/2) * el.getAttribute("scale").y, 2)
           break
         default:
           return -100
       }
+    }.bind(this)
+
+    this.round = function(number, decimals) {
+      return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals)
     }
     
     this.zAnimation = function(el, dir) {
@@ -84,22 +88,29 @@ AFRAME.registerComponent("slice-renderer", {
       console.log("slice-renderer could not find any slices")
       return
     }
+    
+    var bound = this.round(data.bound,2)
+
     switch(data.axis) 
         {
       case "z":
         for(var slice of data.slices) {
+          let boundary = this.getBoundary(slice, data.axis)
           if(!!!data.invert) {
-            let boundary = this.getBoundary(slice, data.axis)
-            console.log("boundary for slice: " + boundary)
-            if(boundary <= data.bound) {
+            console.log("boundary for slice: " + boundary + " bound: " + bound)
+            if(boundary <= bound) {
+              console.log("less")
               slice.setAttribute("animation", this.zAnimation(slice, -1))
             } else {
+              console.log("more")
               slice.setAttribute("animation", this.zAnimation(slice, 1))
             }
           } else {
-            if(this.getBoundary(slice, data.axis) <= data.bound) {
+            if(boundary <= bound) {
+              console.log("less")
               slice.setAttribute("animation", this.zAnimationReset(slice, -1))
             } else {
+              console.log("more")
               slice.setAttribute("animation", this.zAnimationReset(slice, 1))
             }
           }
@@ -107,14 +118,15 @@ AFRAME.registerComponent("slice-renderer", {
         break;
       case "y":
         for(var slice of data.slices) {
+          let boundary = this.getBoundary(slice, data.axis)
           if(!!!data.invert) {
-            if(this.getBoundary(slice, data.axis) <= data.bound) {
+            if(boundary <= bound) {
               slice.setAttribute("animation", this.yAnimation(slice, -1))
             } else {
               slice.setAttribute("animation", this.yAnimation(slice, 1))
             }
           }else {
-            if(this.getBoundary(slice, data.axis) <= data.bound) {
+            if(boundary <= bound) {
               slice.setAttribute("animation", this.yAnimationReset(slice, -1))
             } else {
               slice.setAttribute("animation", this.yAnimationReset(slice, 1))
