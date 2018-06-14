@@ -6,7 +6,7 @@ AFRAME.registerComponent("slice-controller", {
     position_based: {type: "boolean", default: true},
     bound: {type: "number", default: 1000},
     state: {type: "int", default: 0},
-    animating: {type: "boolean", default: false}
+    animating: {type: "boolean", default: false},
   },
   
   init: function() {
@@ -23,9 +23,9 @@ AFRAME.registerComponent("slice-controller", {
       }
       
       //if not animating, start animating
-      this.el.setAttribute("slice-controller", {
-        animating: true
-      })
+      for(let controller of el.getAttribute("slice-controller").controllers) {
+        controller.setAttribute("slice-controller", {animating: true})
+      }
       
       switch(state) {
         case 0:
@@ -52,11 +52,12 @@ AFRAME.registerComponent("slice-controller", {
         default:
           break;
       }
+
       //wait for the animation we just called to finish before allowing another
       this.waitForAnimation(500).then(function(res) {
-        this.el.setAttribute("slice-controller", {
-          animating: false
-        })
+        for(controller of el.getAttribute("slice-controller").controllers) {
+          controller.setAttribute("slice-controller", {animating:false})
+        }
       }.bind(this))
     }.bind(this))
     

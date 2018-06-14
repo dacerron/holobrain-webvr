@@ -5,7 +5,7 @@ AFRAME.registerComponent("slice-renderer", {
     bound: {type: "number", default: 10},
     separation: {type: "number", default: 0.5},
     count: {type: "int", default: 0},
-    controllers: {type: "selectorAll", default: ".sliceController"},
+    controllers: {type: "selectorAll"},
     invert: {type: "boolean", default: false}
   },
   
@@ -27,9 +27,10 @@ AFRAME.registerComponent("slice-renderer", {
       return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals)
     }
     
+    //TODO: might want to make a fxn that rounds vec3's to make the animation fxns nicer
     this.zAnimation = function(el, dir) {
       let pos = el.getAttribute("position")
-      let newPos = pos.x + " " + pos.y + " " + (pos.z + 1/2 * dir * this.el.getAttribute("slice-renderer").separation)
+      let newPos = this.round(pos.x, 2) + " " + this.round(pos.y, 2) + " " + this.round((pos.z + 1/2 * dir * this.el.getAttribute("slice-renderer").separation), 2)
       var anim = {
         property: "position",
         from: pos,
@@ -42,7 +43,7 @@ AFRAME.registerComponent("slice-renderer", {
     
     this.zAnimationReset = function(el, dir) {
       let pos = el.getAttribute("position")
-      let newPos = pos.x + " " + pos.y + " " + (pos.z +  -dir * this.el.getAttribute("slice-renderer").separation)
+      let newPos = this.round(pos.x, 2) + " " + this.round(pos.y, 2) + " " + this.round((pos.z +  -dir * this.el.getAttribute("slice-renderer").separation), 2)
       var anim = {
         property: "position",
         from: pos,
@@ -55,7 +56,7 @@ AFRAME.registerComponent("slice-renderer", {
     
     this.yAnimation = function(el, dir) {
       let pos = el.getAttribute("position")
-      let newPos = pos.x + " " + (1/2 * dir * this.el.getAttribute("slice-renderer").separation + pos.y) + " " + pos.z 
+      let newPos = this.round(pos.x, 2) + " " + this.round((1/2 * dir * this.el.getAttribute("slice-renderer").separation + pos.y), 2) + " " + this.round(pos.z, 2) 
       var anim = {
         property: "position",
         from: pos,
@@ -68,7 +69,7 @@ AFRAME.registerComponent("slice-renderer", {
     
     this.yAnimationReset = function(el, dir) {
       let pos = el.getAttribute("position")
-      let newPos = pos.x + " " + (-dir * this.el.getAttribute("slice-renderer").separation + pos.y) + " " + pos.z 
+      let newPos = this.round(pos.x, 2) + " " + this.round((-dir * this.el.getAttribute("slice-renderer").separation + pos.y), 2) + " " + this.round(pos.z, 2) 
       var anim = {
         property: "position",
         from: pos,
@@ -78,6 +79,31 @@ AFRAME.registerComponent("slice-renderer", {
       }
       return anim
     }.bind(this)
+
+    this.resetSlicesOnAxis = function(els, oldAxis) {
+      let cur, og, assign
+      for(let elmnt of els) {
+        og = elmnt.getAttribute("og-position").pos
+        cur = elmnt.getAttribute("position")
+        assign = cur
+        assign[oldAxis] = og[oldAxis]
+        elmnt.setAttribute("position", assign)
+      }
+    }
+
+    this.resetControllersOnAxis = function(conts, oldAxis) {
+      let cur, og, assign
+      for(let elmnt of conts) {
+        og = elmnt.getAttribute("og-position").pos
+        cur = elmnt.getAttribute("position")
+        assign = cur
+        assign[oldAxis] = og[oldAxis]
+        elmnt.setAttribute("position", assign)
+        elmnt.setAttribute("slice-controller", {
+          state: 0
+        })
+      }
+    }
   },
   
   update: function(oldData) {
@@ -88,8 +114,13 @@ AFRAME.registerComponent("slice-renderer", {
       console.log("slice-renderer could not find any slices")
       return
     }
+
+    if(data.axis !== oldData.axis && oldData.axis && data.axis) {
+      this.resetSlicesOnAxis(data.slices, oldData.axis)
+      this.resetControllersOnAxis(data.controllers, oldData.axis)
+    }
     
-    var bound = this.round(data.bound,2)
+    var bound = this.round(data.bound, 2)
 
     switch(data.axis) 
         {
@@ -97,20 +128,15 @@ AFRAME.registerComponent("slice-renderer", {
         for(var slice of data.slices) {
           let boundary = this.getBoundary(slice, data.axis)
           if(!!!data.invert) {
-            console.log("boundary for slice: " + boundary + " bound: " + bound)
             if(boundary <= bound) {
-              console.log("less")
               slice.setAttribute("animation", this.zAnimation(slice, -1))
             } else {
-              console.log("more")
               slice.setAttribute("animation", this.zAnimation(slice, 1))
             }
           } else {
             if(boundary <= bound) {
-              console.log("less")
               slice.setAttribute("animation", this.zAnimationReset(slice, -1))
             } else {
-              console.log("more")
               slice.setAttribute("animation", this.zAnimationReset(slice, 1))
             }
           }
