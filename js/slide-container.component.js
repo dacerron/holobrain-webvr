@@ -12,6 +12,8 @@ AFRAME.registerComponent("slide-container", {
   update: function(oldData) {
     var el = this.el;
     var data = this.data;
+
+    console.log("new index: " + data.index)
     
     for (var i=0; i<data.target.length; i++) {
       if (i === data.index) {
