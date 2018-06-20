@@ -176,6 +176,32 @@
       <a-asset-item id="microglia44" src="public/assets/44.obj"></a-asset-item>
       <a-asset-item id="microglia46" src="public/assets/46.obj"></a-asset-item>
 
+      <a-asset-item id="slice_0_0" src="public/assets/0.obj"></a-asset-item>
+      <a-asset-item id="slice_0_1" src="public/assets/2.obj"></a-asset-item>
+      <a-asset-item id="slice_0_2" src="public/assets/4.obj"></a-asset-item>
+      <a-asset-item id="slice_0_3" src="public/assets/6.obj"></a-asset-item>
+      <a-asset-item id="slice_0_4" src="public/assets/8.obj"></a-asset-item>
+      <a-asset-item id="slice_1_0" src="public/assets/10.obj"></a-asset-item>
+      <a-asset-item id="slice_1_1" src="public/assets/12.obj"></a-asset-item>
+      <a-asset-item id="slice_1_2" src="public/assets/14.obj"></a-asset-item>
+      <a-asset-item id="slice_1_3" src="public/assets/16.obj"></a-asset-item>
+      <a-asset-item id="slice_1_4" src="public/assets/18.obj"></a-asset-item>
+      <a-asset-item id="slice_2_0" src="public/assets/20.obj"></a-asset-item>
+      <a-asset-item id="slice_2_1" src="public/assets/22.obj"></a-asset-item>
+      <a-asset-item id="slice_2_2" src="public/assets/24.obj"></a-asset-item>
+      <a-asset-item id="slice_2_3" src="public/assets/26.obj"></a-asset-item>
+      <a-asset-item id="slice_2_4" src="public/assets/28.obj"></a-asset-item>
+      <a-asset-item id="slice_3_0" src="public/assets/30.obj"></a-asset-item>
+      <a-asset-item id="slice_3_1" src="public/assets/32.obj"></a-asset-item>
+      <a-asset-item id="slice_3_2" src="public/assets/34.obj"></a-asset-item>
+      <a-asset-item id="slice_3_3" src="public/assets/36.obj"></a-asset-item>
+      <a-asset-item id="slice_3_4" src="public/assets/38.obj"></a-asset-item>
+      <a-asset-item id="slice_4_0" src="public/assets/40.obj"></a-asset-item>
+      <a-asset-item id="slice_4_1" src="public/assets/42.obj"></a-asset-item>
+      <a-asset-item id="slice_4_2" src="public/assets/44.obj"></a-asset-item>
+      <a-asset-item id="slice_4_3" src="public/assets/46.obj"></a-asset-item>
+      <a-asset-item id="slice_4_4" src="public/assets/46.obj"></a-asset-item>
+
       <a-asset-item id="channel 1" src="public/assets/Segment_1_100_islands_200_fill_holes_10B%20(1).obj"></a-asset-item>
       <a-asset-item id="channel 2" src="public/assets/channel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj"></a-asset-item>
 
@@ -737,8 +763,6 @@
                    material="color: #4bfc77" override-material 
                    animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
       
-      
-      
       <a-entity position="0 -1.5 -3">   
         
         <a-gui-button id="channel1-button" class="cellButtons" visible="true" position = "-1 0 0"
@@ -837,6 +861,7 @@
 	          margin="0 0 0.05 0" 
             toggle="true" 
             assign-skip="container:#braincells; skip:10"></a-gui-button>
+      </a-entity>
         
         <a-image 
         id="left-tile2" 
@@ -892,10 +917,6 @@
         onclick="nextScene_fMRI()"
         animation="property: opacity; dir: normal; dur: 1500;
                    easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
-      
-      </a-entity>     
-      
-      </a-entity>  
         </script>
 
       <!-- MRI room ! MRI room ! MRI room ! -->
@@ -1110,7 +1131,7 @@
         </a-entity>
        
         <a-entity id="holobrain4a" 
-          position = "5 0 -2" 
+          position = "2 2 -4" 
           animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
          
           <a-animation attribute="rotation"
@@ -1178,7 +1199,7 @@
         </a-entity>   
        
         <a-entity id="holobrain4b" 
-          position = "5 0 1.5" 
+          position = "-2 2 -4" 
           animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
           
           <a-animation attribute="rotation"
@@ -1239,19 +1260,19 @@
            </a-entity>
            <a-entity id="delta_fMRI_25_orange" 
              position="0 0 0" 
-             scale="0.02 0.02 0.02" 
+             scale="0.015 0.015 0.015" 
              rotation="-90 0 0" 
              obj-model="obj: #delta_fMRI_25_orange" 
              material="color: orange;   opacity: 0.5; transparent: true">
            </a-entity>
            <a-entity id="delta_fMRI_25_purple" 
-             scale="0.02 0.02 0.02" 
+             scale="0.05 0.05 0.05" 
              rotation="-90 0 0" 
              obj-model="obj: #delta_fMRI_25_purple" 
              material="color: purple;   opacity: 0.5; transparent: true">
            </a-entity>
            <a-entity id="delta_fMRI_25_red" 
-             scale="0.05 0.05 0.05" 
+             scale="0.025 0.025 0.025" 
              rotation="-90 0 0" 
              obj-model="obj: #delta_fMRI_25_red" material="color: red; opacity: 0.5; transparent: true">
            </a-entity>
@@ -1266,7 +1287,7 @@
        </a-entity>
          
        
-       <a-entity position="0 -0.5 0" rotation = "0 -90 0">         
+       <a-entity position="0 0 -2" rotation = "0 0 0">         
          <a-gui-button id="rotate-button4" 
            position = "0 -0.5 -3"
            width="1" 
@@ -1317,8 +1338,8 @@
        <a-image 
          id="left-tile4" 
          class="tile"
-         position="2 -1 2.5" 
-         rotation= "0 0 0"       
+         position="4 -1 -1.5" 
+         rotation= "0 90 0"       
          src="#bg1"
          width="1"
          height="1"
@@ -1336,8 +1357,8 @@
        <a-image 
          id="center-tile-image-entity4" 
          class="tile" 
-         position="1 -1 2.5" 
-         rotation= "0 0 0"
+         position="4 -1 -0.5" 
+         rotation= "0 90 0"
          src="#bg2" 
          width="1"
          height="1"
@@ -1384,8 +1405,8 @@
        <a-image
          id="right-tile4" 
          class="tile" 
-         position="0 -1 2.5"
-         rotation= "0 0 0"       
+         position="4 -1 0.5"
+         rotation= "0 90 0"       
          src="#bg3" 
          width="1"
          height="1"
