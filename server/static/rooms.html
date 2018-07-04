@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>EML Intro To WebVR</title>
+  <meta name="description" content="EML Intro To WebVR">
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+  <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+  <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
+  <script type="text/javascript" src="js/hide-if-not-mobile.component.js"></script>
+  <script type="text/javascript" src="js/override-material.component.js"></script>
+  <script type="text/javascript" src="js/assign-rotate.component.js"></script>
+  <script type="text/javascript" src="js/scale-brain.component.js"></script>
+  <script type="text/javascript" src="js/expand-brain.component.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+  <script type="text/javascript" src="js/aframe.propagate.js"></script>
+  <script type="text/javascript" src="js/assign-microglia.component.js"></script>
+  <script type="text/javascript" src="js/assign-channel.component.js"></script>
+  <script type="text/javascript" src="js/scale-cells.component.js"></script>
+  <script type="text/javascript" src="js/assign-skip.component.js"></script>
+  <script type="text/javascript" src="js/slide-container.component.js"></script>
+  <script type="text/javascript" src="js/play-button.component.js"></script>
+  <script type="text/javascript" src="js/show-mri.component.js"></script>
+  <script type="text/javascript" src="js/rotate-mri.component.js"></script>
+  <script type="text/javascript" src="js/rotate-mriroom.component.js"></script>
+  <script type="text/javascript" src="js/slice-controller.component.js"></script>
+  <script type="text/javascript" src="js/slice-renderer.component.js"></script>
+  <script type="text/javascript" src="js/og-position.component.js"></script>
+  <script type="text/javascript">
+    AFRAME.registerComponent('main-ui', {
+      schema: {
+        events: { type: 'string', default: '' },
+      },
+      init: function () {
+        var viewButton = document.querySelector('#center-tile-cta')
+        var mainCamera = document.querySelector('#main-camera')
+        var mainBg = document.querySelector('#main-bg')
+        var tiles = document.querySelectorAll('.tile')
+
+        viewButton.addEventListener('click', function (e) {
+
+          // Tell the camera to start its animation forward
+          mainCamera.emit('viewDetail')
+
+          // Wait till the last millisecond to swap the background
+          // and make it brighter.
+          // Finally hide the tiles.
+          setTimeout(function () {
+            mainBg.setAttribute('material', 'src', '#detail-bg')
+            mainBg.setAttribute('material', 'color', '#fff');
+            mainBg.setAttribute('rotation', { x: 0, y: -90, z: 0 });
+            hideTiles()
+          }, 999)
+
+          function hideTiles() {
+            for (var i = 0; i < tiles.length; i++) {
+              tiles[i].setAttribute('visible', false)
+            }
+          }
+        })
+      }
+    });
+  </script>
+  <script>
+    function isolate() {
+      var col = document.getElementById("Thalamus");
+      col.style.color = "#FF0000";
+    }
+  </script>
+  <script>
+    AFRAME.registerComponent('change-color-on-hover', {
+      schema: {
+        color: { default: 'green' }
+      },
+
+      init: function () {
+        var data = this.data;
+        var el = this.el;  // <a-box>
+        var defaultColor = el.getAttribute('material').color;
+
+        el.addEventListener('mouseenter', function () {
+          el.setAttribute('color', data.color);
+        });
+
+        el.addEventListener('mouseleave', function () {
+          el.setAttribute('color', defaultColor);
+        });
+      }
+    });
+  </script>
+
+  <script>
+    function myThalFunction() {
+      document.getElementById("isolated-Thalamus").setAttribute('color', 'yellow');
+    }
+  </script>
+  <script>
+    function mySubThalFunction() {
+      document.getElementById("isolated-Subthalamic").setAttribute('color', 'purple');
+    }
+  </script>
+  <script>
+    function mySubstanFunction() {
+      document.getElementById("isolated-Lsubstantianigra").setAttribute('color', 'red');
+      document.getElementById("isolated-Rsubstantianigra").setAttribute('color', 'red');
+    }
+  </script>
+  <script>
+    function myPutaFunction() {
+      document.getElementById("isolated-Lputamen").setAttribute('color', 'orange');
+      document.getElementById("isolated-Rputamen").setAttribute('color', 'orange');
+    }
+  </script>
+  <script>
+    function myCaudFunction() {
+      document.getElementById("isolated-Lcaudate").setAttribute('color', 'teal');
+      document.getElementById("isolated-Rcaudate").setAttribute('color', 'teal');
+    }
+  </script>
+  <script>
+    function myGlobFunction() {
+      document.getElementById("isolated-Lglobuspallidus").setAttribute('color', 'green');
+      document.getElementById("isolated-Rglobuspallidus").setAttribute('color', 'green')
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Your A-Frame scene goes here! -->
+  <a-scene main-ui>
+    <a-assets>
+      <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
+      <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
+      <a-asset-item id="thalamus" src="public/assets/thalamus.obj"></a-asset-item>
+      <a-asset-item id="lcaudate" src="public/assets/left_caudate.obj"></a-asset-item>
+      <a-asset-item id="subthalamic" src="public/assets/left_and_right_subthalamic.obj"></a-asset-item>
+      <a-asset-item id="lsubstantianigra" src="public/assets/left_substantia_nigra.obj"></a-asset-item>
+      <a-asset-item id="lglobuspallidus" src="public/assets/left_globus_pallidus.obj"></a-asset-item>
+      <a-asset-item id="lputamen" src="public/assets/left_putamen.obj"></a-asset-item>
+      <a-asset-item id="rcaudate" src="public/assets/right_caudate.obj"></a-asset-item>
+      <a-asset-item id="rsubstantianigra" src="public/assets/right_substantia_nigra.obj"></a-asset-item>
+      <a-asset-item id="rglobuspallidus" src="public/assets/right_globus_pallidus.obj"></a-asset-item>
+      <a-asset-item id="rputamen" src="public/assets/right_putamen.obj"></a-asset-item>
+
+      <img id="left-tile-image" src="public/assets/panorama.jpg">
+      <img id="center-tile-image" src="public/assets/download.jpg">
+      <img id="right-tile-image" src="public/assets/MSK_360.jpeg">
+      <a-mixin id="overlay-fade-in" animation="property: opacity; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from:0; to: .75; startEvents: clickDown;"></a-mixin>
+
+      <a-asset-item id="microglia0" src="public/assets/0.obj"></a-asset-item>
+      <a-asset-item id="microglia2" src="public/assets/2.obj"></a-asset-item>
+      <a-asset-item id="microglia4" src="public/assets/4.obj"></a-asset-item>
+      <a-asset-item id="microglia6" src="public/assets/6.obj"></a-asset-item>
+      <a-asset-item id="microglia8" src="public/assets/8.obj"></a-asset-item>
+      <a-asset-item id="microglia10" src="public/assets/10.obj"></a-asset-item>
+      <a-asset-item id="microglia12" src="public/assets/12.obj"></a-asset-item>
+      <a-asset-item id="microglia14" src="public/assets/14.obj"></a-asset-item>
+      <a-asset-item id="microglia16" src="public/assets/16.obj"></a-asset-item>
+      <a-asset-item id="microglia18" src="public/assets/18.obj"></a-asset-item>
+      <a-asset-item id="microglia20" src="public/assets/20.obj"></a-asset-item>
+      <a-asset-item id="microglia22" src="public/assets/22.obj"></a-asset-item>
+      <a-asset-item id="microglia24" src="public/assets/24.obj"></a-asset-item>
+      <a-asset-item id="microglia26" src="public/assets/26.obj"></a-asset-item>
+      <a-asset-item id="microglia28" src="public/assets/28.obj"></a-asset-item>
+      <a-asset-item id="microglia30" src="public/assets/30.obj"></a-asset-item>
+      <a-asset-item id="microglia32" src="public/assets/32.obj"></a-asset-item>
+      <a-asset-item id="microglia34" src="public/assets/34.obj"></a-asset-item>
+      <a-asset-item id="microglia36" src="public/assets/36.obj"></a-asset-item>
+      <a-asset-item id="microglia38" src="public/assets/38.obj"></a-asset-item>
+      <a-asset-item id="microglia40" src="public/assets/40.obj"></a-asset-item>
+      <a-asset-item id="microglia42" src="public/assets/42.obj"></a-asset-item>
+      <a-asset-item id="microglia44" src="public/assets/44.obj"></a-asset-item>
+      <a-asset-item id="microglia46" src="public/assets/46.obj"></a-asset-item>
+
+      <a-asset-item id="slice_0_0" src="public/assets/brain_slices/cortex_0_0.obj"></a-asset-item>
+      <a-asset-item id="slice_0_1" src="public/assets/brain_slices/cortex_0_1.obj"></a-asset-item>
+      <a-asset-item id="slice_0_2" src="public/assets/brain_slices/cortex_0_2.obj"></a-asset-item>
+      <a-asset-item id="slice_0_3" src="public/assets/brain_slices/cortex_0_3.obj"></a-asset-item>
+      <a-asset-item id="slice_1_0" src="public/assets/brain_slices/cortex_1_0.obj"></a-asset-item>
+      <a-asset-item id="slice_1_1" src="public/assets/brain_slices/cortex_1_1.obj"></a-asset-item>
+      <a-asset-item id="slice_1_2" src="public/assets/brain_slices/cortex_1_2.obj"></a-asset-item>
+      <a-asset-item id="slice_1_3" src="public/assets/brain_slices/cortex_1_3.obj"></a-asset-item>
+      <a-asset-item id="slice_2_0" src="public/assets/brain_slices/cortex_0_0.obj"></a-asset-item>
+      <a-asset-item id="slice_2_1" src="public/assets/brain_slices/cortex_2_1.obj"></a-asset-item>
+      <a-asset-item id="slice_2_2" src="public/assets/brain_slices/cortex_2_2.obj"></a-asset-item>
+      <a-asset-item id="slice_2_3" src="public/assets/brain_slices/cortex_2_3.obj"></a-asset-item>
+      <a-asset-item id="slice_2_4" src="public/assets/brain_slices/cortex_2_4.obj"></a-asset-item>
+      <a-asset-item id="slice_3_0" src="public/assets/brain_slices/cortex_3_0.obj"></a-asset-item>
+      <a-asset-item id="slice_3_1" src="public/assets/brain_slices/cortex_3_1.obj"></a-asset-item>
+      <a-asset-item id="slice_3_2" src="public/assets/brain_slices/cortex_3_2.obj"></a-asset-item>
+      <a-asset-item id="slice_3_3" src="public/assets/brain_slices/cortex_3_3.obj"></a-asset-item>
+      <a-asset-item id="slice_3_4" src="public/assets/brain_slices/cortex_3_4.obj"></a-asset-item>
+      <a-asset-item id="slice_4_0" src="public/assets/brain_slices/cortex_4_0.obj"></a-asset-item>
+      <a-asset-item id="slice_4_1" src="public/assets/brain_slices/cortex_4_1.obj"></a-asset-item>
+      <a-asset-item id="slice_4_2" src="public/assets/brain_slices/cortex_4_2.obj"></a-asset-item>
+      <a-asset-item id="slice_4_3" src="public/assets/brain_slices/cortex_4_3.obj"></a-asset-item>
+      <a-asset-item id="slice_4_4" src="public/assets/brain_slices/cortex_4_4.obj"></a-asset-item>
+
+      <a-asset-item id="channel 1" src="public/assets/Segment_1_100_islands_200_fill_holes_10B%20(1).obj"></a-asset-item>
+      <a-asset-item id="channel 2" src="public/assets/channel_2_100_islands_300_fill_holes_10_median_10B%20(1).obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_5_blue" src="public/assets/fFiltered_4DVolume_005_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_5_orange" src="public/assets/fFiltered_4DVolume_005_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_5_purple" src="public/assets/fFiltered_4DVolume_005_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_5_red" src="public/assets/fFiltered_4DVolume_005_Red.obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_25_blue" src="public/assets/fFiltered_4DVolume_025_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_25_orange" src="public/assets/fFiltered_4DVolume_025_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_25_purple" src="public/assets/fFiltered_4DVolume_025_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_25_red" src="public/assets/fFiltered_4DVolume_025_Red.obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_45_blue" src="public/assets/fFiltered_4DVolume_045_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_45_orange" src="public/assets/fFiltered_4DVolume_045_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_45_pruple" src="public/assets/fFiltered_4DVolume_045_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_45_red" src="public/assets/fFiltered_4DVolume_045_Red.obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_65_blue" src="public/assets/fFiltered_4DVolume_065_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_65_orange" src="public/assets/fFiltered_4DVolume_065_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_65_purple" src="public/assets/fFiltered_4DVolume_065_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_65_red" src="public/assets/fFiltered_4DVolume_065_Red.obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_85_blue" src="public/assets/fFiltered_4DVolume_085_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_85_orange" src="public/assets/fFiltered_4DVolume_085_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_85_purple" src="public/assets/fFiltered_4DVolume_085_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_85_red" src="public/assets/fFiltered_4DVolume_085_Red.obj"></a-asset-item>
+
+      <a-asset-item id="fMRI_105_blue" src="public/assets/fFiltered_4DVolume_105_Blue.obj"></a-asset-item>
+      <a-asset-item id="fMRI_105_orange" src="public/assets/fFiltered_4DVolume_105_Orange.obj"></a-asset-item>
+      <a-asset-item id="fMRI_105_purple" src="public/assets/fFiltered_4DVolume_105_Purple.obj"></a-asset-item>
+      <a-asset-item id="fMRI_105_red" src="public/assets/fFiltered_4DVolume_105_Red.obj"></a-asset-item>
+
+      <a-asset-item id="delta_fMRI_5_blue" src="public/assets/delta_nifti_5_Blue.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_5_orange" src="public/assets/delta_nifti_5_Orange.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_5_purple" src="public/assets/delta_nifti_5_Purple.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_5_red" src="public/assets/delta_nifti_5_Red.obj"></a-asset-item>
+
+      <a-asset-item id="delta_fMRI_25_blue" src="public/assets/delta_nifti_25_Blue.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_25_orange" src="public/assets/delta_nifti_25_Orange.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_25_purple" src="public/assets/delta_nifti_25_Purple.obj"></a-asset-item>
+      <a-asset-item id="delta_fMRI_25_red" src="public/assets/delta_nifti_25_Red.obj"></a-asset-item>
+
+      <img id="wall" src="public/assets/wall-texture.jpg" />
+      <img id="rotate-icon" src="public/assets/rotate-icon.png" />
+      <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
+      <img id="bg1" src="public/assets/cell_360.jpg" />
+      <img id="bg2" src="public/assets/fMRI_360.jpg" />
+      <img id="bg3" src="public/assets/bg1.jpeg" />
+      <img id="bg4" src="public/assets/bg3.jpeg" />
+
+      <script id="sceneEducational" type="text/html">
+        <a-entity id="photosphere"
+          geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
+          material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg1"
+          scale="-1 1 1"
+          rotation="0 -80 0">
+        </a-entity>
+
+        <a-entity id="holobrain" 
+          position = "0 1 -3" 
+          animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+          <a-entity id="brain-parts" 
+            position = "0 0 0" 
+            rotation = "0 0 0">
+            <a-box id="ventricles" 
+              position="0 0 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #ventricle"
+              material="color: #c2d2ea;" 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: blue"></a-box>
+            <a-box id="Thalamus" 
+              position="0 0 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #thalamus"
+              material="color: #c2d2ea; " 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: yellow"></a-box>
+            <a-box id="Subthalamic" 
+              position="0 -0.15 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #subthalamic"
+              material="color: #c2d2ea;" 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: purple"></a-box>
+            <a-box id="Lcaudate" 
+              position="0 0 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #lcaudate"
+              material="color: #c2d2ea; " override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: teal"></a-box>
+            <a-box id="Lputamen" 
+              position="-0.2 0.1 0.1" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #lputamen"
+              material="color: #c2d2ea;" override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: orange"></a-box>      
+            <a-box id="Lsubstantianigra" 
+              position="-0.1 -0.2 0.05" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #lsubstantianigra"
+              material="color: #c2d2ea; " override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: green"></a-box>            
+            <a-box id="Lglobuspallidus" 
+              position="-0.2 0.1 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #lglobuspallidus"
+              material="color: #c2d2ea; " 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: red"></a-box>          
+            <a-box id="Rcaudate" 
+              position="0 0 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #rcaudate"
+              material="color: #c2d2ea; " 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: teal"></a-box>      
+            <a-box id="Rputamen" 
+              position="-0.2 0.1 -0.1" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #rputamen"
+              material="color: #c2d2ea; " 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: oragne"></a-box>
+            <a-box id="Rsubstantianigra" 
+              position="-0.1 -0.2 -0.05" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #rsubstantianigra"
+              material="color: #c2d2ea; " override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: green"></a-box>      
+            <a-box id="Rglobuspallidus" 
+              position="-0.2 0.1 0" 
+              scale="0.15 0.15 0.15" 
+              rotation="-90 90 0" 
+              obj-model="obj: #rglobuspallidus"
+              material="color: #c2d2ea; " 
+              override-material 
+              animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: red"></a-box>       
+          </a-entity>
+          <a-entity id="brain-cortex" 
+            position="0 0 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #cortex"
+            material="side: double; color: #c2d2ea; transparent: false; opacity: 0.3" 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+          </a-entity>  
+        </a-entity>
+
+        <a-entity id="isolated-brain-parts" 
+          position = "-5 2 -1" 
+          scale = "2.0 2.0 2.0">
+          <a-animation attribute="rotation"
+            dur="10000"
+            easing = "linear"
+            to="0 360 0"
+            repeat="indefinite">
+          </a-animation>
+          <a-box id="isolated-ventricles" 
+            position="0 0 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #ventricle"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: blue"></a-box>
+          <a-box id="isolated-Thalamus" 
+            position="0 0 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #thalamus"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: yellow"></a-box>
+          <a-box id="isolated-Subthalamic" 
+            position="-0.05 -0.11 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #subthalamic"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: purple"></a-box>
+          <a-box id="isolated-Lcaudate" 
+            position="0 0 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #lcaudate"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: teal"></a-box>
+          <a-box id="isolated-Lputamen" 
+            position="-0.2 0.1 0.1" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #lputamen"
+            material="color: #c2d2ea;" override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: orange"></a-box>      
+          <a-box id="isolated-Lsubstantianigra" 
+            position="-0.0 -0.12 0.05" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #lsubstantianigra"
+            material="color: #c2d2ea; " 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: green"></a-box>            
+          <a-box id="isolated-Lglobuspallidus" 
+            position="-0.2 0.1 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #lglobuspallidus"
+            material="color: #c2d2ea; " 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: red"></a-box>          
+          <a-box id="isolated-Rcaudate" 
+            position="0 0 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #rcaudate"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: teal"></a-box>      
+          <a-box id="isolated-Rputamen" 
+            position="-0.2 0.1 -0.1" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #rputamen"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: orange"></a-box>
+          <a-box id="isolated-Rsubstantianigra" 
+            position="-0.0 -0.10 -0.05" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #rsubstantianigra"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: green"></a-box>      
+          <a-box id="isolated-Rglobuspallidus" 
+            position="-0.2 0.1 0" 
+            scale="0.15 0.15 0.15" 
+            rotation="-90 90 0" 
+            obj-model="obj: #rglobuspallidus"
+            material="color: #c2d2ea;" 
+            override-material 
+            animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" change-color-on-hover="color: red"></a-box>       
+        </a-entity>
+
+        <a-entity position="0 -0.5 0">         
+           <a-gui-button id="rotate-button" 
+             position = "0 -0.5 -3"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value="rotate"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             assign-rotate>
+           </a-gui-button>
+
+           <a-gui-button id="scaleUp-button" 
+             position = "-1 -0.75 -3"
+             width="1" 
+             height="0.5" 
+             material="src: #rotate-icon" 
+             value=" + "
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             scale-brain>
+            </a-gui-button>
+
+           <a-gui-button id="scaleDown-button" 
+             position = "-1 -0.25 -3"
+             width="1" 
+             height="0.5" 
+             material="src: #rotate-icon" 
+             value=" - "
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             scale-brain="increase: false">
+           </a-gui-button>
+
+           <a-gui-button id="expand-button" 
+             position = "1 -0.75 -3"
+             width="1" 
+             height="0.5" 
+             material="src: #rotate-icon" 
+             value="expand"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             expand-brain>
+           </a-gui-button>
+
+           <a-gui-button id="collapse-button" 
+             position = "1 -0.25 -3"
+             width="1" 
+             height="0.5" 
+             material="src: #rotate-icon" 
+             value="collapse"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             expand-brain="expand: false">
+           </a-gui-button>
+
+           <a-gui-button id="thalamusButton" 
+             position = "-4.5 -0.5 -1.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "thal"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             change-color-on-hover="color: red"
+             onclick = "myThalFunction()">
+           </a-gui-button>
+
+           <a-gui-button 
+             id="subthalamicButton" 
+             position = "-4.5 -0.5 -0.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "subthal"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             change-color-on-hover="color: red"
+             onclick = "mySubThalFunction()">
+           </a-gui-button>
+
+           <a-gui-button id="caudateButton" 
+             position = "-4.5 -1.5 -1.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "caudate"
+             font-family="Helvetica"
+             margin="0 0 0.05 0" 
+             change-color-on-hover="color: red"
+             onclick = "myCaudFunction()">
+           </a-gui-button>
+
+           <a-gui-button id="globusButton" 
+             position = "-4.5 -1.5 -0.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "globus"
+             font-family="Helvetica"
+             margin="0 0 0.05 0"
+             change-color-on-hover="color: red"
+             onclick = "myGlobFunction()">
+           </a-gui-button>
+
+           <a-gui-button id="putamenButton" 
+             position = "-4.5 0.5 -1.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "putam"
+             font-family="Helvetica"
+             margin="0 0 0.05 0"
+             change-color-on-hover="color: red"
+             onclick = "myPutaFunction()">
+           </a-gui-button>
+
+           <a-gui-button 
+             id="substantiaButton" 
+             position = "-4.5 0.5 -0.5"
+             rotation = "0 90 0"
+             width="1" 
+             height="1" 
+             material="src: #rotate-icon" 
+             value= "substan"
+             font-family="Helvetica"
+             margin="0 0 0.05 0"
+             change-color-on-hover="color: red"
+             onclick = "mySubstanFunction()">
+           </a-gui-button>
+
+        </a-entity>  
+
+        <a-image 
+          id="left-tile" 
+          class="tile"
+          position="4 -1 -1.5" 
+          rotation= "0 90 0"       
+          src="#bg2"
+          width="1"
+          height="1"
+          opacity="0"
+          onclick="nextScene_Cell()"
+          animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1000">
+        </a-image>
+
+        <a-image 
+          id="center-tile-image-entity" 
+          class="tile" 
+          position="4 -1 -0.5" 
+          rotation= "0 90 0"
+          src="#bg3" 
+          width="1"
+          height="1"
+          opacity="0"
+          onclick="nextScene_MRI()"
+          animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1250;">
+        </a-image>
+          <a-plane id="center-tile-overlay" 
+            width="1" 
+            height="1" 
+            position="0 0 0.01" 
+            scale = "0 0 0" 
+            color="#000" 
+            opacity="0"
+            mixin="overlay-fade-in">
+          </a-plane>
+          <a-text id="center-tile-text" 
+            position="0 .25 .02" 
+            align="center" 
+            line-height="64" 
+            opacity="0" 
+            value=""
+            mixin="overlay-fade-in"></a-text>
+          <a-plane id="center-tile-cta" 
+            width="1" 
+            height="1" 
+            position="0 -.75 .01" 
+            scale = "0 0 0" 
+            color="#000" 
+            opacity="0"
+            mixin="overlay-fade-in">
+            <a-text id="center-tile-cta-text" 
+              position="0 0 .02" 
+              align="center" 
+              line-height="64" 
+              opacity="0" 
+              value=""
+              mixin="overlay-fade-in">
+            </a-text>    
+          </a-plane>
+        </a-plane>
+
+        <a-image
+          id="right-tile" 
+          class="tile" 
+          position="4 -1 0.5"
+          rotation= "0 90 0"       
+          src="#bg4" 
+          width="1"
+          height="1"
+          opacity="0"
+          onclick="nextScene_fMRI()"       
+          animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;">
+        </a-image>
+      </script>
+      <!-- BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ -->
+      <script id="sceneCell" type="text/html">
+      
+      <a-entity 
+            geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
+            material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg2"
+            scale="-1 1 1"
+            rotation="0 -60 0" id="photosphere2">
+      </a-entity>
+      
+      
+        <a-entity id="braincells" slide-container="target:.microglia" position = "-3 -1 -5">
+        
+        <a-entity id="Microglia0" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj: #microglia0"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia2" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia2"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia4" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia4"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia6" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia6"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity> 
+        <a-entity id="Microglia8" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia8"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia10" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia10"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia12" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia12"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia14" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia14"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia16" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia16"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia18" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia18"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia20" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia20"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia22" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia22"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia24" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia24"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia26" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia26"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia28" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia28"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia30" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia30"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia32" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia32"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia34" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia34"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia36" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia36"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia38" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia38"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia40" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia40"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia42" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia42"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia44" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia44"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Microglia46" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia46"
+                   material="color: #ffffff" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+       </a-entity>
+        <a-entity id="Channel1" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 1"
+                   material="color: #ff4c58" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+        <a-entity id="Channel2" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 2"
+                   material="color: #4bfc77" override-material 
+                   animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      
+      <a-entity position="0 -1.5 -3">   
+        
+        <a-gui-button id="channel1-button" class="cellButtons" visible="true" position = "-1 0 0"
+            width="1"
+            height="1"
+            material="src: #rotate-icon" 
+            value="C1"
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" assign-channel="channel:#Channel1"></a-gui-button>
+        
+        <a-gui-button id="channel2-button" class="cellButtons" visible="true" position = "0 0 0"
+            width="1"
+            height="1"
+            material="src: #rotate-icon" 
+            value="C2"
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" assign-channel="channel:#Channel2"></a-gui-button>
+        
+        <a-gui-button id="microglia-button" visible="true" position = "1 0 0"
+            width="1"
+            height="1"
+            material="src: #rotate-icon" 
+            value="MG"
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" assign-microglia></a-gui-button>
+        
+        <a-gui-button id="scaleUp-button2" visible="true" position = "2 -0.25 0"
+	          width="1" 
+            height="0.5" 
+            material="src: #rotate-icon" 
+            value=" + "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" scale-cells></a-gui-button>
+        
+        <a-gui-button id="scaleDown-button2" visible="true" position = "2 0.25 0"
+	          width="1" 
+           height="0.5" 
+           material="src: #rotate-icon" 
+           value=" - "
+           font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+           toggle="true" scale-cells="increase: false"></a-gui-button>
+
+        
+         <a-gui-button id="back10" class="microgliaButtons" visible="false" position = "-1 -1 0"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value=" << "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" 
+            assign-skip="container:#braincells; skip:10; back:false"></a-gui-button>
+        
+        <a-gui-button id="back1" class="microgliaButtons" visible="false" position = "0 -1 0"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value=" < "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" assign-skip="back: false; container:#braincells"></a-gui-button>
+        
+        <a-gui-button id="play-button" class="microgliaButtons" visible="false" position = "1 -1 -0"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon"
+            play-button="target:#braincells"
+            value = "."
+            font-color = "#22252a">
+          <a-entity id="play-button-text" 
+                    text="value:Play;color:#d3d3d4;align:center" 
+                    position="0 0 0.041" 
+                    scale="6.6 6.6 1"></a-entity>
+        </a-gui-button>
+        
+        <a-gui-button id="skip1" class="microgliaButtons" visible="false" position = "2 -1 0"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value=" > "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" assign-skip="container:#braincells"></a-gui-button>
+       
+        <a-gui-button id="skip10" class="microgliaButtons" visible="false" position = "3 -1 0"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value=" >> "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" 
+            assign-skip="container:#braincells; skip:10"></a-gui-button>
+      </a-entity>
+        
+        <a-image 
+        id="left-tile2" 
+        class="tile"
+        position="4 -1 -1.5" 
+        rotation= "0 90 0"       
+        src="#bg1"
+        width="1"
+        height="1"
+        opacity="0"
+        onclick="nextScene_Edu()"
+        animation="property: opacity; dir: normal; dur: 1500;
+                   easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1000">
+      </a-image>
+
+      <a-plane propagate="events:clickDown" id="center-tile2" class="clickable" position="0 0 0" width="1" height="1" opacity="0"
+               animation="dir: normal; dur: 750; easing: easeOutElastic; loop: false; from: 0 0 0; to: 1.5 1.5 1.5; startEvents: click;"> 
+        <a-image 
+          id="center-tile-image-entity2" 
+          class="tile" 
+          position="4 -1 -0.5" 
+          rotation= "0 90 0"
+          src="#bg3" 
+          width="1"
+          height="1"
+          opacity="0"
+          onclick="nextScene_MRI()"
+          animation="property: opacity; dir: normal; dur: 1500;
+                           easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1250;"></a-image>
+        
+        <a-plane id="center-tile-overlay2" width="1" height="1" position="0 0 0.01" scale = "0 0 0" color="#000" opacity="0"
+                 mixin="overlay-fade-in"></a-plane>
+        <a-text id="center-tile-text2" position="0 .25 .02" align="center" line-height="64" opacity="0" value="fMRI Room"
+                mixin="overlay-fade-in"></a-text>
+        
+        <a-plane id="center-tile-cta2" width="1" height="1" position="0 -.75 .01" scale = "0 0 0" color="#000" opacity="0"
+                 mixin="overlay-fade-in">
+          <a-text id="center-tile-cta-text2" position="0 0 .02" align="center" line-height="64" opacity="0" value="View"
+                  mixin="overlay-fade-in"></a-text>    
+        </a-plane>
+
+      </a-plane>
+
+      <a-image
+        id="right-tile2" 
+        class="tile" 
+        position="4 -1 0.5"
+        rotation= "0 90 0"       
+        src="#bg4" 
+        width="1"
+        height="1"
+        opacity="0"
+        onclick="nextScene_fMRI()"
+        animation="property: opacity; dir: normal; dur: 1500;
+                   easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
+        </script>
+
+      <!-- MRI room ! MRI room ! MRI room ! -->
+      <script id="sceneMRI" type="text/html">
+      <a-entity 
+            geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
+            material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg3"
+            scale="-1 1 1"
+            rotation="0 -60 0" id="photosphere3">
+      </a-entity>
+        <a-entity id="brainStuff" position="0 2 -4" rotation="0 45 0" scale="1.3 1.3 1.3"
+                  animation__rot="property: rotation; from: 0 45 0; to: 0 405 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+          <a-entity id="brainslices" slice-renderer="slices:.brainslice; controllers:.sliceController">
+            <a-entity class="brainslice" position="0 -0.4 -0.4" scale="1 1 1"color="#c2d2ea" og-position obj-model="obj:#slice_4_0"></a-box>
+            <a-entity class="brainslice" position="0 -0.4 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_1"></a-box>
+            <a-entity class="brainslice" position="0 -0.4 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_2"></a-box>
+            <a-entity class="brainslice" position="0 -0.4 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_3"></a-box>
+            <a-entity class="brainslice" position="0 -0.4 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_4"></a-box>
+            <a-entity class="brainslice" position="0 -0.2 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_0"></a-box>
+            <a-entity class="brainslice" position="0 -0.2 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_1"></a-box>
+            <a-entity class="brainslice" position="0 -0.2 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_2"></a-box>
+            <a-entity class="brainslice" position="0 -0.2 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_3"></a-box>
+            <a-entity class="brainslice" position="0 -0.2 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_4"></a-box>
+            <a-entity class="brainslice" position="0 0 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_0"></a-box>
+            <a-entity class="brainslice" position="0 0 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_1"></a-box>
+            <a-entity class="brainslice" position="0 0 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_2"></a-box>
+            <a-entity class="brainslice" position="0 0 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_3"></a-box>
+            <a-entity class="brainslice" position="0 0 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_4"></a-box>
+            <a-entity class="brainslice" position="0 0.2 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_0"></a-box>
+            <a-entity class="brainslice" position="0 0.2 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_1"></a-box>
+            <a-entity class="brainslice" position="0 0.2 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_2"></a-box>
+            <a-entity class="brainslice" position="0 0.2 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_3"></a-box>
+            <a-entity class="brainslice" position="0 0.2 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position visible="false"></a-box>
+            <a-entity class="brainslice" position="0 0.4 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_0"></a-box>
+            <a-entity class="brainslice" position="0 0.4 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_1"></a-box>
+            <a-entity class="brainslice" position="0 0.4 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_2"></a-box>
+            <a-entity class="brainslice" position="0 0.4 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_3"></a-box>
+            <a-entity class="brainslice" position="0 0.4 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position visible="false"></a-box>
+          
+            </a-entity>
+          
+          <a-cylinder class="sliceController" position="-0.5 0.65 0.3" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0" slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-0.5 0.65 0.1" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0" slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-0.5 0.65 -0.1" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0" slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-0.5 0.65 -0.3" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0" slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+          
+          <a-cylinder class="sliceController" position="-1 0.3 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90" slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-1 0.1 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90" slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-1 -0.1 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90" slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+          <a-cylinder class="sliceController" position="-1 -0.3 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90" slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+          
+        </a-entity>
+        
+        <a-entity class="room" position="0 0 0" scale="0.8 0.8 0.8"
+                  animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 18000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+        <a-entity rotation="0 45 0" position="-3.5 0 -6">   
+          <a-box id="MRI-button1" visible="true" position="-1 4 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="red"
+            slice-controller="target:#brainslices; axis:y; position_based:false; bound:0.3"></a-box>
+          <a-box id="MRI-button2" visible="true" position="1 4 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="yellow"
+            slice-controller="target:#brainslices; axis:y; position_based:false; bound:0.1"></a-box>
+          <a-box id="MRI-button3" visible="true" position="-1 2 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="green"
+            slice-controller="target:#brainslices; axis:y; position_based:false; bound:-0.1"></a-box>
+          <a-box id="MRI-button4" visible="true" position="1 2 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="blue"
+            slice-controller="target:#brainslices; axis:y; position_based:false; bound:-0.3"></a-box>
+        </a-entity>
+
+        <a-entity rotation="0 135 0" position="3.5 0 -6">
+          <a-box id="MRI-button5" visible="true" position="-1 4 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="red"
+            slice-controller="target:#brainslices; axis:z; position_based:false; bound:-0.3"></a-box>
+          <a-box id="MRI-button6" visible="true" position="1 4 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="yellow"
+            slice-controller="target:#brainslices; axis:z; position_based:false; bound:-0.1"></a-box>
+          <a-box id="MRI-button7" visible="true" position="-1 2 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="green"
+            slice-controller="target:#brainslices; axis:z; position_based:false; bound:0.1"></a-box>
+          <a-box id="MRI-button8" visible="true" position="1 2 0"
+            width="2"
+            depth="0.2"
+            height="2"
+            color="blue"
+            slice-controller="target:#brainslices; axis:z; position_based:false; bound:0.3"></a-box>
+        </a-entity>
+          </a-entity>
+        
+        <a-entity position="0 0.5 0">         
+         <a-gui-button id="rotate-MRI" position="-1 -0.5 -3"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value="Rotate"
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            rotate-mri></a-gui-button>
+          
+          <a-gui-button id="rotate-Room" position="0 -0.5 -3"
+	          width="1" 
+            height="1" 
+            material="src: #rotate-icon" 
+            value="Room"
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            rotate-mriroom></a-gui-button>
+        
+         <a-gui-button id="scaleUp-MRI" position="1 -0.75 -3"
+	          width="1" 
+            height="0.5" 
+            material="src: #rotate-icon" 
+            value=" + "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" scale-brain></a-gui-button>
+        
+         <a-gui-button id="scaleDown-MRI" position="1 -0.25 -3"
+	          width="1" 
+            height="0.5" 
+            material="src: #rotate-icon" 
+            value=" - "
+            font-family="Helvetica"
+	          margin="0 0 0.05 0" 
+            toggle="true" scale-brain="increase: false"></a-gui-button>
+      </a-entity>
+            <a-image 
+        id="left-tile4" 
+        class="tile"
+        position="4 -1 -1.5" 
+        rotation= "0 90 0"       
+        src="#bg1"
+        width="1"
+        height="1"
+        opacity="0"
+        onclick="nextScene_Edu()"
+        animation="property: opacity; dir: normal; dur: 1500;
+                   easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1000">
+      </a-image>
+       <a-plane propagate="events:clickDown" id="center-tile4" class="clickable" position="0 0 0" width="1" height="1" opacity="0"
+               animation="dir: normal; dur: 750; easing: easeOutElastic; loop: false; from: 0 0 0; to: 1.5 1.5 1.5; startEvents: click;"> 
+    <a-image 
+          id="center-tile-image-entity4" 
+          class="tile" 
+          position="4 -1 -0.5" 
+          rotation= "0 90 0"
+          src="#bg2" 
+          width="1"
+          height="1"
+          opacity="0"
+          onclick="nextScene_Cell()"
+          animation="property: opacity; dir: normal; dur: 1500;
+                           easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1250;"></a-image>
+        
+        
+        <a-plane id="center-tile-overlay4" width="1" height="1" position="0 0 0.01" scale = "0 0 0" color="#000" opacity="0"
+                 mixin="overlay-fade-in"></a-plane>
+        <a-text id="center-tile-text4" position="0 .25 .02" align="center" line-height="64" opacity="0" value=""
+                mixin="overlay-fade-in"></a-text>
+        
+        <a-plane id="center-tile-cta4" width="1" height="1" position="0 -.75 .01" scale = "0 0 0" color="#000" opacity="0"
+                 mixin="overlay-fade-in">
+          <a-text id="center-tile-cta-text4" position="0 0 .02" align="center" line-height="64" opacity="0" value=""
+                  mixin="overlay-fade-in"></a-text>    
+        </a-plane>
+
+      </a-plane>
+
+      <a-image
+        id="right-tile4" 
+        class="tile" 
+        position="4 -1 0.5"
+        rotation= "0 90 0"       
+        src="#bg4" 
+        width="1"
+        height="1"
+        opacity="0"
+        onclick="nextScene_fMRI()"
+        animation="property: opacity; dir: normal; dur: 1500;
+                   easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
+      </script>
+
+      <script id="scenefMRI" type="text/html">    
+            
+        <a-entity 
+          geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
+          material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg4"
+          scale="-1 1 1"
+          position = "0 12 0"
+          rotation="0 -60 0" id="photosphere4">
+        </a-entity>
+       
+        <a-entity id="holobrain4a" 
+          position = "2 2 -4" 
+          animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+         
+          <a-animation attribute="rotation"
+            dur="20000"
+            easing = "linear"
+            to="0 360 0"
+            repeat="indefinite">
+          </a-animation>         
+           
+          <a-entity id="fMRI_data" slide-container="target:.fMRI; index:0" position = "0 0 0">
+ 
+            <a-entity id="fMRI_5" class="fMRI" position = "0 0 0"  scale = "0.015 0.015 0.015" >
+              <a-entity id="fMRI_5_blue" position="0 0 0"  rotation="0 0 0"   obj-model="obj: #fMRI_5_blue"   material="color: blue;   opacity: 0.5; transparent: true" ></a-entity>
+              <a-entity id="fMRI_5_orange" position="0 0 0"  rotation="0 0 0"   obj-model="obj: #fMRI_5_orange" material="color: orange; opacity: 0.5; transparent: true" ></a-entity>
+              <a-entity id="fMRI_5_purple" position="0 0 0"  rotation="0 0 0"   obj-model="obj: #fMRI_5_purple" material="color: purple; opacity: 0.7; transparent: true" ></a-entity>
+              <a-entity id="fMRI_5_red" position="0 0 0"  rotation="0 0 0"   obj-model="obj: #fMRI_5_red"    material="color: red;    opacity: 0.9; transparent: true" ></a-entity>
+            </a-entity>
+ 
+            <a-entity id="fMRI_25" class="fMRI" position = "0 0 0" scale = "0.015 0.015 0.015">
+              <a-entity id="fMRI_25_blue" position="0 0 0"  rotation="0 0 0"   obj-model="obj: #fMRI_25_blue"    material="color: blue;   opacity: 0.5; transparent: true"   ></a-entity>
+              <a-entity id="fMRI_25_orange" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_25_orange"  material="color: orange;   opacity: 0.5; transparent: true" ></a-entity>
+              <a-entity id="fMRI_25_purple" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_25_purple"  material="color: purple;   opacity: 0.5; transparent: true" ></a-entity>
+              <a-entity id="fMRI_25_red" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_25_red"     material="color: red;   opacity: 0.5; transparent: true"    ></a-entity>
+            </a-entity>
+ 
+            <a-entity id="fMRI_45" class="fMRI" position = "0 0 0" scale = "0.015 0.015 0.015">
+              <a-entity id="fMRI_45_blue" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_45_blue" material="color: blue" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_45_orange" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_45_orange" material="color: orange" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_45_purple" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_45_purple" material="color: purple" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_45_red" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_45_red" material="color: red" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+            </a-entity>
+ 
+            <a-entity id="fMRI_65" class="fMRI" position = "0 0 0" scale = "0.015 0.015 0.015">
+              <a-entity id="fMRI_65_blue" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_65_blue" material="color: blue" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_65_orange" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_65_orange"  material="color: orange" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_65_purple" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_65_purple" material="color: purple" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_65_red" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_65_red" material="color: red" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+            </a-entity>
+ 
+            <a-entity id="fMRI_85" class="fMRI" position = "0 0 0" scale = "0.015 0.015 0.015">
+              <a-entity id="fMRI_85_blue" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_85_blue" material="color: blue" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_85_orange" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_85_orange" material="color: orange" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_85_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_85_purple" material="color: purple" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_85_red" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_85_red" material="color: red" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+            </a-entity>
+ 
+            <a-entity id="fMRI_105" class="fMRI" position = "0 0 0" scale = "0.015 0.015 0.015">
+              <a-entity id="fMRI_105_blue" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_105_blue" material="color: blue" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_105_orange" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_105_orange" material="color: orange" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_105_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_105_purple" material="color: purple" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+              <a-entity id="fMRI_105_red" position="0 0 0"  rotation="-90 0 0" obj-model="obj: #fMRI_105_red" material="color: red" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+            </a-entity>
+            
+          </a-entity>
+              
+          <a-entity id="brain-cortex4a" 
+            position="0 -0.2 0.2" 
+            scale="0.17 0.17 0.17" 
+            rotation="-90 180 0" 
+            obj-model="obj: #cortex"
+            material=" color: #c2d2ea; transparent: true; 
+            opacity: 0.3">
+          </a-entity>         
+           
+        </a-entity>   
+       
+        <a-entity id="holobrain4b" 
+          position = "-2 2 -4" 
+          animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+          
+          <a-animation attribute="rotation"
+            dur="20000"
+            easing = "linear"
+            to="0 360 0"
+            repeat="indefinite">
+          </a-animation> 
+        
+          <a-entity id="delta_fMRI_data" slide-container="target:.delta; index:0" position = "0 0 0">
+           
+            <a-entity id="delta_fMRI_5" 
+              class = "delta" 
+              position = "0 0 0"  
+              scale = "0.7 0.7 0.7" 
+              rotation = "0 0 0">
+              <a-entity id="delta_fMRI_5_blue" 
+                position="0 0 0" 
+                scale="0.02 0.02 0.02" 
+                rotation="0 0 0" 
+                obj-model="obj: #delta_fMRI_5_blue" 
+                material="color: blue;   
+                opacity: 0.5; transparent: true">
+              </a-entity>
+              <a-entity id="delta_fMRI_5_orange" 
+                position="0 0 0" 
+                scale="0.02 0.02 0.02" 
+                rotation="0 0 0" 
+                obj-model="obj: #delta_fMRI_5_orange" 
+                material="color: orange;   opacity: 0.5; transparent: true" >
+              </a-entity>
+              <a-entity id="delta_fMRI_5_purple"  
+                position="0 0 0" 
+                scale="0.02 0.02 0.02" 
+                rotation="0 0 0" 
+                obj-model="obj: #delta_fMRI_5_purple" 
+                material="color: purple;   
+                opacity: 0.5; transparent: true">
+              </a-entity>
+              <a-entity id="delta_fMRI_5_red" 
+                position="0 0 0" 
+                scale="0.02 0.02 0.02" 
+                rotation="0 0 0" 
+                obj-model="obj: #deltafMRI_5_red" 
+                material="color: red;   opacity: 0.5; transparent: true">
+              </a-entity>
+            </a-entity>
+           
+         <a-entity id="delta_fMRI_25" 
+           class = "delta" 
+           position = "0 0 0">
+           <a-entity id="delta_fMRI_25_blue" 
+             position="0 0 0" 
+             scale="0.01 0.01 0.01" 
+             rotation="0 0 0" 
+             obj-model="obj: #delta_fMRI_25_blue" 
+             material="color: blue; opacity: 0.5; transparent: true">
+           </a-entity>
+           <a-entity id="delta_fMRI_25_orange" 
+             position="0 0 0" 
+             scale="0.015 0.015 0.015" 
+             rotation="-90 0 0" 
+             obj-model="obj: #delta_fMRI_25_orange" 
+             material="color: orange;   opacity: 0.5; transparent: true">
+           </a-entity>
+           <a-entity id="delta_fMRI_25_purple" 
+             scale="0.05 0.05 0.05" 
+             rotation="-90 0 0" 
+             obj-model="obj: #delta_fMRI_25_purple" 
+             material="color: purple;   opacity: 0.5; transparent: true">
+           </a-entity>
+           <a-entity id="delta_fMRI_25_red" 
+             scale="0.025 0.025 0.025" 
+             rotation="-90 0 0" 
+             obj-model="obj: #delta_fMRI_25_red" material="color: red; opacity: 0.5; transparent: true">
+           </a-entity>
+         </a-entity>
+           
+         <a-entity id="brain-cortex4b" position="0 -0.2 0.2" scale="0.17 0.17 0.17" rotation="-90 180 0" obj-model="obj: #cortex"
+           material="side: double; color: #c2d2ea; transparent: true; opacity: 0.3" 
+           animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+         </a-entity>
+           
+         </a-entity>
+       </a-entity>
+         
+       
+       <a-entity position="0 0 -2" rotation = "0 0 0">         
+         <a-gui-button id="rotate-button4" 
+           position = "0 -0.5 -3"
+           width="1" 
+           height="1" 
+           material="src: #rotate-icon" 
+           value="rotate"
+           font-family="Helvetica"
+           margin="0 0 0.05 0" 
+           rotate-fMRI>
+         </a-gui-button>
+         
+         <a-gui-button id="scaleUp-button4" 
+           position = "-1 -0.75 -3"
+           width="1" 
+           height="0.5" 
+           material="src: #rotate-icon" 
+           value=" + "
+           font-family="Helvetica"
+           margin="0 0 0.05 0" 
+           scale-brain>
+         </a-gui-button>
+         
+         <a-gui-button id="scaleDown-button4" position = "-1 -0.25 -3"
+           width="1" 
+           height="0.5" 
+           material="src: #rotate-icon" 
+           value=" - "
+           font-family="Helvetica"
+           margin="0 0 0.05 0" 
+           scale-brain="increase: false">
+         </a-gui-button>
+            
+         <a-gui-button id="delta_fMRI_play-button" visible="true" position = "1 -0.5 -3"
+           width="1" 
+           height="1" 
+           material="src: #rotate-icon"
+           play-button="target:#delta_fMRI_data"
+           value = "."
+           font-color = "#22252a">
+           <a-entity id="play-button-text" 
+             text="value:Play;color:#d3d3d4;align:center" 
+             position="0 0 0.041" 
+             scale="6.6 6.6 1"></a-entity>
+         </a-gui-button>
+ 
+       </a-entity>  
+       
+       <a-image 
+         id="left-tile4" 
+         class="tile"
+         position="4 -1 -1.5" 
+         rotation= "0 90 0"       
+         src="#bg1"
+         width="1"
+         height="1"
+         opacity="0"
+         onclick="nextScene_Edu()"
+         animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1000">
+       </a-image>
+       <a-plane propagate="events:clickDown" id="center-tile4" 
+         class="clickable" 
+         position="0 0 0" 
+         width="1" 
+         height="1" 
+         opacity="0"
+         animation="dir: normal; dur: 750; easing: easeOutElastic; loop: false; from: 0 0 0; to: 1.5 1.5 1.5; startEvents: click;"> 
+       <a-image 
+         id="center-tile-image-entity4" 
+         class="tile" 
+         position="4 -1 -0.5" 
+         rotation= "0 90 0"
+         src="#bg2" 
+         width="1"
+         height="1"
+         opacity="0"
+         onclick="nextScene_Cell()"
+         animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1250;">
+       </a-image>     
+         
+         <a-plane id="center-tile-overlay4" 
+           width="1" 
+           height="1" 
+           position="0 0 0.01" 
+           scale = "0 0 0" 
+           color="#000" 
+           opacity="0"
+           mixin="overlay-fade-in">
+         </a-plane>
+         <a-text id="center-tile-text4" 
+           position="0 .25 .02" 
+           align="center" line-height="64" 
+           opacity="0" 
+           value=""
+           mixin="overlay-fade-in">
+         </a-text>
+         
+         <a-plane id="center-tile-cta4" 
+           width="1" 
+           height="1" 
+           position="0 -.75 .01" 
+           scale = "0 0 0" 
+           color="#000" 
+           opacity="0"
+           mixin="overlay-fade-in">
+           <a-text id="center-tile-cta-text4" 
+             position="0 0 .02" 
+             align="center" line-height="64" 
+             opacity="0" 
+             value=""
+             mixin="overlay-fade-in"></a-text>    
+         </a-plane>
+ 
+       </a-plane>
+ 
+       <a-image
+         id="right-tile4" 
+         class="tile" 
+         position="4 -1 0.5"
+         rotation= "0 90 0"       
+         src="#bg3" 
+         width="1"
+         height="1"
+         opacity="0"
+         onclick="nextScene_MRI()"
+         animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;">
+       </a-image>  
+             
+      </script>
+
+    </a-assets>
+
+    <a-entity template="src:#sceneEducational"></a-entity>
+    <a-entity id="player" wasd-controls>
+      <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+        <a-ring cursor="fuse: false" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+        </a-ring>
+      </a-camera>
+    </a-entity>
+
+  </a-scene>
+  <script type="text/javascript">
+    function nextScene_Edu() {
+      console.log("going to edu room")
+      document.querySelector("[template]").setAttribute("template", "src:#sceneEducational")
+    }
+
+    function nextScene_Cell() {
+      console.log("going to cell room")
+      document.querySelector("[template]").setAttribute("template", "src: #sceneCell")
+    }
+
+    function nextScene_MRI() {
+      console.log("going to mri room")
+      document.querySelector("[template]").setAttribute("template", "src: #sceneMRI")
+    }
+
+
+    function nextScene_fMRI() {
+      console.log("going to fmri room")
+      document.querySelector("[template]").setAttribute("template", "src: #scenefMRI")
+    }
+  </script>
+
+</body>
+
+</html>
