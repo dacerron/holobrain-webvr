@@ -5,6 +5,9 @@
   <title>EML Intro To WebVR</title>
   <meta name="description" content="EML Intro To WebVR">
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script src="easyrtc/easyrtc.js"></script>
+  <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.min.js"></script>
   <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.1/dist/aframe-physics-system.min.js"></script>
@@ -131,7 +134,7 @@
 
 <body>
   <!-- Your A-Frame scene goes here! -->
-  <a-scene main-ui>
+  <a-scene main-ui networked-scene="app:myApp; room:room1; debug:true;">
     <a-assets>
       <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
       <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
@@ -251,7 +254,7 @@
       <img id="bg3" src="public/assets/bg1.jpeg" />
       <img id="bg4" src="public/assets/bg3.jpeg" />
 
-      <script id="sceneEducational" type="text/html">
+      <template id="sceneEducational" type="text/html">
         <a-entity id="photosphere"
           geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
           material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg1"
@@ -667,9 +670,9 @@
           onclick="nextScene_fMRI()"       
           animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;">
         </a-image>
-      </script>
+      </template>
       <!-- BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ BRAIN CELL ROOM ~ -->
-      <script id="sceneCell" type="text/html">
+      <template id="sceneCell" type="text/html">
       
       <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
@@ -915,10 +918,10 @@
         onclick="nextScene_fMRI()"
         animation="property: opacity; dir: normal; dur: 1500;
                    easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
-        </script>
+    </template>
 
       <!-- MRI room ! MRI room ! MRI room ! -->
-      <script id="sceneMRI" type="text/html">
+      <template id="sceneMRI" type="text/html">
       <a-entity 
             geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
             material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg3"
@@ -1116,9 +1119,9 @@
         onclick="nextScene_fMRI()"
         animation="property: opacity; dir: normal; dur: 1500;
                    easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;"></a-image>
-      </script>
+    </template>
 
-      <script id="scenefMRI" type="text/html">    
+      <template id="scenefMRI" type="text/html">    
             
         <a-entity 
           geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64"
@@ -1413,11 +1416,11 @@
          animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1500;">
        </a-image>  
              
-      </script>
+      </template>
 
     </a-assets>
 
-    <a-entity template="src:#sceneEducational"></a-entity>
+    <a-entity networked="template:#sceneEducational"></a-entity>
     <a-entity id="player" wasd-controls>
       <a-camera active="true" user-height="0" position="0 2 0" look-controls>
         <a-ring cursor="fuse: false" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
@@ -1429,23 +1432,23 @@
   <script type="text/javascript">
     function nextScene_Edu() {
       console.log("going to edu room")
-      document.querySelector("[template]").setAttribute("template", "src:#sceneEducational")
+      document.querySelector("[networked]").setAttribute("networked", "template:#sceneEducational")
     }
 
     function nextScene_Cell() {
       console.log("going to cell room")
-      document.querySelector("[template]").setAttribute("template", "src: #sceneCell")
+      document.querySelector("[networked]").setAttribute("networked", "template:#sceneCell")
     }
 
     function nextScene_MRI() {
       console.log("going to mri room")
-      document.querySelector("[template]").setAttribute("template", "src: #sceneMRI")
+      document.querySelector("[networked]").setAttribute("networked", "template:#sceneMRI")
     }
 
 
     function nextScene_fMRI() {
       console.log("going to fmri room")
-      document.querySelector("[template]").setAttribute("template", "src: #scenefMRI")
+      document.querySelector("[networked]").setAttribute("networked", "template:#scenefMRI")
     }
   </script>
 
