@@ -6,6 +6,27 @@
     <script src="easyrtc/easyrtc.js"></script>
     <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+    <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
+    <script type="text/javascript" src="js/hide-if-not-mobile.component.js"></script>
+    <script type="text/javascript" src="js/override-material.component.js"></script>
+    <script type="text/javascript" src="js/assign-rotate.component.js"></script>
+    <script type="text/javascript" src="js/scale-brain.component.js"></script>
+    <script type="text/javascript" src="js/expand-brain.component.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script type="text/javascript" src="js/aframe.propagate.js"></script>
+    <script type="text/javascript" src="js/assign-microglia.component.js"></script>
+    <script type="text/javascript" src="js/assign-channel.component.js"></script>
+    <script type="text/javascript" src="js/scale-cells.component.js"></script>
+    <script type="text/javascript" src="js/assign-skip.component.js"></script>
+    <script type="text/javascript" src="js/slide-container.component.js"></script>
+    <script type="text/javascript" src="js/play-button.component.js"></script>
+    <script type="text/javascript" src="js/show-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mriroom.component.js"></script>
+    <script type="text/javascript" src="js/slice-controller.component.js"></script>
+    <script type="text/javascript" src="js/slice-renderer.component.js"></script>
+    <script type="text/javascript" src="js/og-position.component.js"></script>
+
   </head>
   <body>
     <a-scene networked-scene>
@@ -373,7 +394,7 @@
 
         </a-entity>
     </a-entity>
-        <a-entity id="player" wasd-controls>
+      <a-entity id="player" wasd-controls>
         <a-camera active="true" user-height="0" position="0 2 0" look-controls>
           <a-ring cursor="fuse: false" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
           </a-ring>
