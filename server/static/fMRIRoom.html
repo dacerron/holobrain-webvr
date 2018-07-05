@@ -1,0 +1,231 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="easyrtc/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+    <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
+    <script type="text/javascript" src="js/hide-if-not-mobile.component.js"></script>
+    <script type="text/javascript" src="js/override-material.component.js"></script>
+    <script type="text/javascript" src="js/assign-rotate.component.js"></script>
+    <script type="text/javascript" src="js/scale-brain.component.js"></script>
+    <script type="text/javascript" src="js/expand-brain.component.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script type="text/javascript" src="js/aframe.propagate.js"></script>
+    <script type="text/javascript" src="js/assign-microglia.component.js"></script>
+    <script type="text/javascript" src="js/assign-channel.component.js"></script>
+    <script type="text/javascript" src="js/scale-cells.component.js"></script>
+    <script type="text/javascript" src="js/assign-skip.component.js"></script>
+    <script type="text/javascript" src="js/slide-container.component.js"></script>
+    <script type="text/javascript" src="js/play-button.component.js"></script>
+    <script type="text/javascript" src="js/show-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mriroom.component.js"></script>
+    <script type="text/javascript" src="js/slice-controller.component.js"></script>
+    <script type="text/javascript" src="js/slice-renderer.component.js"></script>
+    <script type="text/javascript" src="js/og-position.component.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_5_blue" src="public/assets/fFiltered_4DVolume_005_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_5_orange" src="public/assets/fFiltered_4DVolume_005_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_5_purple" src="public/assets/fFiltered_4DVolume_005_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_5_red" src="public/assets/fFiltered_4DVolume_005_Red.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_25_blue" src="public/assets/fFiltered_4DVolume_025_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_25_orange" src="public/assets/fFiltered_4DVolume_025_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_25_purple" src="public/assets/fFiltered_4DVolume_025_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_25_red" src="public/assets/fFiltered_4DVolume_025_Red.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_45_blue" src="public/assets/fFiltered_4DVolume_045_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_45_orange" src="public/assets/fFiltered_4DVolume_045_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_45_pruple" src="public/assets/fFiltered_4DVolume_045_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_45_red" src="public/assets/fFiltered_4DVolume_045_Red.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_65_blue" src="public/assets/fFiltered_4DVolume_065_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_65_orange" src="public/assets/fFiltered_4DVolume_065_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_65_purple" src="public/assets/fFiltered_4DVolume_065_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_65_red" src="public/assets/fFiltered_4DVolume_065_Red.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_85_blue" src="public/assets/fFiltered_4DVolume_085_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_85_orange" src="public/assets/fFiltered_4DVolume_085_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_85_purple" src="public/assets/fFiltered_4DVolume_085_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_85_red" src="public/assets/fFiltered_4DVolume_085_Red.obj"></a-asset-item>
+
+            <a-asset-item id="fMRI_105_blue" src="public/assets/fFiltered_4DVolume_105_Blue.obj"></a-asset-item>
+            <a-asset-item id="fMRI_105_orange" src="public/assets/fFiltered_4DVolume_105_Orange.obj"></a-asset-item>
+            <a-asset-item id="fMRI_105_purple" src="public/assets/fFiltered_4DVolume_105_Purple.obj"></a-asset-item>
+            <a-asset-item id="fMRI_105_red" src="public/assets/fFiltered_4DVolume_105_Red.obj"></a-asset-item>
+
+            <a-asset-item id="delta_fMRI_5_blue" src="public/assets/delta_nifti_5_Blue.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_5_orange" src="public/assets/delta_nifti_5_Orange.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_5_purple" src="public/assets/delta_nifti_5_Purple.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_5_red" src="public/assets/delta_nifti_5_Red.obj"></a-asset-item>
+
+            <a-asset-item id="delta_fMRI_25_blue" src="public/assets/delta_nifti_25_Blue.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_25_orange" src="public/assets/delta_nifti_25_Orange.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_25_purple" src="public/assets/delta_nifti_25_Purple.obj"></a-asset-item>
+            <a-asset-item id="delta_fMRI_25_red" src="public/assets/delta_nifti_25_Red.obj"></a-asset-item>
+
+            <img id="bg4" src="public/assets/bg3.jpeg" />
+            <img id="rotate-icon" src="public/assets/rotate-icon.png" />
+            <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
+        </a-assets>
+        <a-entity geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg4"
+            scale="-1 1 1" position="0 12 0" rotation="0 -60 0" id="photosphere4">
+        </a-entity>
+
+        <a-entity id="holobrain4a" position="2 2 -4" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+
+            <a-animation attribute="rotation" dur="20000" easing="linear" to="0 360 0" repeat="indefinite">
+            </a-animation>
+
+            <a-entity id="fMRI_data" slide-container="target:.fMRI; index:0" position="0 0 0">
+
+                <a-entity id="fMRI_5" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_5_blue" position="0 0 0" rotation="0 0 0" obj-model="obj: #fMRI_5_blue" material="color: blue;   opacity: 0.5; transparent: true"></a-entity>
+                    <a-entity id="fMRI_5_orange" position="0 0 0" rotation="0 0 0" obj-model="obj: #fMRI_5_orange" material="color: orange; opacity: 0.5; transparent: true"></a-entity>
+                    <a-entity id="fMRI_5_purple" position="0 0 0" rotation="0 0 0" obj-model="obj: #fMRI_5_purple" material="color: purple; opacity: 0.7; transparent: true"></a-entity>
+                    <a-entity id="fMRI_5_red" position="0 0 0" rotation="0 0 0" obj-model="obj: #fMRI_5_red" material="color: red;    opacity: 0.9; transparent: true"></a-entity>
+                </a-entity>
+
+                <a-entity id="fMRI_25" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_25_blue" position="0 0 0" rotation="0 0 0" obj-model="obj: #fMRI_25_blue" material="color: blue;   opacity: 0.5; transparent: true"></a-entity>
+                    <a-entity id="fMRI_25_orange" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_25_orange" material="color: orange;   opacity: 0.5; transparent: true"></a-entity>
+                    <a-entity id="fMRI_25_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_25_purple" material="color: purple;   opacity: 0.5; transparent: true"></a-entity>
+                    <a-entity id="fMRI_25_red" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_25_red" material="color: red;   opacity: 0.5; transparent: true"></a-entity>
+                </a-entity>
+
+                <a-entity id="fMRI_45" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_45_blue" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_45_blue" material="color: blue" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_45_orange" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_45_orange" material="color: orange"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_45_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_45_purple" material="color: purple"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_45_red" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_45_red" material="color: red" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                </a-entity>
+
+                <a-entity id="fMRI_65" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_65_blue" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_65_blue" material="color: blue" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_65_orange" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_65_orange" material="color: orange"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_65_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_65_purple" material="color: purple"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_65_red" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_65_red" material="color: red" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                </a-entity>
+
+                <a-entity id="fMRI_85" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_85_blue" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_85_blue" material="color: blue" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_85_orange" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_85_orange" material="color: orange"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_85_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_85_purple" material="color: purple"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_85_red" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_85_red" material="color: red" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                </a-entity>
+
+                <a-entity id="fMRI_105" class="fMRI" position="0 0 0" scale="0.015 0.015 0.015">
+                    <a-entity id="fMRI_105_blue" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_105_blue" material="color: blue" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_105_orange" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_105_orange" material="color: orange"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_105_purple" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_105_purple" material="color: purple"
+                        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                    <a-entity id="fMRI_105_red" position="0 0 0" rotation="-90 0 0" obj-model="obj: #fMRI_105_red" material="color: red" override-material
+                        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+                </a-entity>
+
+            </a-entity>
+
+            <a-entity id="brain-cortex4a" position="0 -0.2 0.2" scale="0.17 0.17 0.17" rotation="-90 180 0" obj-model="obj: #cortex"
+                material=" color: #c2d2ea; transparent: true; 
+            opacity: 0.3">
+            </a-entity>
+
+        </a-entity>
+
+        <a-entity id="holobrain4b" position="-2 2 -4" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+
+            <a-animation attribute="rotation" dur="20000" easing="linear" to="0 360 0" repeat="indefinite">
+            </a-animation>
+
+            <a-entity id="delta_fMRI_data" slide-container="target:.delta; index:0" position="0 0 0">
+
+                <a-entity id="delta_fMRI_5" class="delta" position="0 0 0" scale="0.7 0.7 0.7" rotation="0 0 0">
+                    <a-entity id="delta_fMRI_5_blue" position="0 0 0" scale="0.02 0.02 0.02" rotation="0 0 0" obj-model="obj: #delta_fMRI_5_blue"
+                        material="color: blue;   
+                opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_5_orange" position="0 0 0" scale="0.02 0.02 0.02" rotation="0 0 0" obj-model="obj: #delta_fMRI_5_orange"
+                        material="color: orange;   opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_5_purple" position="0 0 0" scale="0.02 0.02 0.02" rotation="0 0 0" obj-model="obj: #delta_fMRI_5_purple"
+                        material="color: purple;   
+                opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_5_red" position="0 0 0" scale="0.02 0.02 0.02" rotation="0 0 0" obj-model="obj: #delta_fMRI_5_red"
+                        material="color: red;   opacity: 0.5; transparent: true">
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="delta_fMRI_25" class="delta" position="0 0 0">
+                    <a-entity id="delta_fMRI_25_blue" position="0 0 0" scale="0.01 0.01 0.01" rotation="0 0 0" obj-model="obj: #delta_fMRI_25_blue"
+                        material="color: blue; opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_25_orange" position="0 0 0" scale="0.015 0.015 0.015" rotation="-90 0 0" obj-model="obj: #delta_fMRI_25_orange"
+                        material="color: orange;   opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_25_purple" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj: #delta_fMRI_25_purple" material="color: purple;   opacity: 0.5; transparent: true">
+                    </a-entity>
+                    <a-entity id="delta_fMRI_25_red" scale="0.025 0.025 0.025" rotation="-90 0 0" obj-model="obj: #delta_fMRI_25_red" material="color: red; opacity: 0.5; transparent: true">
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="brain-cortex4b" position="0 -0.2 0.2" scale="0.17 0.17 0.17" rotation="-90 180 0" obj-model="obj: #cortex"
+                    material="side: double; color: #c2d2ea; transparent: true; opacity: 0.3" animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+                </a-entity>
+
+            </a-entity>
+        </a-entity>
+
+        <a-entity position="0 0 -2" rotation="0 0 0">
+            <a-gui-button id="rotate-button4" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="rotate" font-family="Helvetica"
+                margin="0 0 0.05 0" rotate-fMRI>
+            </a-gui-button>
+
+            <a-gui-button id="scaleUp-button4" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + "
+                font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
+            </a-gui-button>
+
+            <a-gui-button id="scaleDown-button4" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - "
+                font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
+            </a-gui-button>
+
+            <a-gui-button id="delta_fMRI_play-button" visible="true" position="1 -0.5 -3" width="1" height="1" material="src: #rotate-icon"
+                play-button="target:#delta_fMRI_data" value="." font-color="#22252a">
+                <a-entity id="play-button-text" text="value:Play;color:#d3d3d4;align:center" position="0 0 0.041" scale="6.6 6.6 1"></a-entity>
+            </a-gui-button>
+        </a-entity>
+
+        <a-entity id="player" wasd-controls>
+            <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+                <a-ring cursor="fuse: false" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+                </a-ring>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+</body>
+
+</html>
