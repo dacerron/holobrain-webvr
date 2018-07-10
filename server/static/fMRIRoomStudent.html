@@ -30,7 +30,10 @@
 </head>
 
 <body>
-    <a-scene>
+    <a-scene networked-scene="
+        app: fMRIRoom;
+        room: room1;
+        debug: true;">
         <a-assets>
             <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
 
