@@ -30,10 +30,7 @@
 </head>
 
 <body>
-    <a-scene networked-scene="
-    app: MRIRoom;
-    room: room1;
-    debug: true;">
+    <a-scene>
         <a-assets>
             <a-asset-item id="slice_0_0" src="public/assets/brain_slices/cortex_0_0.obj"></a-asset-item>
             <a-asset-item id="slice_0_1" src="public/assets/brain_slices/cortex_0_1.obj"></a-asset-item>
@@ -61,8 +58,8 @@
             <img id="bg3" src="public/assets/bg1.jpeg" />
             <img id="rotate-icon" src="public/assets/rotate-icon.png" />
             <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
-
         </a-assets>
+
         <a-entity geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg3"
             scale="-1 1 1" rotation="0 -60 0" id="photosphere3">
         </a-entity>

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "networked-aframe": "^0.6.1"
+    "body-parser": "*",
+    "express": "*"
   },
   "devDependencies": {},
   "scripts": {

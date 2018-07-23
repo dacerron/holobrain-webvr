@@ -4,8 +4,6 @@
   <title>Brain Cell Room</title>
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
-  <script src="easyrtc/easyrtc.js"></script>
-  <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
   <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
   <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
@@ -31,10 +29,7 @@
 </head>
 
 <body>
-  <a-scene networked-scene="
-    app: brainCellRoom;
-    room: room1;
-    debug: true;">
+  <a-scene>
     <a-assets>
       <a-asset-item id="microglia0" src="public/assets/0.obj"></a-asset-item>
       <a-asset-item id="microglia2" src="public/assets/2.obj"></a-asset-item>
@@ -67,73 +62,66 @@
       <img id="bg2" src="public/assets/fMRI_360.jpg" />
       <img id="rotate-icon" src="public/assets/rotate-icon.png" />
       <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
-      <template id="brain-cells">
-        <a-entity>
-
-          <a-entity id="braincells" slide-container="target:.microglia" position="-3 -1 -5">
-
-            <a-entity id="Microglia0" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj: #microglia0"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia2" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia2"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia4" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia4"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia6" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia6"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia8" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia8"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia10" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia10"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia12" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia12"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia14" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia14"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia16" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia16"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia18" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia18"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia20" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia20"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia22" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia22"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia24" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia24"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia26" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia26"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia28" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia28"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia30" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia30"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia32" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia32"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia34" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia34"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia36" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia36"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia38" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia38"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia40" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia40"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia42" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia42"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia44" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia44"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-            <a-entity id="Microglia46" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia46"
-              material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-          </a-entity>
-          <a-entity id="Channel1" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 1"
-            material="color: #ff4c58" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-          <a-entity id="Channel2" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 2"
-            material="color: #4bfc77" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
-        </a-entity>
-      </template>
     </a-assets>
 
     <a-entity geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg2"
       scale="-1 1 1" rotation="0 -60 0" id="photosphere2">
     </a-entity>
+    <a-entity id="braincells" slide-container="target:.microglia" position="-3 -1 -5">
 
-    <a-entity id="local-vis" networked="template:#brain-cells"></a-entity>
+      <a-entity id="Microglia0" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj: #microglia0"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia2" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia2"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia4" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia4"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia6" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia6"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia8" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia8"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia10" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia10"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia12" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia12"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia14" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia14"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia16" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia16"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia18" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia18"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia20" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia20"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia22" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia22"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia24" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia24"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia26" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia26"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia28" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia28"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia30" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia30"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia32" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia32"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia34" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia34"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia36" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia36"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia38" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia38"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia40" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia40"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia42" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia42"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia44" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia44"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+      <a-entity id="Microglia46" class="microglia" visible="false" scale="0.05 0.05 0.05" rotation="-90 0 0" obj-model="obj:#microglia46"
+        material="color: #ffffff" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+    </a-entity>
+    <a-entity id="Channel1" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 1"
+      material="color: #ff4c58" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
+    <a-entity id="Channel2" class="channel" visible="true" position="3 4.5 -5" scale="0.005 0.005 0.005" rotation="0 0 0" obj-model="obj: #channel 2"
+      material="color: #4bfc77" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"></a-entity>
 
     <a-entity position="0 -1.5 -3">
       <a-gui-button id="channel1-button" class="cellButtons" visible="true" position="-1 0 0" width="1" height="1" material="src: #rotate-icon"
