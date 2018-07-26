@@ -46,9 +46,9 @@ var Comm = (function () {
 
         });
 
-        //get session from array to update student vis
+        //get state from sessions object to update student view
         app.get('/student/getEducationalState', (req, res) => {
-            console.log("student getting");
+            console.log("student fetching");
             res.status(200);
             res.send(sessions[req.query.key]);
         });
