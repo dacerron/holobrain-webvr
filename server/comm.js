@@ -63,14 +63,6 @@ var Comm = (function () {
         });
     }
 
-    var addSession = function () {
-
-    }
-
-    var getSessionState = function () {
-
-    }
-
     return {
         init
     }

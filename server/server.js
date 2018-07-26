@@ -1,11 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const port = 54321;
+
 
 const app = express();
 
 var Comm = require('./comm.js');
+var Env = require('./env.js');
+var Audio = require('./audio.js');
 
 app.use('/rooms/public', express.static(path.join(__dirname, 'static/public')));
 app.use('/rooms/js/', express.static(path.join(__dirname, 'static//js')));
@@ -49,6 +51,6 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, 'static')})
 });
 
-app.listen(port, () => {
-    console.log("the app is listening on port " + port)
+app.listen(Env.port, () => {
+    console.log("the app is listening on port " + Env.port)
 });

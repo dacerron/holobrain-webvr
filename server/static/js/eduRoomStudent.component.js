@@ -2,8 +2,7 @@ AFRAME.registerComponent("eduroomstudent", {
     schema: { type: 'vec3' },
 
     init: function () {
-        this.sessionKey = 62117;
-        console.log("init eduRoomStudent component");
+        this.sessionKey = 5159;
 
         //TODO: extend this function with ActiveXML and others if we want to support more browsers
         this.makeXHR = function () {
@@ -16,7 +15,6 @@ AFRAME.registerComponent("eduroomstudent", {
                 req.open('GET', '/student/getEducationalState?key=' + this.sessionKey);
                 req.onload = function () {
                     if (req.status === 200) {
-                        console.log("got state, key: " + req.response);
                         this.setState(JSON.parse(req.response));
                         resolve();
                     } else {
@@ -33,41 +31,84 @@ AFRAME.registerComponent("eduroomstudent", {
                 lGlobusPallidus, rCaudate, rPutamen, rGlobusPallidus;
             state = state.state;
             brainParts = document.querySelector("#isolated-brain-parts");
-            brainParts.setAttribute("position", state.general.pos);
-            brainParts.setAttribute("rotation", state.general.rot);
+            brainParts.setAttribute("position", state.brainParts.general.pos);
+            brainParts.setAttribute("rotation", state.brainParts.general.rot);
+
             ventricles = brainParts.querySelector("#isolated-ventricles");
-            ventricles.setAttribute("position", state.ventricles.pos);
-            ventricles.setAttribute("rotation", state.ventricles.rot);
+            this.updateObject(ventricles, state.brainParts.ventricles);
+
             thalamus = brainParts.querySelector("#isolated-Thalamus");
-            thalamus.setAttribute("position", state.thalamus.pos);
-            thalamus.setAttribute("rotation", state.thalamus.rot);
+            this.updateObject(thalamus, state.brainParts.thalamus);
+
             subthalamic = brainParts.querySelector("#isolated-Subthalamic");
-            subthalamic.setAttribute("position", state.subthalamic.pos);
-            subthalamic.setAttribute("rotation", state.subthalamic.rot);
+            this.updateObject(subthalamic, state.brainParts.subthalamic);
+
             lCaudate = brainParts.querySelector("#isolated-Lcaudate");
-            lCaudate.setAttribute("position", state.lCaudate.pos);
-            lCaudate.setAttribute("rotation", state.lCaudate.rot);
+            this.updateObject(lCaudate, state.brainParts.lCaudate);
+
             lPutamen = brainParts.querySelector("#isolated-Lputamen");
-            lPutamen.setAttribute("position", state.lPutamen.pos);
-            lPutamen.setAttribute("rotation", state.lPutamen.rot);
+            this.updateObject(lPutamen, state.brainParts.lPutamen);
+
             lSubstantiaNigra = brainParts.querySelector("#isolated-Lsubstantianigra");
-            lSubstantiaNigra.setAttribute("position", state.lSubstantiaNigra.pos);
-            lSubstantiaNigra.setAttribute("rotation", state.lSubstantiaNigra.rot);
+            this.updateObject(lSubstantiaNigra, state.brainParts.lSubstantiaNigra);
+
             lGlobusPallidus = brainParts.querySelector("#isolated-Lglobuspallidus");
-            lGlobusPallidus.setAttribute("position", state.lGlobusPallidus.pos);
-            lGlobusPallidus.setAttribute("rotation", state.lGlobusPallidus.rot);
+            this.updateObject(lGlobusPallidus, state.brainParts.lGlobusPallidus);
+
             rCaudate = brainParts.querySelector("#isolated-Rcaudate");
-            rCaudate.setAttribute("position", state.rCaudate.pos);
-            rCaudate.setAttribute("rotation", state.rCaudate.rot);
+            this.updateObject(rCaudate, state.brainParts.lGlobusPallidus);
+
             rPutamen = brainParts.querySelector("#isolated-Rcaudate");
-            rPutamen.setAttribute("position", state.rPutamen.pos);
-            rPutamen.setAttribute("rotation", state.rPutamen.rot);
+            this.updateObject(rPutamen, state.brainParts.rPutamen);
+
             rSubstantiaNigra = brainParts.querySelector("#isolated-Rsubstantianigra");
-            rSubstantiaNigra.setAttribute("position", state.rSubstantiaNigra.pos);
-            rSubstantiaNigra.setAttribute("rotation", state.rSubstantiaNigra.rot);
+            this.updateObject(rSubstantiaNigra, state.brainParts.rSubstantiaNigra);
+
             rGlobusPallidus = brainParts.querySelector("#isolated-Rglobuspallidus");
-            rGlobusPallidus.setAttribute("position", state.rGlobusPallidus.pos);
-            rGlobusPallidus.setAttribute("rotation", state.rGlobusPallidus.rot);
+            this.updateObject(rGlobusPallidus, state.brainParts);
+
+            brainParts = document.querySelector("#holobrain");
+            brainParts.setAttribute("position", state.brain.general.pos);
+            brainParts.setAttribute("rotation", state.brain.general.rot);
+
+            ventricles = brainParts.querySelector("#ventricles");
+            this.updateObject(ventricles, state.brain.ventricles);
+
+            thalamus = brainParts.querySelector("#Thalamus");
+            this.updateObject(thalamus, state.brain.thalamus);
+
+            subthalamic = brainParts.querySelector("#Subthalamic");
+            this.updateObject(subthalamic, state.brain.subthalamic);
+
+            lCaudate = brainParts.querySelector("#Lcaudate");
+            this.updateObject(lCaudate, state.brain.lCaudate);
+
+            lPutamen = brainParts.querySelector("#Lputamen");
+            this.updateObject(lPutamen, state.brain.lPutamen);
+
+            lSubstantiaNigra = brainParts.querySelector("#Lsubstantianigra");
+            this.updateObject(lSubstantiaNigra, state.brain.lSubstantiaNigra);
+
+            lGlobusPallidus = brainParts.querySelector("#Lglobuspallidus");
+            this.updateObject(lGlobusPallidus, state.brain.lGlobusPallidus);
+
+            rCaudate = brainParts.querySelector("#Rcaudate");
+            this.updateObject(rCaudate, state.brain.rCaudate);
+
+            rPutamen = brainParts.querySelector("#Rputamen");
+            this.updateObject(rPutamen, state.brain.rPutamen);
+
+            rSubstantiaNigra = brainParts.querySelector("#Rsubstantianigra");
+            this.updateObject(rSubstantiaNigra, state.brain.rSubstantiaNigra);
+
+            rGlobusPallidus = brainParts.querySelector("#Rglobuspallidus");
+            this.updateObject(rGlobusPallidus, state.brain.rGlobusPallidus);
+        }
+
+        this.updateObject = function(obj, state) {
+            obj.setAttribute("position", state.pos); 
+            obj.setAttribute("rotation", state.rot);
+            obj.setAttribute("material", {color: state.col});
         }
 
         this.share = function () {
