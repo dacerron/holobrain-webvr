@@ -2,7 +2,7 @@ AFRAME.registerComponent("eduroomstudent", {
     schema: { type: 'vec3' },
 
     init: function () {
-        this.sessionKey = 5159;
+        this.sessionKey = 5895;
 
         //TODO: extend this function with ActiveXML and others if we want to support more browsers
         this.makeXHR = function () {

@@ -9,6 +9,7 @@ AFRAME.registerComponent('eduroomteacher', {
             return new XMLHttpRequest();
         };
 
+/*
         var session = {
             audio: true,
             video: false
@@ -16,7 +17,6 @@ AFRAME.registerComponent('eduroomteacher', {
         function onError(e) {
             console.log("there was a problem getting user media");
         }
-
         function initializeRecorder(mediaStream) {
             var audioContext = window.AudioContext;
             var context = new audioContext();
@@ -39,6 +39,7 @@ AFRAME.registerComponent('eduroomteacher', {
         client.on('open', function() {
             window.Stream = client.createStream;
         });
+*/
 
         this.sendState = function () {
             return new Promise(function (resolve, reject) {
