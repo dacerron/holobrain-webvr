@@ -2,7 +2,6 @@ AFRAME.registerComponent("eduroomstudent", {
     schema: { type: 'vec3' },
 
     init: function () {
-        this.sessionKey = 49790;
 
         //TODO: extend this function with ActiveXML and others if we want to support more browsers
         this.makeXHR = function () {
@@ -12,7 +11,7 @@ AFRAME.registerComponent("eduroomstudent", {
         this.fetchState = function () {
             return new Promise(function (resolve, reject) {
                 var req = this.makeXHR();
-                req.open('GET', '/student/getEducationalState?key=' + this.sessionKey);
+                req.open('GET', '/student/getEducationalState?key=' + Number.parseInt(CookieParser.grabCookie("session")));
                 req.onload = function () {
                     if (req.status === 200) {
                         this.setState(JSON.parse(req.response));

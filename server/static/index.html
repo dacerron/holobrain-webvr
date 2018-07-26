@@ -16,43 +16,59 @@
       font-weight: 300;
     }
 
-    a {
+    .link {
       color: #FAFAFA;
       /*display: block;*/
       padding: 15px 0;
+      grid-column: 1 / 2;
     }
 
-    body>div {
+    .link:hover {
+      color: #ffcc99;
+      cursor: pointer;
+    }
+
+    .session-key {
+      padding-left: 2em;
+      grid-column: 2 / 3;
+    }
+
+    .group {
       margin: 20px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      width: 100%;
     }
   </style>
+  <script type="text/javascript" src="/rooms/js/index.js"></script>
 </head>
 
 <body>
   <h1>Networked Holobrain</h1>
-  <div>
-    <a href="/rooms/educational-room-teacher">Educational Room (Teacher)</a>
+  <div class="group">
+    <p class="link" value="/rooms/educational-room-teacher">Educational Room (Teacher)</p>
   </div>
-  <div>
-    <a href="/rooms/educational-room-student">Educational Room (Student)</a>
+  <div class="group">
+    <p class="link student" value="/rooms/educational-room-student">Educational Room (Student)</p><input class="session-key" placeholder="enter session key" type="text"/>
   </div>
-  <div>
-    <a href="/rooms/brain-cell-teacher">Brain Cell Room (Teacher)</a>
+  <div class="group">
+    <p class="link" value="/rooms/brain-cell-teacher">Brain Cell Room (Teacher)</p>
   </div>
-  <div>
-    <a href="/rooms/brain-cell-student">Brain Cell Room (Student)</a>
+  <div class="group">
+    <p class="link student" value="/rooms/brain-cell-student">Brain Cell Room (Student)</p><input class="session-key" placeholder="enter session key" type="text"/>
   </div>
-  <div>
-    <a href="/rooms/MRI-room-teacher">MRI Room (Teacher)</a>
+  <div class="group">
+    <p class="link" value="/rooms/MRI-room-teacher">MRI Room (Teacher)</p>
   </div>
-  <div>
-    <a href="/rooms/MRI-room-student">MRI Room (Student)</a>
+  <div class="group">
+    <p class="link student" value="/rooms/MRI-room-student">MRI Room (Student)</p><input class="session-key" placeholder="enter session key" type="text"/>
   </div>
-  <div>
-    <a href="/rooms/fMRI-room-teacher">fMRI Room (Teacher)</a>
+  <div class="group">
+    <p class="link" value="/rooms/fMRI-room-teacher">fMRI Room (Teacher)</p>
   </div>
-  <div>
-    <a href="/rooms/fMRI-room-teacher">fMRI Room (Student)</a>
+  <div class="group">
+    <p class="link student" value="/rooms/fMRI-room-teacher">fMRI Room (Student)</p><input class="session-key" placeholder="enter session key" type="text"/>
   </div>
   <br>
   <style>

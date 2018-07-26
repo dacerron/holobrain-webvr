@@ -10,7 +10,7 @@ var Env = require('./env.js');
 //var Audio = require('./audio.js');
 
 app.use('/rooms/public', express.static(path.join(__dirname, 'static/public')));
-app.use('/rooms/js/', express.static(path.join(__dirname, 'static//js')));
+app.use('/rooms/js/', express.static(path.join(__dirname, 'static/js')));
 app.use(bodyParser.json());
 
 Comm.init(app);
