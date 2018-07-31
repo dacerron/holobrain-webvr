@@ -8,7 +8,7 @@ var Comm = (function () {
         session.key = Math.round(Math.random() * 100000); //TODO: this should to avoid collisions
         session.body = body;
         session.roomType = type;
-        session.binaryServer = Audio.createBinaryServer(app, session.key);
+        //session.binaryServer = Audio.createBinaryServer(app, session.key);
         return session;
     }
 

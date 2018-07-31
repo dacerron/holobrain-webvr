@@ -3,12 +3,12 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const http = require("http");
 
-
 const app = express();
 
+var server = http.Server(app);
+var io  = require('socket.io')(server);
 var Comm = require('./comm.js');
 var Env = require('./env.js');
-//var Audio = require('./audio.js');
 
 app.use('/rooms/public', express.static(path.join(__dirname, 'static/public')));
 app.use('/rooms/js/', express.static(path.join(__dirname, 'static/js')));
@@ -52,6 +52,11 @@ app.get('/', (req, res) => {
 });
 
 Comm.init(app);
-app.listen(Env.port, () => {
+
+io.on('connection', function(socket) {
+    console.log('a user connected');
+})
+
+server.listen(Env.port, () => {
     console.log("the app is listening on port " + Env.port)
 });
