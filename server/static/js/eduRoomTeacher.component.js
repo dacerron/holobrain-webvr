@@ -290,10 +290,10 @@ AFRAME.registerComponent('eduroomteacher', {
                 var onError = function(e) {
                     console.log(e);
                 }
-                var initializeRecorder = function(stream) {
+                var initializeRecorder = function(mediaStream) {
                     var audioContext = window.AudioContext;
                     var context = new audioContext();
-                    var audioInput = context.createMediaStreamSource(stream);
+                    var audioInput = context.createMediaStreamSource(mediaStream);
                     var bufferSize = 2048;
                     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
                     recorder.onaudioprocess = recorderProcess;

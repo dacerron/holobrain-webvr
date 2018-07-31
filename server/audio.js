@@ -24,6 +24,8 @@ var Audio = (function() {
                 })
             });
         });
+        console.log("created binary server for " + sessionKey);
+        return binaryServer;
     }
 
     return {
