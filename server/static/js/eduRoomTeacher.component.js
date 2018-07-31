@@ -281,6 +281,7 @@ AFRAME.registerComponent('eduroomteacher', {
             if (sessionRequest.status === 200) {
                 console.log("created session, key: " + sessionRequest.response)
                 this.sessionKey = sessionRequest.response;
+                var stream;
                 //session is created, connect to audio server
                 var session = {
                     audio: true,
@@ -304,12 +305,12 @@ AFRAME.registerComponent('eduroomteacher', {
 
                 var recorderProcess = function(e) {
                     var left = e.inputBuffer.getChannelData(0);
-                    window.Stream.write(left);
+                    stream.write(left);
                 }
 
                 var client = new BinaryClient(location.origin.replace(/^http/, 'ws') + '/' +  this.sessionKey + "/audio");
                 client.on('open', function() {
-                    window.Stream = client.createStream;
+                    stream = client.createStream;
                 });
                 this.share();
             }
