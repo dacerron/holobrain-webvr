@@ -1,33 +1,33 @@
 var Audio = (function() {
-    var init = function(port) {
-        var binaryServer = require('binaryjs').BinaryServer;
-        var wav = require('wav');
+    var BinaryServer = require('binaryjs').BinaryServer;
+    
+    function createBinaryServer(server, sessionKey) {
+        var binaryServer = new BinaryServer({server: server, path: '/' + sessionKey + "/audio"});
+        binaryServer.on('connection', function(client) {
+            console.log('audio connection started');
 
-        var server = binaryServer({port: port});
-
-        server.on('connection', function(client) {
-            var fileWriter = null;
             client.on('stream', function(stream, meta) {
-                var fileWriter = new wav.FileWriter('demo.wav', {
-                    channels: 1,
-                    sampleRate: 48000,
-                    bitDepth: 16
-                });
-                stream.pipe(fileWriter);
-                stream.on('end', function() {
-                    fileWriter.end();
-                });
-            });
+                console.log(">>>Incoming audio stream");
 
-            client.on('close', function() {
-                if (fileWriter != null) {
-                    fileWrite.end();
+                //broadcast to other clients
+                for(var id in binaryServer.client) {
+                    if(binaryServer.clients.hasOwnProperty(id)) {
+                        var otherClient = binaryServer.clients[id];
+                        if(otherClient != client) {
+                            var send = otherClient.createStream(meta);
+                            stream.pipe(send);
+                        }
+                    }
                 }
+                stream.on('end', function() {
+                    console.log("|||Audio stream ended");
+                })
             });
         });
-    } 
+    }
+
     return {
-        init
+        createBinaryServer
     }
 })()
 

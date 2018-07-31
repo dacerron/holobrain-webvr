@@ -9,12 +9,10 @@ AFRAME.registerComponent('change-color-on-hover', {
       var defaultColor = '#c2d2ea';
 
       el.addEventListener('mouseenter', function (e) {
-        console.log("enter");
         el.setAttribute('material', {color: data.color});
       });
 
       el.addEventListener('mouseleave', function (e) {
-        console.log("leave");
         el.setAttribute('material', {color: defaultColor});
       });
     }

@@ -1,3 +1,4 @@
+var Audio = require("./audio.js");
 var Comm = (function () {
     //sessions will have info that is relevant to the specific 
     var sessions = {};
@@ -10,12 +11,13 @@ var Comm = (function () {
         return session;
     }
 
-    var init = function (app) {
+    var init = function (app, server) {
         //add element to session array
         app.put('/teacher/createEducationalSession', (req, res) => {
             let session = createSession(req.body, "edu");
             sessions[session.key] = session;
             res.status(200);
+            //start binary server for this session's audio
             res.send("" + session.key);
         });
 
@@ -34,6 +36,7 @@ var Comm = (function () {
             sessions[req.body.key] = req.body;
             res.status(200);
             res.send("" + req.body.key);
+
         });
 
         app.post('/teacher/shareBrainCellState', (req, res) => {

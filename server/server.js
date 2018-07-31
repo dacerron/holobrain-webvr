@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const http = require("http");
 
 
 const app = express();
@@ -13,7 +14,6 @@ app.use('/rooms/public', express.static(path.join(__dirname, 'static/public')));
 app.use('/rooms/js/', express.static(path.join(__dirname, 'static/js')));
 app.use(bodyParser.json());
 
-Comm.init(app);
 
 app.get('/rooms/brain-cell-teacher', (req, res) => {
     res.sendFile('brainCellRoomTeacher.html', {root: path.join(__dirname, 'static')});
@@ -51,6 +51,8 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, 'static')})
 });
 
-app.listen(Env.port, () => {
+var server = http.createServer(app)
+Comm.init(app, server);
+server.listen(Env.port, () => {
     console.log("the app is listening on port " + Env.port)
 });

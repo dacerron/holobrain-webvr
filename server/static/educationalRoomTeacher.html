@@ -6,8 +6,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
   <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-  <script src="//www.WebRTC-Experiment.com/RecordRTC.js"></script>
-  <script src="https://cdn.binaryjs.com/0/binary.js"></script>
+  <script type="text/javascript" src="js/binary.js"></script>
   <script type="text/javascript" src="js/env.js"></script>
   <script type="text/javascript" src="js/cookieParser.js"></script>
   <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
@@ -35,36 +34,67 @@
   <!--This needs to be moved to a seperate file START-->
   <script>
     function myThalFunction() {
-      document.getElementById("isolated-Thalamus").setAttribute('color', 'yellow');
+      let col = document.getElementById("isolated-Thalamus").getAttribute("material").color;
+      if(col === "yellow") {
+        document.getElementById("isolated-Thalamus").setAttribute('material', {color:'#c2d2ea'});
+      } else {
+        document.getElementById("isolated-Thalamus").setAttribute("material", {color: "yellow"});
+      }
+
     }
   </script>
   <script>
     function mySubThalFunction() {
-      document.getElementById("isolated-Subthalamic").setAttribute('color', 'purple');
+      if(document.getElementById("isolated-Subthalamic").getAttribute("material").color === "purple") {
+        document.getElementById("isolated-Subthalamic").setAttribute('material', {color: '#c2d2ea'});
+      } else {
+        document.getElementById("isolated-Subthalamic").setAttribute('material', {color: 'purple'});
+      }
     }
   </script>
   <script>
     function mySubstanFunction() {
-      document.getElementById("isolated-Lsubstantianigra").setAttribute('color', 'red');
-      document.getElementById("isolated-Rsubstantianigra").setAttribute('color', 'red');
+      if(document.getElementById("isolated-Lsubstantianigra").getAttribute('material').color === 'red') {
+        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', {color:'#c2d2ea'});
+        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', {color:'#c2d2ea'});
+      } else {
+        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', {color:'red'});
+        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', {color:'red'});
+      }
     }
   </script>
   <script>
     function myPutaFunction() {
-      document.getElementById("isolated-Lputamen").setAttribute('color', 'orange');
-      document.getElementById("isolated-Rputamen").setAttribute('color', 'orange');
+      if(document.getElementById("isolated-Lputamen").getAttribute('material').color === 'orange') {
+        document.getElementById("isolated-Lputamen").setAttribute('material', {color:'#c2d2ea'});
+        document.getElementById("isolated-Rputamen").setAttribute('material', {color:'#c2d2ea'});
+      } else {
+        document.getElementById("isolated-Lputamen").setAttribute("material", {color: 'orange'});
+        document.getElementById("isolated-Rputamen").setAttribute("material", {color: 'orange'});
+      }
     }
   </script>
   <script>
     function myCaudFunction() {
-      document.getElementById("isolated-Lcaudate").setAttribute('color', 'teal');
-      document.getElementById("isolated-Rcaudate").setAttribute('color', 'teal');
+      if(document.getElementById("isolated-Lcaudate").getAttribute("material").color === "teal") {
+        document.getElementById("isolated-Lcaudate").setAttribute("material", {color: "#c2d2ea"});
+        document.getElementById("isolated-Rcaudate").setAttribute("material", {color: "#c2d2ea"});
+      } else {
+        document.getElementById("isolated-Lcaudate").setAttribute('material', {color:'teal'});
+        document.getElementById("isolated-Rcaudate").setAttribute('material', {color:'teal'});
+      }
     }
   </script>
   <script>
     function myGlobFunction() {
-      document.getElementById("isolated-Lglobuspallidus").setAttribute('color', 'green');
-      document.getElementById("isolated-Rglobuspallidus").setAttribute('color', 'green')
+      if(document.getElementById("isolated-Lglobuspallidus").getAttribute("material").color === "green")
+      {
+        document.getElementById('isolated-Lglobuspallidus').setAttribute("material", {color: "#c2d2ea"});
+        document.getElementById('isolated-Rglobuspallidus').setAttribute("material", {color: "#c2d2ea"});
+      } else {
+        document.getElementById("isolated-Lglobuspallidus").setAttribute('material', {color:'green'});
+        document.getElementById("isolated-Rglobuspallidus").setAttribute('material', {color:'green'})
+      }
     }
   </script>
   <!--This needs to be moved to a seperate file END-->
@@ -198,27 +228,27 @@
       </a-gui-button>
 
       <a-gui-button id="thalamusButton" class="interactible" position="-4.5 -0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction()">
+        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction">
       </a-gui-button>
 
       <a-gui-button id="subthalamicButton" class="interactible" position="-4.5 -0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction()">
+        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction">
       </a-gui-button>
 
       <a-gui-button id="caudateButton" class="interactible" position="-4.5 -1.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction()">
+        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction">
       </a-gui-button>
 
       <a-gui-button id="globusButton" class="interactible" position="-4.5 -1.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction()">
+        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction">
       </a-gui-button>
 
       <a-gui-button id="putamenButton" class="interactible" position="-4.5 0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction()">
+        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction">
       </a-gui-button>
 
       <a-gui-button id="substantiaButton" class="interactible" position="-4.5 0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction()">
+        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction">
       </a-gui-button>
     </a-entity>
     <a-entity id="player" wasd-controls>

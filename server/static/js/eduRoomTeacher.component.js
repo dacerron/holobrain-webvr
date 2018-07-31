@@ -9,38 +9,6 @@ AFRAME.registerComponent('eduroomteacher', {
             return new XMLHttpRequest();
         };
 
-/*
-        var session = {
-            audio: true,
-            video: false
-        };
-        function onError(e) {
-            console.log("there was a problem getting user media");
-        }
-        function initializeRecorder(mediaStream) {
-            var audioContext = window.AudioContext;
-            var context = new audioContext();
-            var audioInput = context.createMediaStreamSource(stream);
-            var bufferSize = 2048;
-            var recorder = context.createJavaScriptNode(bufferSize, 1, 1);
-            recorder.onaudioprocess = recorderProcess;
-            audioInput.connect(recorder);
-            recorder.connect(context.destination);
-        }
-        var recordRTC = null;
-        navigator.getUserMedia(session, initializeRecorder, onError);
-
-        var recorderProcess = function(e) {
-            var left = e.inputBuffer.getChannelData(0);
-            window.Stream.write(left);
-        }
-
-        var client = new BinaryClient("ws://" + Env.addr + ":" + Env.port);
-        client.on('open', function() {
-            window.Stream = client.createStream;
-        });
-*/
-
         this.sendState = function () {
             return new Promise(function (resolve, reject) {
                 var req = this.makeXHR();
@@ -313,6 +281,36 @@ AFRAME.registerComponent('eduroomteacher', {
             if (sessionRequest.status === 200) {
                 console.log("created session, key: " + sessionRequest.response)
                 this.sessionKey = sessionRequest.response;
+                //session is created, connect to audio server
+                var session = {
+                    audio: true,
+                    video: false
+                };
+                var onError = function(e) {
+                    console.log("there was a problem getting user media");
+                }
+                var initializeRecorder = function(mediaStream) {
+                    var audioContext = window.AudioContext;
+                    var context = new audioContext();
+                    var audioInput = context.createMediaStreamSource(stream);
+                    var bufferSize = 2048;
+                    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+                    recorder.onaudioprocess = recorderProcess;
+                    audioInput.connect(recorder);
+                    recorder.connect(context.destination);
+                }
+                var recordRTC = null;
+                navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
+
+                var recorderProcess = function(e) {
+                    var left = e.inputBuffer.getChannelData(0);
+                    window.Stream.write(left);
+                }
+
+                var client = new BinaryClient("ws://" + Env.addr + ":" + Env.port + "/" + this.sessionKey + "/audio");
+                client.on('open', function() {
+                    window.Stream = client.createStream;
+                });
                 this.share();
             }
         }.bind(this);
