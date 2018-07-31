@@ -287,7 +287,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     video: false
                 };
                 var onError = function(e) {
-                    console.log("there was a problem getting user media");
+                    console.log(e);
                 }
                 var initializeRecorder = function(mediaStream) {
                     var audioContext = window.AudioContext;
