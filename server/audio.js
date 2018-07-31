@@ -2,7 +2,7 @@ var Audio = (function() {
     var BinaryServer = require('binaryjs').BinaryServer;
     
     function createBinaryServer(server, sessionKey) {
-        var binaryServer = new BinaryServer({server: server, path: '/' + sessionKey + '/audio'});
+        var binaryServer = new BinaryServer({server: server});
         binaryServer.on('connection', function(client) {
             console.log('audio connection started');
 
