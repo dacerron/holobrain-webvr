@@ -309,9 +309,7 @@ AFRAME.registerComponent('eduroomteacher', {
                 }
 
                 var client = new BinaryClient(location.origin.replace(/^http/, 'ws') + '/binary-endpoint');
-                client.on('open', function() {
-                    stream = client.createStream();
-                });
+                client.createStream({data: 'audio'});
                 this.share();
             }
         }.bind(this);
