@@ -307,7 +307,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     window.Stream.write(left);
                 }
 
-                var client = new BinaryClient("ws://" + Env.addr + ":" + Env.port + "/" + this.sessionKey + "/audio");
+                var client = new BinaryClient(location.origin.replace(/^http/, 'ws') + '/' +  this.sessionKey + "/audio");
                 client.on('open', function() {
                     window.Stream = client.createStream;
                 });
