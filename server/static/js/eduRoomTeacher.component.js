@@ -308,11 +308,11 @@ AFRAME.registerComponent('eduroomteacher', {
                     stream.write(left);
                 }
 
-                var client = new BinaryClient(location.origin.replace(/^http/, 'ws') + '/' + this.sessionKey + '/audio');
+                var client = new BinaryClient(location.origin + '/' + this.sessionKey + '/audio');
                 client.on('open', function() {
                     stream = client.createStream({data: 'audio'});
                 })
-                //this.share();
+                this.share();
             }
         }.bind(this);
         sessionRequest.setRequestHeader('Content-Type', 'application/json');
