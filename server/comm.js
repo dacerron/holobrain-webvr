@@ -3,19 +3,19 @@ var Comm = (function () {
     //sessions will have info that is relevant to the specific 
     var sessions = {};
 
-    var createSession = function(body, type, binaryServer) {
+    var createSession = function(body, type, app) {
         let session = {};
         session.key = Math.round(Math.random() * 100000); //TODO: this should to avoid collisions
         session.body = body;
         session.roomType = type;
-        session.binaryServer = Audio.createBinaryServer(app, session.key)
+        session.binaryServer = Audio.createBinaryServer(app, session.key);
         return session;
     }
 
     var init = function (app) {
         //add element to session array
         app.put('/teacher/createEducationalSession', (req, res) => {
-            let session = createSession(req.body, "edu", );
+            let session = createSession(req.body, "edu", app);
             sessions[session.key] = session;
             res.status(200);
             //start binary server for this session's audio
