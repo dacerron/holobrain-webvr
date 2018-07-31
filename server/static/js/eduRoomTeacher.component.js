@@ -312,7 +312,7 @@ AFRAME.registerComponent('eduroomteacher', {
                 client.on('open', function() {
                     stream = client.createStream({data: 'audio'});
                 })
-                this.share();
+                //this.share();
             }
         }.bind(this);
         sessionRequest.setRequestHeader('Content-Type', 'application/json');
