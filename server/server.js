@@ -51,8 +51,7 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, 'static')})
 });
 
-var server = http.createServer(app)
-Comm.init(app, server);
+Comm.init(app);
 server.listen(Env.port, () => {
     console.log("the app is listening on port " + Env.port)
 });

@@ -11,12 +11,13 @@ var Comm = (function () {
         return session;
     }
 
-    var init = function (app, server) {
+    var init = function (app) {
         //add element to session array
         app.put('/teacher/createEducationalSession', (req, res) => {
             let session = createSession(req.body, "edu");
             sessions[session.key] = session;
             res.status(200);
+            Audio.createBinaryServer(app, session.key);
             //start binary server for this session's audio
             res.send("" + session.key);
         });
