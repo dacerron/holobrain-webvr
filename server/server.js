@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 });
 
 var io  = require('socket.io')(server);
-Comm.init(app, server, io);
+Comm.init(app, io);
 
 server.listen(Env.port, () => {
     console.log("the app is listening on port " + Env.port)
