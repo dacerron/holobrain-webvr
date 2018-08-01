@@ -3,7 +3,7 @@ var Comm = (function () {
     //sessions will have info that is relevant to the specific 
     var sessions = {};
 
-    var createSession = function(body, type, server) {
+    var createSession = function(body, type, io) {
         let session = {};
         session.key = Math.round(Math.random() * 100000); //TODO: this should to avoid collisions
         session.body = body;
