@@ -307,6 +307,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     stream.write(left);
                 }
                 
+                var ss = require("js/socket.io-strea.js");
                 stream = ss.createStream();
                 var socket = io(window.location.origin + '/' + this.sessionKey);
                 ss(socket).emit('audio', stream)
