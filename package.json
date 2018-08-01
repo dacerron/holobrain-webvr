@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "*",
+    "browserify": "^16.2.2",
     "express": "*",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
