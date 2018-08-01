@@ -1,36 +1,28 @@
 var Audio = (function() {
-    var BinaryServer = require('binaryjs').BinaryServer;
     var Env = require("./env.js");
+    var ss = require('socket.io-stream');
     
-    function createBinaryServer(server, sessionKey) {
-        var binaryServer = new BinaryServer({port: });
-        binaryServer.on('connection', function(client) {
-            console.log('audio connection started');
-
-            client.on('stream', function(stream, meta) {
-                console.log(">>>Incoming audio stream");
-
-                //broadcast to other clients
-                for(var id in binaryServer.client) {
-                    if(binaryServer.clients.hasOwnProperty(id)) {
-                        var otherClient = binaryServer.clients[id];
-                        if(otherClient != client) {
-                            var send = otherClient.createStream(meta);
-                            stream.pipe(send);
-                        }
+    function prepareAudioStream(sessionKey, io) {
+        var audio = io
+        .of('/' + sessionKey)
+        .on('connection', function(socket) {
+            ss(socket).on('audio', function(incomingstream, data) {
+                for(var i in io.connected) {
+                    if(io.connected[i].id != socket.id) {
+                        var socketTo = io.connected[i];
+                        var outgoingstream = ss.createStream();
+                        ss(socketTo).emit('play', outgoingstream, data);
+                        incomingstream.pipe(outgoingstream);
                     }
                 }
-                stream.on('end', function() {
-                    console.log("|||Audio stream ended");
-                })
             });
         });
-        console.log("created binary server for " + sessionKey);
-        return binaryServer;
+        console.log("audio stream ready");
+        return audio;
     }
 
     return {
-        createBinaryServer
+        prepareAudioStream
     }
 })()
 

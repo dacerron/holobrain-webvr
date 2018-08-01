@@ -301,14 +301,17 @@ AFRAME.registerComponent('eduroomteacher', {
                     recorder.connect(context.destination);
                 }
                 var recordRTC = null;
-                //navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
 
                 var recorderProcess = function(e) {
                     var left = e.inputBuffer.getChannelData(0);
                     stream.write(left);
                 }
 
-                var socket = io();
+                var ss = require('socket.io-stream');
+                stream = ss.createStream();
+                var socket = io(window.location.origin + '/' + this.sessionKey);
+                ss(socket).emit('audio', stream)
+                navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
                 this.share();
             }
         }.bind(this);
