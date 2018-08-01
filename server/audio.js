@@ -7,6 +7,7 @@ var Audio = (function() {
         .of('/' + sessionKey)
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream, data) {
+                console.log("starting audio stream");
                 for(var i in io.connected) {
                     if(io.connected[i].id != socket.id) {
                         var socketTo = io.connected[i];
