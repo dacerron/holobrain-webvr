@@ -307,12 +307,13 @@ AFRAME.registerComponent('eduroomteacher', {
                     stream.write(left);
                 }
                 
-                var ss = require("socket.io-stream");
-                stream = ss.createStream();
-                var socket = io(window.location.origin + '/' + this.sessionKey);
-                ss(socket).emit('audio', stream)
-                navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
-                this.share();
+                require("socket.io-stream", function(ss) {
+                    stream = ss.createStream();
+                    var socket = io(window.location.origin + '/' + this.sessionKey);
+                    ss(socket).emit('audio', stream)
+                    navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
+                    this.share();
+                }.bind(this));
             }
         }.bind(this);
         sessionRequest.setRequestHeader('Content-Type', 'application/json');
