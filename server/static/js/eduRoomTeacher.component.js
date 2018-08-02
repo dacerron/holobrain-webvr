@@ -308,9 +308,9 @@ AFRAME.registerComponent('eduroomteacher', {
                 }
                 
                
-                stream = Socket.createStream();
+                stream = ss.createStream();
                 var socket = io(window.location.origin + '/' + this.sessionKey);
-                Socket(socket).emit('audio', stream)
+                ss(socket).emit('audio', stream)
                 navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
                 this.share();
             }
