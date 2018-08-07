@@ -132,27 +132,18 @@ AFRAME.registerComponent("eduroomstudent", {
         var onError = function(e) {
             console.log(e);
         }
-        var initializeRecorder = function(mediaStream) {
-            var audioContext = window.AudioContext;
-            var context = new audioContext();
-            var audioInput = context.createMediaStreamSource(mediaStream);
-            var bufferSize = 2048;
-            var recorder = context.createScriptProcessor(bufferSize, 1, 1);
-            recorder.onaudioprocess = recorderProcess;
-            audioInput.connect(recorder);
-            recorder.connect(context.destination);
-        }
         var recordRTC = null;
 
         var recorderProcess = function(e) {
             var left = e.inputBuffer.getChannelData(0);
-            stream.write(left);
         }
                
         stream = ss.createStream();
+        var audioCtx = new AudioContext();
+        var source = audioCtx.createMediaStreamSource(stream);
+        source.connect(audioCtx.destination);
         var socket = io(window.location.origin + '/' + this.sessionKey);
-        ss(socket).emit('join')
-        navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
+        ss(socket).emit('join', stream)
         this.share();
     }
 });

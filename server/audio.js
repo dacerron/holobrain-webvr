@@ -12,12 +12,10 @@ var Audio = (function() {
                 console.log("starting audio stream");
             });
 
-            ss(socket).on('join', function() {
+            ss(socket).on('join', function(stream) {
                 console.log("student tried to join");
                 if(audioStream) {
-                    var outgoingstream = ss.createStream();
-                    ss(socketTo).emit('play', outgoingstream, data);
-                    audioStream.pipe(outgoingstream);
+                    audioStream.pipe(stream);
                 }
             });
         });
