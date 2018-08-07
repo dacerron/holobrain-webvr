@@ -124,11 +124,7 @@ AFRAME.registerComponent("eduroomstudent", {
         };
         
         var stream;
-                //session is created, connect to audio server
-        var session = {
-            audio: true,
-            video: false
-        };
+        //session is created, connect to audio server
 
         var initializePlayer = function(audioStream) {
             var audioCtx = new AudioContext();
@@ -145,7 +141,7 @@ AFRAME.registerComponent("eduroomstudent", {
         stream = ss.createStream();
         initializePlayer(stream);
         var socket = io(window.location.origin + '/' + this.sessionKey);
-        ss(socket).emit('join', stream)
+        ss(socket).emit('join', stream);
         this.share();
     }
 });

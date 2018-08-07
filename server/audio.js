@@ -9,17 +9,15 @@ var Audio = (function() {
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream) {
                 audioStream = incomingstream;
-                console.log("starting audio stream");
             });
 
             ss(socket).on('join', function(stream) {
-                console.log("student tried to join");
                 if(audioStream) {
+                    console.log("piping stream to student");
                     audioStream.pipe(stream);
                 }
             });
         });
-        console.log("audio stream ready");
         return audio;
     }
 
