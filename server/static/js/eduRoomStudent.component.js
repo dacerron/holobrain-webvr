@@ -140,7 +140,7 @@ AFRAME.registerComponent("eduroomstudent", {
                
         stream = ss.createStream();
         var audioCtx = new AudioContext();
-        var source = audioCtx.createMediaStreamSource(stream);
+        var source = audioCtx.createMediaStreamSource(new MediaStream(stream));
         source.connect(audioCtx.destination);
         var socket = io(window.location.origin + '/' + this.sessionKey);
         ss(socket).emit('join', stream)
