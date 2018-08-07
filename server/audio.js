@@ -9,6 +9,9 @@ var Audio = (function() {
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream) {
                 audioStream = incomingstream;
+                audioStream.on('data', function(chunk) {
+                    console.log(chunk);
+                });
             });
 
             ss(socket).on('join', function(stream) {
