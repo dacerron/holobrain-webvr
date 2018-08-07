@@ -2,6 +2,7 @@ AFRAME.registerComponent("eduroomstudent", {
     schema: { type: 'vec3' },
 
     init: function () {
+        this.sessionKey = Number.parseInt(CookieParser.grabCookie("session"));
 
         //TODO: extend this function with ActiveXML and others if we want to support more browsers
         this.makeXHR = function () {
@@ -11,7 +12,7 @@ AFRAME.registerComponent("eduroomstudent", {
         this.fetchState = function () {
             return new Promise(function (resolve, reject) {
                 var req = this.makeXHR();
-                req.open('GET', '/student/getEducationalState?key=' + Number.parseInt(CookieParser.grabCookie("session")));
+                req.open('GET', '/student/getEducationalState?key=' + this.sessionKey);
                 req.onload = function () {
                     if (req.status === 200) {
                         this.setState(JSON.parse(req.response));
@@ -121,7 +122,37 @@ AFRAME.registerComponent("eduroomstudent", {
                     }.bind(this));
             }.bind(this), 40);
         };
+        
+        var stream;
+                //session is created, connect to audio server
+        var session = {
+            audio: true,
+            video: false
+        };
+        var onError = function(e) {
+            console.log(e);
+        }
+        var initializeRecorder = function(mediaStream) {
+            var audioContext = window.AudioContext;
+            var context = new audioContext();
+            var audioInput = context.createMediaStreamSource(mediaStream);
+            var bufferSize = 2048;
+            var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+            recorder.onaudioprocess = recorderProcess;
+            audioInput.connect(recorder);
+            recorder.connect(context.destination);
+        }
+        var recordRTC = null;
 
+        var recorderProcess = function(e) {
+            var left = e.inputBuffer.getChannelData(0);
+            stream.write(left);
+        }
+               
+        stream = ss.createStream();
+        var socket = io(window.location.origin + '/' + this.sessionKey);
+        ss(socket).emit('join')
+        navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
         this.share();
     }
 });

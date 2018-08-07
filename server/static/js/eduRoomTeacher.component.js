@@ -306,7 +306,6 @@ AFRAME.registerComponent('eduroomteacher', {
                     var left = e.inputBuffer.getChannelData(0);
                     stream.write(left);
                 }
-                
                
                 stream = ss.createStream();
                 var socket = io(window.location.origin + '/' + this.sessionKey);
