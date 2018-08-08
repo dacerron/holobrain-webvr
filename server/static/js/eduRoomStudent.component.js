@@ -131,9 +131,9 @@ AFRAME.registerComponent("eduroomstudent", {
             var audioCtx = new context();
             var audioBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
             audioStream.on('data', function(data) {
+                console.log(JSON.stringify(data));
                 var nowBuffering = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
-                    console.log(data[i]);
                     nowBuffering[i] = data[i];
                 }
             });
