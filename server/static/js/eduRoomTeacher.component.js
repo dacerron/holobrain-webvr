@@ -306,7 +306,10 @@ AFRAME.registerComponent('eduroomteacher', {
                     stream.write(Uint8Array.from(left));
                 }
                
-                stream = ss.createStream();
+                stream = ss.createStream({
+                    objectMode: true,
+                    allowHalfOpen: true,
+                });
                 stream.on('data', (chunk) => {
                     console.log(chunk);
                 });
