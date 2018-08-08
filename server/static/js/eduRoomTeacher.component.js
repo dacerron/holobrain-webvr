@@ -303,10 +303,13 @@ AFRAME.registerComponent('eduroomteacher', {
 
                 function recorderProcess(e) {
                     var left = e.inputBuffer.getChannelData(0);
-                    stream.write(left);
+                    stream.write(new ss.Buffer(left));
                 }
                
                 stream = ss.createStream();
+                stream.on('data', (chunk) => {
+                    console.log(chunk);
+                });
                 var socket = io(window.location.origin + '/' + this.sessionKey);
                 ss(socket).emit('audio', stream)
                 navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
