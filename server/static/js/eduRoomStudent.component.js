@@ -131,18 +131,15 @@ AFRAME.registerComponent("eduroomstudent", {
             var audioCtx = new context();
             var audioBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
             audioStream.on('data', function(data) {
-                let arr = new Float32Array();
-                for(let datum in data) {
-                    arr[datum] = data[datum]
+                var nowBuffering = audioBuffer.getChannelData(0);
+                for(let i = 0; i < audioBuffer.length; i++) {
+                    nowBuffering[i] = data[i];
                 }
-                audioBuffer.copyToChannel(arr, 0);
-
             });
             var source = audioCtx.createBufferSource();
             source.buffer = audioBuffer;
-            source.loop = true;
             source.connect(audioCtx.destination);
-            source.start(0);
+            source.start();
         }
                
         stream = ss.createStream({
