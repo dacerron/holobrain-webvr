@@ -311,7 +311,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     allowHalfOpen: true,
                 });
                 stream.on('data', (chunk) => {
-                    console.log(chunk);
+                    console.log('data');
                 });
                 stream.on('error', (e) => {
                     console.log(e);
