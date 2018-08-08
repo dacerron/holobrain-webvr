@@ -287,10 +287,10 @@ AFRAME.registerComponent('eduroomteacher', {
                     audio: true,
                     video: false
                 };
-                var onError = function(e) {
+                function onError(e) {
                     console.log(e);
                 }
-                var initializeRecorder = function(mediaStream) {
+                function initializeRecorder(mediaStream) {
                     var audioContext = window.AudioContext;
                     var context = new audioContext();
                     var audioInput = context.createMediaStreamSource(mediaStream);
@@ -300,17 +300,14 @@ AFRAME.registerComponent('eduroomteacher', {
                     audioInput.connect(recorder);
                     recorder.connect(context.destination);
                 }
-                var recordRTC = null;
 
-                var recorderProcess = function(e) {
+                function recorderProcess(e) {
                     var left = e.inputBuffer.getChannelData(0);
+                    console.log(left);
                     stream.write(left);
                 }
                
                 stream = ss.createStream();
-                stream.on('data', (chunk) => {
-                    console.log(chunk);
-                })
                 var socket = io(window.location.origin + '/' + this.sessionKey);
                 ss(socket).emit('audio', stream)
                 navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
