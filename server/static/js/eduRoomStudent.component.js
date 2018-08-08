@@ -140,7 +140,7 @@ AFRAME.registerComponent("eduroomstudent", {
             var source = audioCtx.createBufferSource();
             source.buffer = audioBuffer;
             source.connect(audioCtx.destination);
-            source.start();
+            source.start(0);
         }
                
         stream = ss.createStream({
