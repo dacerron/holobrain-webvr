@@ -126,7 +126,7 @@ AFRAME.registerComponent("eduroomstudent", {
         var stream;
         //session is created, connect to audio server
 
-        var initializePlayer = function(audioStream) {
+        function initializePlayer(audioStream) {
             var audioCtx = new AudioContext();
             var audioBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
             audioStream.on('data', function(data) {
