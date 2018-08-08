@@ -3,24 +3,17 @@ var Audio = (function() {
     var ss = require('socket.io-stream');
     
     function prepareAudioStream(sessionKey, io) {
-        var audioStream;
+        var interStream = ss.createStream(); 
         var audio = io
         .of('/' + sessionKey)
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream, data) {
-                audioStream = incomingstream;
-                for(var i in io.connected) {
-                    if(io.connected[i].id != socket.id) {
-                        var socketTo = io.connected[i];
-                        var outgoingstream = ss.createStream();
-                        ss(socketTo).emit('play', outgoingstream, data);
-                        incomingstream.pipe(outgoingstream);
-                    }
-                }
+                incomingstream.pipe(interStream);
             });
             ss(socket).on('join', function(stream) {
-                if(audioStream) {
-                    audioStream.pipe(stream);
+                if(interStream) {
+                    interStream.pipe(stream);
+                    console.log("student joined");
                 }
             });
         });
