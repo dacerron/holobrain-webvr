@@ -139,7 +139,10 @@ AFRAME.registerComponent("eduroomstudent", {
             source.start();
         }
                
-        stream = ss.createStream();
+        stream = ss.createStream({
+            objectMode: true,
+            allowHalfOpen: true,
+        });
         initializePlayer(stream);
         var socket = io(window.location.origin + '/' + this.sessionKey);
         ss(socket).emit('join', stream);
