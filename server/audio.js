@@ -8,7 +8,10 @@ var Audio = (function() {
         .of('/' + sessionKey)
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream) {
-                interStream = new PassThrough();
+                interStream = new PassThrough({
+                    objectMode: true,
+                    allowHalfOpen: true
+                });
                 incomingstream.pipe(interStream);
                 console.log("piped incoming audio");
             });
