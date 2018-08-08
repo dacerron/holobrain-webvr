@@ -303,10 +303,6 @@ AFRAME.registerComponent('eduroomteacher', {
 
                 function recorderProcess(e) {
                     var left = e.inputBuffer.getChannelData(0);
-                    var right = e.outputBuffer.getChannelData(0);
-                    for(var sample = 0; sample < e.inputBuffer.length; sample++) {
-                        right[sample] = left[sample];
-                    }
                     stream.write(left);
                 }
                
