@@ -310,6 +310,9 @@ AFRAME.registerComponent('eduroomteacher', {
                 stream.on('data', (chunk) => {
                     console.log(chunk);
                 });
+                stream.on('error', (e) => {
+                    console.log(e);
+                })
                 var socket = io(window.location.origin + '/' + this.sessionKey);
                 ss(socket).emit('audio', stream)
                 navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
