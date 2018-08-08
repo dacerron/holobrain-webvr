@@ -303,7 +303,7 @@ AFRAME.registerComponent('eduroomteacher', {
 
                 function recorderProcess(e) {
                     var left = e.inputBuffer.getChannelData(0);
-                    stream.write(Uint8Array.from(left));
+                    stream.write(left);
                 }
                
                 stream = ss.createStream({
