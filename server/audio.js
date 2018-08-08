@@ -1,14 +1,16 @@
 var Audio = (function() {
-    var Env = require("./env.js");
-    var ss = require('socket.io-stream');
+    const ss = require('socket.io-stream');
+    const PassThrough = require('stream').PassThrough;
     
     function prepareAudioStream(sessionKey, io) {
-        var interStream = ss.createStream(); 
+        var interStream;
         var audio = io
         .of('/' + sessionKey)
         .on('connection', function(socket) {
-            ss(socket).on('audio', function(incomingstream, data) {
+            ss(socket).on('audio', function(incomingstream) {
+                interStream = new PassThrough();
                 incomingstream.pipe(interStream);
+                console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
                 if(interStream) {
