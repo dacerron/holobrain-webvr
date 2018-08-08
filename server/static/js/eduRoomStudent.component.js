@@ -135,6 +135,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 for(let datum in data) {
                     arr[datum] = data[datum]
                 }
+                console.log(data);
                 console.log(arr);
                 audioBuffer.copyToChannel(data, 0);
             });
