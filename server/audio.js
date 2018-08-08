@@ -3,18 +3,28 @@ var Audio = (function() {
     var ss = require('socket.io-stream');
     
     function prepareAudioStream(sessionKey, io) {
-        var interStream = ss.createStream();
+        var audioStream;
         var audio = io
         .of('/' + sessionKey)
         .on('connection', function(socket) {
-            ss(socket).on('audio', function(incomingstream) {
-                incomingstream.pipe(interStream);
+            ss(socket).on('audio', function(incomingstream, data) {
+                audioStream = incomingstream;
+                for(var i in io.connected) {
+                    if(io.connected[i].id != socket.id) {
+                        var socketTo = io.connected[i];
+                        var outgoingstream = ss.createStream();
+                        ss(socketTo).emit('play', outgoingstream, data);
+                        incomingstream.pipe(outgoingstream);
+                    }
+                }
             });
-
             ss(socket).on('join', function(stream) {
-                interStream.pipe(stream);
+                if(audioStream) {
+                    audioStream.pipe(stream);
+                }
             });
         });
+        console.log("audio stream ready");
         return audio;
     }
 
