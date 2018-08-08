@@ -12,6 +12,9 @@ var Audio = (function() {
                     objectMode: true,
                     allowHalfOpen: true
                 });
+                interStream.on('data', (data) => {
+                    console.log(data.toString());
+                });
                 incomingstream.pipe(interStream);
                 console.log("piped incoming audio");
             });
