@@ -133,6 +133,7 @@ AFRAME.registerComponent("eduroomstudent", {
             audioStream.on('data', function(data) {
                 var nowBuffering = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
+                    console.log(data[i]);
                     nowBuffering[i] = data[i];
                 }
             });
