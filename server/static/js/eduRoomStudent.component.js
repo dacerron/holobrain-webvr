@@ -124,27 +124,25 @@ AFRAME.registerComponent("eduroomstudent", {
         };
         
         var stream;
+        var {Writeable} = require('web-audio-stream/stream');
         //session is created, connect to audio server
 
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
             var audioCtx = new context();
+            let writable = Writable(audioCtx.destination, {
+                contex: audioCtx,
+                channels: 1,
+                sampleRate: audioCtx.sampleRate,
+                autoend: false
+            });
             audioStream.on('data', function(data) {
                 let audioBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
-                let nowBuffering = audioBuffer.getChannelData(0);
+                let chunk = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
-                    nowBuffering[i] = data[i];
+                    chunk[i] = data[i];
                 }
-                let source = audioCtx.createBufferSource();
-                audioCtx.decodeAudioData(nowBuffering.buffer)
-                .then((decodedData) => {
-                    source.buffer = decodedData;
-                    source.connect(audioCtx.destination);
-                    source.start(0);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
+                writable.write(chunk);
             });
         }
                
