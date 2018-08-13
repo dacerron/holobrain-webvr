@@ -129,7 +129,7 @@ AFRAME.registerComponent("eduroomstudent", {
             var i, l = Object.keys(incoming);
             var buff = new Float32Array(l);
             for(i = 0; i < l; i ++) {
-                buff[i] = incoming[i];
+                buff[i] = incoming["" + i];
             }
             return buff;
         }
