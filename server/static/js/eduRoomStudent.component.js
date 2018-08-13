@@ -130,7 +130,7 @@ AFRAME.registerComponent("eduroomstudent", {
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
             var audioCtx = new context();
-            let writable = Writable(audioCtx.destination, {
+            var writable = Writable(audioCtx.destination, {
                 contex: audioCtx,
                 channels: 1,
                 sampleRate: audioCtx.sampleRate,
