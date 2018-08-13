@@ -282,10 +282,6 @@ AFRAME.registerComponent('eduroomteacher', {
                 console.log("created session, key: " + sessionRequest.response)
                 this.sessionKey = sessionRequest.response;
                 var stream;
-                var AudioBufferStream = require('audio-buffer-stream');
-                var bufferStream = AudioBufferStream({
-                    channels: 1, 
-                });
                 //session is created, connect to audio server
                 var session = {
                     audio: true,
@@ -303,12 +299,11 @@ AFRAME.registerComponent('eduroomteacher', {
                     recorder.onaudioprocess = recorderProcess;
                     audioInput.connect(recorder);
                     recorder.connect(context.destination);
-                    bufferStream.pipe(stream);
                 }
 
                 function recorderProcess(e) {
-                    var left = e.inputBuffer;
-                    bufferStream.write(left);
+                    var left = e.inputBuffer.getChannelData(0);
+                    stream.write(left);
                 }
                
                 stream = ss.createStream({

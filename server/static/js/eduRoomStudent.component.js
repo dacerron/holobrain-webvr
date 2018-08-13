@@ -126,10 +126,10 @@ AFRAME.registerComponent("eduroomstudent", {
         var stream;
         //session is created, connect to audio server
         function convertBlock(incoming) {
-            var i, l = incoming.length;
+            var i, l = Object.keys(incoming.length);
             var buff = new Float32Array(l);
             for(i = 0; i < l; i ++) {
-                buff[i] = (incoming[i] - 128) / 128.0;
+                buff[i] = incoming[i];
             }
             return buff;
         }
