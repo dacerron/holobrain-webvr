@@ -137,6 +137,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 autoend: false
             });
             audioStream.on('data', function(data) {
+                console.log(Object.keys(data).length);
                 let audioBuffer = audioCtx.createBuffer(1, 2048, audioCtx.sampleRate);
                 let chunk = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
@@ -154,6 +155,6 @@ AFRAME.registerComponent("eduroomstudent", {
         initializePlayer(stream);
         var socket = io(window.location.origin + '/' + this.sessionKey);
         ss(socket).emit('join', stream);
-        //this.share();
+        this.share();
     }
 });
