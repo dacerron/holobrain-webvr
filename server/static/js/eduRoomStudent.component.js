@@ -138,7 +138,7 @@ AFRAME.registerComponent("eduroomstudent", {
                     nowBuffering[i] = data[i];
                 }
                 var source = audioCtx.createBufferSource();
-                audioCtx.decodeAudioData(nowBuffering).then((decodedData) => {
+                audioCtx.decodeAudioData(nowBuffering.buffer).then((decodedData) => {
                     source.buffer = decodedData;
                     source.connect(audioCtx.destination);
                     source.start(0);
