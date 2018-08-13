@@ -13,6 +13,7 @@
     "wav": "^1.0.2"
   },
   "devDependencies": {
+    "audio-buffer-stream": "^1.1.0",
     "binaryjs": "^0.2.1",
     "web-audio-stream": "^3.0.1"
   },
