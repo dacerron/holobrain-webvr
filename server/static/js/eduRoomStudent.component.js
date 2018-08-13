@@ -148,6 +148,8 @@ AFRAME.registerComponent("eduroomstudent", {
                     source.buffer = decoded;
                     source.connect(audioCtx.destination);
                     source.start();
+                }, function(err) {
+                    console.log(err.message);
                 })
 
             });
