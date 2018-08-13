@@ -294,7 +294,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     var audioContext = window.AudioContext;
                     var context = new audioContext();
                     var audioInput = context.createMediaStreamSource(mediaStream);
-                    var bufferSize = 2048; 
+                    var bufferSize = 1024; 
                     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
                     recorder.onaudioprocess = recorderProcess;
                     audioInput.connect(recorder);
@@ -313,7 +313,7 @@ AFRAME.registerComponent('eduroomteacher', {
                 var socket = io(window.location.origin + '/' + this.sessionKey);
                 ss(socket).emit('audio', stream)
                 navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
-                this.share();
+                //this.share();
             }
         }.bind(this);
         sessionRequest.setRequestHeader('Content-Type', 'application/json');
