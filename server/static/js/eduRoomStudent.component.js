@@ -124,8 +124,6 @@ AFRAME.registerComponent("eduroomstudent", {
         };
         
         var stream;
-        var AudioBufferStream = require('audio-buffer-stream');
-        var bufferStream = AudioBufferStream();
         //session is created, connect to audio server
 
         function initializePlayer(audioStream) {
