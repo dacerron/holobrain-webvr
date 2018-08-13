@@ -147,7 +147,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 buffer.copyToChannel(buff, 0);
                 source = audioCtx.createBufferSource();
                 source.connect(audioCtx.destination);
-                source.buffer = buff;
+                source.buffer = buffer;
                 source.start();
             });
         }
