@@ -131,7 +131,7 @@ AFRAME.registerComponent("eduroomstudent", {
             var context = window.AudioContext;
             var audioCtx = new context();
             var writable = Writable(audioCtx.destination, {
-                contex: audioCtx,
+                context: audioCtx,
                 channels: 1,
                 sampleRate: audioCtx.sampleRate,
                 autoend: false
