@@ -143,7 +143,7 @@ AFRAME.registerComponent("eduroomstudent", {
                     source.stop();
                 }
                 let buff = convertBlock(data); 
-                audioCtx.decodeAudioData(buff.buffer, function(decoded) {
+                audioCtx.decodeAudioData(buff, function(decoded) {
                     source = audioCtx.createBufferSource();
                     source.buffer = decoded;
                     source.connect(audioCtx.destination);
