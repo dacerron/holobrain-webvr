@@ -8088,141 +8088,6 @@ if (typeof TypedArray !== 'undefined') {
 }
 },{}],51:[function(require,module,exports){
 /**
- * @module  web-audio-stream/reader
- *
- * Read data from web-audio
- */
-
-'use strict';
-
-const extend = require('object-assign');
-
-module.exports = WAAReader;
-
-
-
-//@constructor
-function WAAReader (sourceNode, options) {
-	if (!sourceNode || !sourceNode.context) throw Error('Pass AudioNode instance first argument');
-
-	if (!options) {
-		options = {};
-	}
-
-	let context = sourceNode.context;
-
-	options = extend({
-		//the only available option for now
-		mode: WAAReader.SCRIPT_MODE,
-
-		samplesPerFrame: 1024
-	}, options);
-
-
-	let release;
-
-	//TODO: gate by SCRIPT_MODE
-	let node = context.createScriptProcessor(options.samplesPerFrame, options.channels, options.channels);
-
-	node.addEventListener('audioprocess', e => {
-		let cb = release;
-		release = null;
-		cb && cb(null, e.inputBuffer);
-	});
-
-	//scriptProcessor is active only being connected to output
-	sourceNode.connect(node);
-	node.connect(context.destination);
-
-	read.end = function () {
-		node.disconnect();
-		release = null;
-	}
-
-	return read;
-
-	function read (cb) {
-		if (cb === null) return read.end();
-
-		release = cb;
-	}
-
-}
-
-// WAAReader.WORKER_MODE = 2;
-// WAAReader.ANALYZER_MODE = 0;
-WAAReader.SCRIPT_MODE = 1;
-
-},{"object-assign":47}],52:[function(require,module,exports){
-/**
- * @module  web-audio-stram/readable
- *
- * Pipe web-audio to stream
- */
-
-'use strict';
-
-
-const inherits = require('inherits');
-const Readable = require('stream').Readable;
-const createReader = require('./read');
-
-module.exports = WAAReadable;
-
-
-inherits(WAAReadable, Readable);
-
-
-//@constructor
-function WAAReadable (node, options) {
-	if (!(this instanceof WAAReadable)) return new WAAReadable(node, options);
-
-	let read = createReader(node, options);
-
-	Readable.call(this, {
-		objectMode: true,
-
-		//to keep processing delays very short, in case of RT binding.
-		//otherwise each stream will hoard data and release only when it’s full.
-		highWaterMark: 0,
-
-		read: function (size) {
-			if (size === null) read.end();
-
-			read((err, buffer) => {
-				if (!err) this.push(buffer);
-			});
-		}
-	});
-
-	this.end = function () {
-		read.end();
-		return this;
-	}
-}
-
-// WAAReadable.WORKER_MODE = 2;
-// WAAReadable.ANALYZER_MODE = 0;
-WAAReadable.SCRIPT_MODE = 1;
-
-WAAReadable.prototype.mode = WAAReadable.prototype.SCRIPT_MODE;
-
-},{"./read":51,"inherits":39,"stream":27}],53:[function(require,module,exports){
-/**
- * @module web-audio-stream/stream
- */
-'use strict';
-
-var Writable = require('./writable');
-var Readable = require('./readable');
-
-Writable.Writable = Writable;
-Writable.Readable = Readable;
-
-module.exports = Writable;
-
-},{"./readable":52,"./writable":54}],54:[function(require,module,exports){
-/**
  * @module  web-audio-stream/writable
  *
  * Write stream data to web-audio.
@@ -8332,7 +8197,7 @@ WAAWritable.prototype.end = function () {
 	return this;
 };
 
-},{"./write":55,"inherits":39,"stream":27}],55:[function(require,module,exports){
+},{"./write":52,"inherits":39,"stream":27}],52:[function(require,module,exports){
 /**
  * @module  web-audio-stream/write
  *
@@ -8565,7 +8430,7 @@ function WAAWriter (target, options) {
 	}
 }
 
-},{"audio-buffer-list":32,"audio-buffer-utils":33,"is-audio-buffer":40,"object-assign":47,"pcm-util":48}],56:[function(require,module,exports){
+},{"audio-buffer-list":32,"audio-buffer-utils":33,"is-audio-buffer":40,"object-assign":47,"pcm-util":48}],53:[function(require,module,exports){
 AFRAME.registerComponent("eduroomstudent", {
     schema: { type: 'vec3' },
 
@@ -8692,13 +8557,13 @@ AFRAME.registerComponent("eduroomstudent", {
         };
         
         var stream;
-        var {Writeable} = require('web-audio-stream/stream');
+        const Writable = require('web-audio-stream/writable');
         //session is created, connect to audio server
 
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
             var audioCtx = new context();
-            let writable = Writable(audioCtx.destination, {
+            var writable = Writable(audioCtx.destination, {
                 contex: audioCtx,
                 channels: 1,
                 sampleRate: audioCtx.sampleRate,
@@ -8724,4 +8589,4 @@ AFRAME.registerComponent("eduroomstudent", {
         this.share();
     }
 });
-},{"web-audio-stream/stream":53}]},{},[56]);
+},{"web-audio-stream/writable":51}]},{},[53]);

@@ -124,7 +124,7 @@ AFRAME.registerComponent("eduroomstudent", {
         };
         
         var stream;
-        var {Writable} = require('web-audio-stream/writable');
+        const Writable = require('web-audio-stream/writable');
         //session is created, connect to audio server
 
         function initializePlayer(audioStream) {
