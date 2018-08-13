@@ -140,7 +140,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 for(let i = 0; i < audioBuffer.length; i++) {
                     chunk[i] = data[i];
                 }
-                source = audioCtx.decodeAudioData();
+                source = audioCtx.createBufferSourceNode();
                 source.buffer = audioBuffer;
                 source.connect(audioCtx.destination);
                 source.start(audioCtx.currentTime);
