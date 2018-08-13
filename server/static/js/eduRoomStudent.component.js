@@ -142,7 +142,8 @@ AFRAME.registerComponent("eduroomstudent", {
                 for(let i = 0; i < audioBuffer.length; i++) {
                     chunk[i] = data[i];
                 }
-                writable.write(chunk);
+                audioBuffer.copyToChannel(chunk, 0);
+                writable.write(audioBuffer);
             });
         }
                
