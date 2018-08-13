@@ -294,12 +294,16 @@ AFRAME.registerComponent('eduroomteacher', {
                     var audioContext = window.AudioContext;
                     var context = new audioContext();
                     var audioInput = context.createMediaStreamSource(mediaStream);
-                    var destination = context.createMediaStreamDestination()
-                    var mediaRecorder = new MediaRecorder(destination.stream);
-                    audioInput.connect(destination);
-                    mediaRecorder.ondataavailable = function(evt) {
-                        stream.write(evt.data);
-                    }
+                    var bufferSize = 2048; 
+                    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+                    recorder.onaudioprocess = recorderProcess;
+                    audioInput.connect(recorder);
+                    recorder.connect(context.destination);
+                }
+
+                function recorderProcess(e) {
+                    var left = e.inputBuffer.getChannelData(0);
+                    stream.write(left);
                 }
                
                 stream = ss.createStream({
