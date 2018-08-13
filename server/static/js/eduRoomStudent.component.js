@@ -137,7 +137,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 autoend: false
             });
             audioStream.on('data', function(data) {
-                let audioBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 3, audioCtx.sampleRate);
+                let audioBuffer = audioCtx.createBuffer(1, 2048, audioCtx.sampleRate);
                 let chunk = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
                     chunk[i] = data[i];
