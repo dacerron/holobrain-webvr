@@ -137,11 +137,12 @@ AFRAME.registerComponent("eduroomstudent", {
                 for(let i = 0; i < audioBuffer.length; i++) {
                     nowBuffering[i] = data[i];
                 }
-                audioBuffer.copyToChannel(nowBuffering, 0);
                 var source = audioCtx.createBufferSource();
-                source.buffer = audioBuffer;
-                source.connect(audioCtx.destination);
-                source.start();
+                audioCtx.decodeAudioData(nowBuffering).then((decodedData) => {
+                    source.buffer = decodedData;
+                    source.connect(audioCtx.destination);
+                    source.start(0);
+                })
             });
         }
                
