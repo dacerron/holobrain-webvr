@@ -142,8 +142,8 @@ AFRAME.registerComponent("eduroomstudent", {
                 if (source.stop) {
                     source.stop();
                 }
+                console.log(data);
                 let buff = convertBlock(data); 
-                console.log(buff);
                 let buffer = audioCtx.createBuffer(1, audioCtx.sampleRate, audioCtx.sampleRate);
                 buffer.copyToChannel(buff, 0);
                 source = audioCtx.createBufferSource();
