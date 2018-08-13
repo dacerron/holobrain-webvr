@@ -131,7 +131,6 @@ AFRAME.registerComponent("eduroomstudent", {
             for(i = 0; i < l; i ++) {
                 buff[i] = (incoming[i] - 128) / 128.0;
             }
-
             return buff;
         }
 
@@ -152,7 +151,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 source = audioCtx.createBufferSource();
                 source.buffer = audioBuffer;
                 source.connect(audioCtx.destination);
-                source.start(audioCtx.currentTime);
+                source.start();
             });
         }
                
