@@ -129,7 +129,7 @@ AFRAME.registerComponent("eduroomstudent", {
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
             var audioCtx = new context();
-            var source;
+            var source = {};
             audioStream.on('data', function(data) {
                 if (source.stop) {
                     source.stop();
