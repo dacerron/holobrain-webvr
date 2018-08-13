@@ -125,6 +125,15 @@ AFRAME.registerComponent("eduroomstudent", {
         
         var stream;
         //session is created, connect to audio server
+        function convertBlock(incoming) {
+            var i, l = incoming.length;
+            var buff = new Float32Array(l);
+            for(i = 0; i < l; i ++) {
+                buff[i] = (incoming[i] - 128) / 128.0;
+            }
+
+            return buff;
+        }
 
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
@@ -134,11 +143,11 @@ AFRAME.registerComponent("eduroomstudent", {
                 if (source.stop) {
                     source.stop();
                 }
-                console.log(data);
+                let buff = convertBlock(data); 
                 let audioBuffer = audioCtx.createBuffer(1, 8192, audioCtx.sampleRate);
                 let chunk = audioBuffer.getChannelData(0);
                 for(let i = 0; i < audioBuffer.length; i++) {
-                    chunk[i] = data[i];
+                    chunk[i] = buff[i];
                 }
                 source = audioCtx.createBufferSource();
                 source.buffer = audioBuffer;
