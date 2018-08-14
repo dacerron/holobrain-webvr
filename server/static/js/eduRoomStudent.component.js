@@ -150,7 +150,7 @@ AFRAME.registerComponent("eduroomstudent", {
                     source.buffer = curBuffer;
                     source.connect(audioCtx.destination);
                     source.start(nextBufferTime);
-                    nextBufferTime = audioCtx.currentTime + curBuffer.duration;
+                    nextBufferTime = audioCtx.currentTime + curBuffer.duration - 0.05;
                 } else {
                     console.log("no data");
                 }
