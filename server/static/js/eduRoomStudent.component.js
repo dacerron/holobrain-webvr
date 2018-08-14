@@ -149,7 +149,10 @@ AFRAME.registerComponent("eduroomstudent", {
                     let source = audioCtx.createBufferSource();
                     source.buffer = curBuffer;
                     source.connect(audioCtx.destination);
-                    nextBufferTime = audioCtx.currentTime + curBuffer.duration;
+                    if(nextBufferTime === 0) {
+                        nextBufferTime = audioCtx.currentTime + 0.05;
+                    }
+                    nextBufferTime += curBuffer.duration;
                     source.start(nextBufferTime);
                 } else {
                     console.log("no data");
@@ -167,9 +170,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 buffer.copyToChannel(convertBlock(data), 0);
                 queueAudioBuffer(buffer);
             });
-            setTimeout(() => {
-                startAudio();
-            }, 2000)
+            startAudio();
         }
                
         stream = ss.createStream({
