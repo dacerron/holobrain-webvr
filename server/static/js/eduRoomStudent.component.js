@@ -162,7 +162,7 @@ AFRAME.registerComponent("eduroomstudent", {
             sampleRate = audioCtx.sampleRate;
             audioStream.on('data', function(data) {
                 let buffer = audioCtx.createBuffer(1, sampleFrames, audioCtx.sampleRate);
-                buffer.copyToChannel(convertBlock(buff), 0);
+                buffer.copyToChannel(convertBlock(data), 0);
                 queueAudioBuffer(buffer);
             });
             startAudio();
