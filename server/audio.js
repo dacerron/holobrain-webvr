@@ -10,15 +10,16 @@ var Audio = (function() {
             ss(socket).on('audio', function(incomingstream) {
                 interStream = new PassThrough({
                     objectMode: true,
-                    allowHalfOpen: true
+                    allowHalfOpen: true,
+                    highWaterMark: 10
                 });
                 incomingstream.pipe(interStream);
                 interStream.cork();
                 console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
-                interStream.uncork();
                 if(interStream) {
+                    process.nextTick(() => interStream.uncork());
                     interStream.pipe(stream);
                     console.log("student joined");
                 }

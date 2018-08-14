@@ -136,22 +136,23 @@ AFRAME.registerComponent("eduroomstudent", {
 
         var audioQueue = [];
         var audioCtx;
-        var sampleFrames = 8192;
-        var sampleRate;
+        var nextBufferTime = 0;
         function queueAudioBuffer(audioBuffer) {
             audioQueue.push(audioBuffer);
         }
 
         function startAudio() {
-            setInterval(() => {
-                curBuffer = audioQueue.shift();
-                if(curBuffer !== undefined) {
-                    let source = audioCtx.createBufferSource();
-                    source.buffer = curBuffer;
-                    source.connect(audioCtx.destination);
-                    source.start(0);
-                }
-            }, Math.round(sampleFrames/sampleRate * 1000))
+            let curBuffer = audioQueue.shift();
+            if(curBuffer !== undefined) {
+                let source = audioCtx.createBufferSource();
+                source.buffer = curBuffer;
+                source.connect(audioCtx.destination);
+                source.start(nextBufferTime, 0, buffer.duration);
+                nextBufferTime = audioCtx.currentTime + buffer.duration;
+            } else {
+                setTimeout(() => {null}, 100)
+            }
+            startAudio();
         }
 
         function initializePlayer(audioStream) {
@@ -159,7 +160,6 @@ AFRAME.registerComponent("eduroomstudent", {
             audioCtx = new context({
                 sampleRate: 44100
             });
-            sampleRate = audioCtx.sampleRate;
             audioStream.on('data', function(data) {
                 let buffer = audioCtx.createBuffer(1, sampleFrames, audioCtx.sampleRate);
                 buffer.copyToChannel(convertBlock(data), 0);
