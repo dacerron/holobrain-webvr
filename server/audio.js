@@ -13,7 +13,6 @@ var Audio = (function() {
                     allowHalfOpen: true
                 });
                 incomingstream.pipe(interStream);
-                interStream.pipe(process.stdout)
                 console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
