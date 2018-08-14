@@ -142,17 +142,16 @@ AFRAME.registerComponent("eduroomstudent", {
         }
 
         function startAudio() {
-            let curBuffer = audioQueue.shift();
-            if(curBuffer !== undefined) {
-                let source = audioCtx.createBufferSource();
-                source.buffer = curBuffer;
-                source.connect(audioCtx.destination);
-                source.start(nextBufferTime, 0, buffer.duration);
-                nextBufferTime = audioCtx.currentTime + buffer.duration;
-            } else {
-                setTimeout(() => {null}, 100)
-            }
-            startAudio();
+            setInterval(() => {
+                let curBuffer = audioQueue.shift();
+                if(curBuffer !== undefined) {
+                    let source = audioCtx.createBufferSource();
+                    source.buffer = curBuffer;
+                    source.connect(audioCtx.destination);
+                    source.start(nextBufferTime, 0, buffer.duration);
+                    nextBufferTime = audioCtx.currentTime + buffer.duration;
+                }
+            }, 50)
         }
 
         function initializePlayer(audioStream) {
