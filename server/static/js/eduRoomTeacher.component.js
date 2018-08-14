@@ -292,7 +292,9 @@ AFRAME.registerComponent('eduroomteacher', {
                 }
                 function initializeRecorder(mediaStream) {
                     var audioContext = window.AudioContext;
-                    var context = new audioContext();
+                    var context = new audioContext({
+                        sampleRate: 44100
+                    });
                     var audioInput = context.createMediaStreamSource(mediaStream);
                     var bufferSize = 8192; 
                     var recorder = context.createScriptProcessor(bufferSize, 1, 1);

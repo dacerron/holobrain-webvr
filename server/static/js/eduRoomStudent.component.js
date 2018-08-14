@@ -129,28 +129,43 @@ AFRAME.registerComponent("eduroomstudent", {
             var i, l = Object.keys(incoming).length;
             var buff = new Float32Array(l);
             for(i = 0; i < l; i ++) {
-                buff[i] = incoming["" + i];
+                buff[i] = incoming[i];
             }
             return buff;
         }
 
+        var audioQueue = [];
+        var audioCtx;
+        var sampleFrames = 8192;
+        var sampleRate;
+        function queueAudioBuffer(audioBuffer) {
+            audioQueue.push(audioBuffer);
+        }
+
+        function startAudio() {
+            setInterval(() => {
+                curBuffer = audioQueue.shift();
+                if(curBuffer !== undefined) {
+                    let source = audioCtx.createBufferSource();
+                    source.buffer = curBuffer;
+                    souce.connect(audioCtx.destination);
+                    source.start(0);
+                }
+            }, Math.round(sampleFrames/sampleRate * 1000))
+        }
+
         function initializePlayer(audioStream) {
             var context = window.AudioContext;
-            var audioCtx = new context();
-            var source = {};
-            audioStream.on('data', function(data) {
-                if (source.stop) {
-                    source.stop();
-                }
-                let buff = convertBlock(data); 
-                console.log(buff);
-                let buffer = audioCtx.createBuffer(1, audioCtx.sampleRate, audioCtx.sampleRate);
-                buffer.copyToChannel(buff, 0);
-                source = audioCtx.createBufferSource();
-                source.connect(audioCtx.destination);
-                source.buffer = buffer;
-                source.start();
+            audioCtx = new context({
+                sampleRate: 44100
             });
+            sampleRate = audioCtx.sampleRate;
+            audioStream.on('data', function(data) {
+                let buffer = audioCtx.createBuffer(1, sampleFrames, audioCtx.sampleRate);
+                buffer.copyToChannel(convertBlock(buff), 0);
+                queueAudioBuffer(buffer);
+            });
+            startAudio();
         }
                
         stream = ss.createStream({
