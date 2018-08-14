@@ -313,6 +313,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     allowHalfOpen: true,
                 });
                 var socket = io(window.location.origin + '/' + this.sessionKey);
+                socket.emit('prepare');
                 socket.on('ready', function() {
                     ss(socket).emit('audio', stream)
                     navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);

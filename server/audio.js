@@ -12,16 +12,20 @@ var Audio = (function() {
         var audio = io
         .of('/' + sessionKey)
         .on('connection', function(socket) {
-            ss(socket).on('audio', function(incomingstream) {
+            socket.on('prepare', function() {
                 teacherSocket = socket;
+            });
+            ss(socket).on('audio', function(incomingstream) {
                 incomingstream.pipe(interStream);
                 console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
-                interStream.pipe(stream);
-                if(!first) {
-                    teacherSocket.emit('ready');
-                    first = true;
+                if(teacherSocket) {
+                    interStream.pipe(stream);
+                    if(!first) {
+                        teacherSocket.emit('ready');
+                        first = true;
+                    }
                 }
             });
         });
