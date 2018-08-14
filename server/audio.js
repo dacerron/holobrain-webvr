@@ -3,23 +3,21 @@ var Audio = (function() {
     const PassThrough = require('stream').PassThrough;
     
     function prepareAudioStream(sessionKey, io) {
-        var interStream;
+        var interStream = new PassThrough({
+            objectMode: true,
+            allowHalfOpen: true
+        });
+        var first = false;
         var audio = io
         .of('/' + sessionKey)
         .on('connection', function(socket) {
             ss(socket).on('audio', function(incomingstream) {
-                interStream = new PassThrough({
-                    objectMode: true,
-                    allowHalfOpen: true,
-                });
                 incomingstream.pipe(interStream);
                 console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
-                if(interStream) {
-                    interStream.pipe(stream);
-                    console.log("student joined");
-                }
+                interStream.pipe(stream);
+                socket.emit('ready');
             });
         });
         console.log("audio stream ready");

@@ -151,6 +151,8 @@ AFRAME.registerComponent("eduroomstudent", {
                     source.connect(audioCtx.destination);
                     source.start(nextBufferTime, 0, curBuffer.duration);
                     nextBufferTime = audioCtx.currentTime + curBuffer.duration;
+                } else {
+                    console.log("no data");
                 }
             }, waitTime)
         }
@@ -161,7 +163,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 sampleRate: 44100
             });
             audioStream.on('data', function(data) {
-                let buffer = audioCtx.createBuffer(1, 8192, audioCtx.sampleRate);
+                let buffer = audioCtx.createBuffer(1, 4096, audioCtx.sampleRate);
                 buffer.copyToChannel(convertBlock(data), 0);
                 queueAudioBuffer(buffer);
             });

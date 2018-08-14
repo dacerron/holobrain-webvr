@@ -313,8 +313,10 @@ AFRAME.registerComponent('eduroomteacher', {
                     allowHalfOpen: true,
                 });
                 var socket = io(window.location.origin + '/' + this.sessionKey);
-                ss(socket).emit('audio', stream)
-                navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
+                socket.on('ready', function() {
+                    ss(socket).emit('audio', stream)
+                    navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
+                })
                 //this.share();
             }
         }.bind(this);
