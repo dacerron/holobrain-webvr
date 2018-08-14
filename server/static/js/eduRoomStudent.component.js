@@ -168,7 +168,9 @@ AFRAME.registerComponent("eduroomstudent", {
                 buffer.copyToChannel(convertBlock(data), 0);
                 queueAudioBuffer(buffer);
             });
-            startAudio();
+            setTimeout(() => {
+                startAudio();
+            }, 1000)
         }
                
         stream = ss.createStream({
