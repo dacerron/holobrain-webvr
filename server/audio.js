@@ -11,7 +11,6 @@ var Audio = (function() {
                 interStream = new PassThrough({
                     objectMode: true,
                     allowHalfOpen: true,
-                    highWaterMark: 10
                 });
                 incomingstream.pipe(interStream);
                 interStream.cork();
