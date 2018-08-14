@@ -151,9 +151,8 @@ AFRAME.registerComponent("eduroomstudent", {
                     source.connect(audioCtx.destination);
                     source.start(nextBufferTime);
                     nextBufferTime = audioCtx.currentTime + curBuffer.duration;
-                    waitTime = 0;
                 } else {
-                    waitTime = 100;
+                    console.log("no data");
                 }
             }, waitTime)
         }
