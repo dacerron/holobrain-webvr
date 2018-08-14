@@ -169,7 +169,7 @@ AFRAME.registerComponent("eduroomstudent", {
             });
             setTimeout(() => {
                 startAudio();
-            }, 1000)
+            }, 2000)
         }
                
         stream = ss.createStream({
@@ -179,6 +179,6 @@ AFRAME.registerComponent("eduroomstudent", {
         initializePlayer(stream);
         var socket = io(window.location.origin + '/' + this.sessionKey);
         ss(socket).emit('join', stream);
-        //this.share();
+        this.share();
     }
 });
