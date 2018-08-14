@@ -13,12 +13,10 @@ var Audio = (function() {
                     allowHalfOpen: true,
                 });
                 incomingstream.pipe(interStream);
-                interStream.cork();
                 console.log("piped incoming audio");
             });
             ss(socket).on('join', function(stream) {
                 if(interStream) {
-                    process.nextTick(() => interStream.uncork());
                     interStream.pipe(stream);
                     console.log("student joined");
                 }
