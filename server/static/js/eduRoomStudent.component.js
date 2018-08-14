@@ -148,7 +148,7 @@ AFRAME.registerComponent("eduroomstudent", {
                 if(curBuffer !== undefined) {
                     let source = audioCtx.createBufferSource();
                     source.buffer = curBuffer;
-                    souce.connect(audioCtx.destination);
+                    source.connect(audioCtx.destination);
                     source.start(0);
                 }
             }, Math.round(sampleFrames/sampleRate * 1000))
