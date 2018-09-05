@@ -1,21 +1,20 @@
 var Audio = require("./audio.js");
 var Comm = (function () {
-    //sessions will have info that is relevant to the specific 
+    //sessions will have info that is relevant to the specific
     var sessions = {};
 
-    var createSession = function(body, type, io) {
+    var createSession = function(body, type) {
         let session = {};
         session.key = Math.round(Math.random() * 100000); //TODO: this should to avoid collisions
         session.body = body;
         session.roomType = type;
-        session.audioStream = Audio.prepareAudioStream(session.key, io);
         return session;
     }
 
-    var init = function (app, io) {
+    var init = function (app) {
         //add element to session array
         app.put('/teacher/createEducationalSession', (req, res) => {
-            let session = createSession(req.body, "edu", io);
+            let session = createSession(req.body, "edu");
             sessions[session.key] = session;
             res.status(200);
             //start binary server for this session's audio

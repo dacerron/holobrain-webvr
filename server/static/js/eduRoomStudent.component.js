@@ -175,6 +175,6 @@ AFRAME.registerComponent("eduroomstudent", {
             }, 1000)
         }
 
-        //this.share();
+        this.share();
     }
 });
