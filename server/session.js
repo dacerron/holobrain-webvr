@@ -24,41 +24,7 @@ var Session = (function () {
       return Math.round(Math.random() * 100000);
     }
 
-    var init = function(io) {
-      var eduFirst = false;
-      var key;
-      io.of('/eduRoom')
-      .on('connection', function(socket){
-        //teacher joining triggers session initialization
-        socket.on('teacherJoin', function() {
-          console.log('teacher joining');
-          //create session state
-          key = makeKey();
-          sessions[key] = {
-            stream: new PassThrough({
-              objectMode: true,
-              allowHalfOpen: true,
-            })
-          }
-          //prepare socket for events on session key namespace
-          io.of('/' + key)
-          .on('connection', function(sock) {
-            ss(sock).on('studentJoin', function(stream) {
-              if(sessions[key] !== undefined) {
-                sessions[key].stream.pipe(stream);
-              }
-              if(!eduFirst) {
-                socket.emit('share', {session: key});
-                eduFirst = true;
-              }
-            });
-            ss(sock).on('teacherShare', function(stream) {
-              stream.pipe(sessions[key].stream);
-            });
-          });
-          socket.emit('sessionReady', {session: key});
-        });
-      });
+    var init = function(app) {
     }
 
     return {
