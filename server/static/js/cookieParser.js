@@ -5,8 +5,13 @@ var CookieParser = (function() {
     }
 
     var hasCookie = (c) => {
-        let cookies = separateCookies(document.cookie);
-        return hasOwnProperty(cookies, c);
+        let cookies;
+	if(!document.cookie) {
+	    cookies = {};
+	} else {
+	    cookies = separateCookies(document.cookie);
+	}
+        return cookies.hasOwnProperty(c);
     }
 
     //cookie format: name1=val1;name2=val2;name3=val3
