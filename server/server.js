@@ -6,7 +6,6 @@ const http = require("http");
 const app = express();
 
 var server = http.Server(app);
-var Session = require("./session.js");
 var Comm = require('./comm.js');
 var Env = require('./env.js');
 
@@ -53,6 +52,6 @@ app.get('/', (req, res) => {
 
 Comm.init(app);
 
-server.listen(Env.port, () => {
+server.listen(Env.port, Env.addr_public, () => {
     console.log("the app is listening on port " + Env.port)
 });

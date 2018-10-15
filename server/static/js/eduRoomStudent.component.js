@@ -65,7 +65,7 @@ AFRAME.registerComponent("eduroomstudent", {
             this.updateObject(rSubstantiaNigra, state.brainParts.rSubstantiaNigra);
 
             rGlobusPallidus = brainParts.querySelector("#isolated-Rglobuspallidus");
-            this.updateObject(rGlobusPallidus, state.brainParts);
+            this.updateObject(rGlobusPallidus, state.brainParts.rGlobusPallidus);
 
             brainParts = document.querySelector("#holobrain");
             brainParts.setAttribute("position", state.brain.general.pos);
