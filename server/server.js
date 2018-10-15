@@ -6,6 +6,7 @@ const http = require("http");
 const app = express();
 
 var server = http.Server(app);
+var Session = require("./session.js");
 var Comm = require('./comm.js');
 var Env = require('./env.js');
 
@@ -50,8 +51,7 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, 'static')})
 });
 
-var io  = require('socket.io')(server);
-Comm.init(app, io);
+Comm.init(app);
 
 server.listen(Env.port, () => {
     console.log("the app is listening on port " + Env.port)

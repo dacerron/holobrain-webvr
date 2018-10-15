@@ -86,7 +86,7 @@ AFRAME.registerComponent('eduroomteacher', {
             rGlobusPallidusCol = rGlobusPallidus.getAttribute("material").color;
 
             let brain, bgeneralPos, bgeneralRot, bventricles, bventriclesPos, bventriclesRot, bventriclesCol, bthalamus, bthalamusPos, bthalamusRot, bthalamusCol,
-                bsubthalamic, bsubthalamicPos, bsubthalamicRot, bsubthalamicCol, blCaudate, blCaudatePos, blCaudateRot, blCaudateCol, blPutamen, blPutamenPos, 
+                bsubthalamic, bsubthalamicPos, bsubthalamicRot, bsubthalamicCol, blCaudate, blCaudatePos, blCaudateRot, blCaudateCol, blPutamen, blPutamenPos,
                 blPutamenRot, blPutamenCol, blSubstantiaNigra, blSubstantiaNigraPos, blSubstantiaNigraRot, blSubstantiaNigraCol, blGlobusPallidus, blGlobusPallidusPos,
                 blGlobusPallidusRot, blGlobusPallidusCol, brCaudate, brCaudatePos, brCaudateRot, brCaudateCol, brPutamen, brPutamenPos, brPutamenRot, brPutamenCol,
                 brSubstantiaNigra, brSubstantiaNigraPos, brSubstantiaNigraRot, brSubstantiaNigraCol, brGlobusPallidus, brGlobusPallidusPos, brGlobusPallidusRot, brGlobusPallidusCol;
@@ -196,9 +196,9 @@ AFRAME.registerComponent('eduroomteacher', {
                     },
                     rGlobusPallidus: {
                         pos: rGlobusPallidusPos,
-                        rot: rGlobusPallidusRot, 
+                        rot: rGlobusPallidusRot,
                         col: rGlobusPallidusCol,
-                    } 
+                    }
                 },
                 brain: {
                     general: {
@@ -257,7 +257,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     },
                     rGlobusPallidus: {
                         pos: brGlobusPallidusPos,
-                        rot: brGlobusPallidusRot, 
+                        rot: brGlobusPallidusRot,
                         col: brGlobusPallidusCol,
                     }
                 }
@@ -296,7 +296,7 @@ AFRAME.registerComponent('eduroomteacher', {
                         sampleRate: 44100
                     });
                     var audioInput = context.createMediaStreamSource(mediaStream);
-                    var bufferSize = 4096; 
+                    var bufferSize = 4096;
                     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
                     recorder.onaudioprocess = recorderProcess;
                     audioInput.connect(recorder);
@@ -307,17 +307,6 @@ AFRAME.registerComponent('eduroomteacher', {
                     var left = e.inputBuffer.getChannelData(0);
                     stream.write(left);
                 }
-               
-                stream = ss.createStream({
-                    objectMode: true,
-                    allowHalfOpen: true,
-                });
-                var socket = io(window.location.origin + '/' + this.sessionKey);
-                socket.emit('prepare');
-                socket.on('ready', function() {
-                    ss(socket).emit('audio', stream)
-                    navigator.mediaDevices.getUserMedia(session).then(initializeRecorder).catch(onError);
-                })
                 this.share();
             }
         }.bind(this);

@@ -106,7 +106,7 @@ AFRAME.registerComponent("eduroomstudent", {
         }
 
         this.updateObject = function(obj, state) {
-            obj.setAttribute("position", state.pos); 
+            obj.setAttribute("position", state.pos);
             obj.setAttribute("rotation", state.rot);
             obj.setAttribute("material", {color: state.col});
         }
@@ -122,7 +122,7 @@ AFRAME.registerComponent("eduroomstudent", {
                     }.bind(this));
             }.bind(this), 40);
         };
-        
+
         var stream;
         //session is created, connect to audio server
         function convertBlock(incoming) {
@@ -174,14 +174,6 @@ AFRAME.registerComponent("eduroomstudent", {
                 startAudio();
             }, 1000)
         }
-               
-        stream = ss.createStream({
-            objectMode: true,
-            allowHalfOpen: true,
-        });
-        initializePlayer(stream);
-        var socket = io(window.location.origin + '/' + this.sessionKey);
-        ss(socket).emit('join', stream);
         this.share();
     }
 });
