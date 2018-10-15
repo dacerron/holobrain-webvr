@@ -42,7 +42,6 @@
       } else {
         document.getElementById("isolated-Thalamus").setAttribute("material", {color: "yellow"});
       }
-
     }
   </script>
   <script>
@@ -126,6 +125,8 @@
     <a-entity id="photosphere" geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double;color:#ffffff;fog:false; src:#bg1"
       scale="-1 1 1" rotation="0 -80 0">
     </a-entity>
+
+    <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
 
     <a-entity id="holobrain" position="0 1.5 -3" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
       

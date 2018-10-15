@@ -281,6 +281,7 @@ AFRAME.registerComponent('eduroomteacher', {
             if (sessionRequest.status === 200) {
                 console.log("created session, key: " + sessionRequest.response)
                 this.sessionKey = sessionRequest.response;
+                document.querySelector("#session").setAttribute("value", "" + this.sessionKey);
                 var stream;
                 //session is created, connect to audio server
                 var session = {
