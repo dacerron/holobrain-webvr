@@ -14,10 +14,11 @@ AFRAME.registerComponent('expand-brain', {
     this.el.addEventListener('click', function (evt) {
       let expanded = el.getAttribute("expand-brain").expanded;
       let expand = el.getAttribute("expand-brain").expand;
-      if (expanded == false && expand == true) {
+      if (expanded === false && expand === true) {
         let brainCenter = data.center.getAttribute("position");
         let brainParts = data.target.children;
         let numBrainParts = brainParts.length;
+        data.center.setAttribute("material", "opacity", "0");
         for (let i = 0; i < numBrainParts; i++) {
           let brainPart = brainParts[i];
           let oldBrainPos = brainPart.getAttribute("position");
@@ -28,7 +29,6 @@ AFRAME.registerComponent('expand-brain', {
           brainPos.x += xDir * 5;
           brainPos.y += yDir * 5;
           brainPos.z += zDir * 5;
-          
           
           let oldBrainPosString = oldBrainPos.x + " " + oldBrainPos.y + " " + oldBrainPos.z;
           let brainPosString = brainPos.x + " " + brainPos.y + " " + brainPos.z;
@@ -59,7 +59,8 @@ AFRAME.registerComponent('expand-brain', {
           brainPart.setAttribute("animation__pos", "property: position; dur: 600; easing: linear; from: " + oldBrainPosString + "; to: " + brainPosString + ";");
           //brainPart.setAttribute("position", brainPos);
         }
-         document.querySelectorAll('[expand-brain]').forEach( function(x) { x.setAttribute("expand-brain", "expanded: false")});
+        data.center.setAttribute("material", "opacity", "0.3");
+        document.querySelectorAll('[expand-brain]').forEach( function(x) { x.setAttribute("expand-brain", "expanded: false")});
         
       }
     });

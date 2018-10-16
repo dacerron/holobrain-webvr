@@ -94,6 +94,10 @@ AFRAME.registerComponent('eduroomteacher', {
             brain = document.querySelector("#holobrain");
             bgeneralPos = brain.getAttribute("position");
             bgeneralRot = brain.getAttribute("rotation");
+            bgeneralScaleX = brain.getAttribute("scale").x;
+            bgeneralScaleY = brain.getAttribute("scale").y;
+            bgeneralScaleZ = brain.getAttribute("scale").z;
+            cortexOpacity = brain.querySelector("#brain-cortex").getAttribute("material").opacity;
             bventricles = brain.querySelector("#ventricles");
             bventriclesPos = bventricles.getAttribute("position");
             bventriclesRot = bventricles.getAttribute("rotation");
@@ -203,7 +207,11 @@ AFRAME.registerComponent('eduroomteacher', {
                 brain: {
                     general: {
                         pos: bgeneralPos,
-                        rot: bgeneralRot
+                        rot: bgeneralRot,
+                        scaleX: bgeneralScaleX,
+                        scaleY: bgeneralScaleY,
+                        scaleZ: bgeneralScaleZ,
+                        corOpac: cortexOpacity
                     },
                     ventricles: {
                         pos: bventriclesPos,

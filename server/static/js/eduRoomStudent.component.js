@@ -70,6 +70,8 @@ AFRAME.registerComponent("eduroomstudent", {
             brainParts = document.querySelector("#holobrain");
             brainParts.setAttribute("position", state.brain.general.pos);
             brainParts.setAttribute("rotation", state.brain.general.rot);
+            brainParts.setAttribute("scale", state.brain.general.scaleX + " " + state.brain.general.scaleY + " " + state.brain.general.scaleZ);
+            brainParts.querySelector("#brain-cortex").setAttribute("material", "opacity", state.brain.general.corOpac);
 
             ventricles = brainParts.querySelector("#ventricles");
             this.updateObject(ventricles, state.brain.ventricles);
