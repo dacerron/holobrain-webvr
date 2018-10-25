@@ -126,6 +126,58 @@
     <a-entity id="photosphere" geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double;color:#ffffff;fog:false; src:#bg1"
       scale="-1 1 1" rotation="0 -80 0">
     </a-entity>
+    
+    <a-entity position="0 -0.5 -2">
+      <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="rotate" font-family="Helvetica"
+        margin="0 0 0.05 0" assign-rotate>
+      </a-gui-button>
+
+      <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + "
+        font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
+      </a-gui-button>
+
+      <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - "
+        font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
+      </a-gui-button>
+
+      <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value="expand"
+        font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
+      </a-gui-button>
+
+      <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value="collapse"
+        font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
+      </a-gui-button>
+
+      <a-gui-button id="thalamusButton" class="interactible" position="-4.5 -0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction">
+      </a-gui-button>
+
+      <a-gui-button id="subthalamicButton" class="interactible" position="-4.5 -0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction">
+      </a-gui-button>
+
+      <a-gui-button id="caudateButton" class="interactible" position="-4.5 -1.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction">
+      </a-gui-button>
+
+      <a-gui-button id="globusButton" class="interactible" position="-4.5 -1.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction">
+      </a-gui-button>
+
+      <a-gui-button id="putamenButton" class="interactible" position="-4.5 0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction">
+      </a-gui-button>
+
+      <a-gui-button id="substantiaButton" class="interactible" position="-4.5 0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
+        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction">
+      </a-gui-button>
+    </a-entity>
+    <a-entity id="player" wasd-controls>
+      <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+        <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+        </a-ring>
+      </a-camera>
+    </a-entity>
 
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
 
@@ -208,58 +260,6 @@
       <a-entity id="isolated-Rglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rglobuspallidus"
         material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
         change-color-on-hover="color: red"></a-entity>
-    </a-entity>
-
-    <a-entity position="0 -0.5 -2">
-      <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="rotate" font-family="Helvetica"
-        margin="0 0 0.05 0" assign-rotate>
-      </a-gui-button>
-
-      <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
-      </a-gui-button>
-
-      <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
-      </a-gui-button>
-
-      <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value="expand"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
-      </a-gui-button>
-
-      <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value="collapse"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
-      </a-gui-button>
-
-      <a-gui-button id="thalamusButton" class="interactible" position="-4.5 -0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction">
-      </a-gui-button>
-
-      <a-gui-button id="subthalamicButton" class="interactible" position="-4.5 -0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction">
-      </a-gui-button>
-
-      <a-gui-button id="caudateButton" class="interactible" position="-4.5 -1.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction">
-      </a-gui-button>
-
-      <a-gui-button id="globusButton" class="interactible" position="-4.5 -1.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction">
-      </a-gui-button>
-
-      <a-gui-button id="putamenButton" class="interactible" position="-4.5 0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction">
-      </a-gui-button>
-
-      <a-gui-button id="substantiaButton" class="interactible" position="-4.5 0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction">
-      </a-gui-button>
-    </a-entity>
-    <a-entity id="player" wasd-controls>
-      <a-camera active="true" user-height="0" position="0 2 0" look-controls>
-        <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
-        </a-ring>
-      </a-camera>
     </a-entity>
   </a-scene>
 </body>
