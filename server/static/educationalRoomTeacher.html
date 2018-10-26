@@ -6,8 +6,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
   <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="js/require.js"></script>
   <script type="text/javascript" src="js/env.js"></script>
   <script type="text/javascript" src="js/cookieParser.js"></script>
@@ -34,6 +33,7 @@
   <script type="text/javascript" src="js/og-position.component.js"></script>
   <script type="text/javascript" src="js/eduRoomTeacher.component.js"></script>
   <script type="text/javascript" src="js/change-color-on-hover.component.js"></script>
+  <script type="text/javascript" src="js/command.component.js"></script>
   <!--This needs to be moved to a seperate file START-->
   <script>
     function myThalFunction() {
@@ -129,47 +129,47 @@
     
     <a-entity position="0 -0.5 -2">
       <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="rotate" font-family="Helvetica"
-        margin="0 0 0.05 0" assign-rotate>
+        margin="0 0 0.05 0" assign-rotate command>
       </a-gui-button>
 
       <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
+        font-family="Helvetica" margin="0 0 0.05 0" scale-brain command>
       </a-gui-button>
 
       <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
+        font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false" command>
       </a-gui-button>
 
       <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value="expand"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
+        font-family="Helvetica" margin="0 0 0.05 0" expand-brain command>
       </a-gui-button>
 
       <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value="collapse"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
+        font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false" command>
       </a-gui-button>
 
       <a-gui-button id="thalamusButton" class="interactible" position="-4.5 -0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction">
+        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction" command>
       </a-gui-button>
 
       <a-gui-button id="subthalamicButton" class="interactible" position="-4.5 -0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction">
+        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction" command>
       </a-gui-button>
 
       <a-gui-button id="caudateButton" class="interactible" position="-4.5 -1.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction">
+        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction" command>
       </a-gui-button>
 
       <a-gui-button id="globusButton" class="interactible" position="-4.5 -1.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction">
+        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction" command>
       </a-gui-button>
 
       <a-gui-button id="putamenButton" class="interactible" position="-4.5 0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction">
+        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction" command>
       </a-gui-button>
 
       <a-gui-button id="substantiaButton" class="interactible" position="-4.5 0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction">
+        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction" command>
       </a-gui-button>
     </a-entity>
     <a-entity id="player" wasd-controls>

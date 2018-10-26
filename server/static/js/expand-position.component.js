@@ -3,6 +3,5 @@ AFRAME.registerComponent('expand-position', {
         pos: {type: 'vec3'}
     },
     init: function() {
-        console.log("initiated expand-position");
     }
 });

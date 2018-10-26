@@ -1,28 +1,54 @@
-var Audio = require("./audio.js");
 var Comm = (function () {
     //sessions will have info that is relevant to the specific
     var sessions = {};
 
-    var createSession = function(body, type, app) {
+    var createSession = function()  {
         let session = {};
         session.key = Math.round(Math.random() * 100000); //TODO: this should to avoid collisions
-        session.body = body;
-        session.roomType = type;
-        session.audioBuffer = Audio.prepareAudioStream();
+        session.studentSockets = {};
         return session;
     }
 
-    var init = function (app) {
-        //add element to session array
-        app.put('/teacher/createEducationalSession', (req, res) => {
-            let session = createSession(req.body, "edu", app);
-            sessions[session.key] = session;
-            res.status(200);
-            //start binary server for this session's audio
-            res.send("" + session.key);
+    var addStudentToSession = function(sessionNumber, socketId, socket) {
+        if(sessions[sessionNumber]) {
+            sessions[sessionNumber].studentSockets[socketId] = socket;
+        }
+    }
+
+    var sendCommandToStudents = function(sessionNumber, command) {
+        let sockets = sessions[sessionNumber].studentSockets;
+        for(socket of sockets) {
+            socket.emit('studentCommand', {command: command});
+        }
+    }
+
+    var init = function (io) {
+        io.on('connection', (socket) => {
+            socket.emit('ready');
+            socket.on('teacherJoin', function() {
+                console.log('teacher joining');
+                try{
+                    let session = createSession();
+                    sessions[session.key] = session;
+                    socket.emit('teacherSessionCreated', {key: session.key});
+                } catch (e) {
+                    console.log('failed to create session on teacher join');
+                    socket.emit('teacherSessionCreateFailed', {error: 'failed to create session'})
+                }
+            });
+
+            socket.on('studentJoin', function(data) {
+                data.id ? addStudentToSession(data.id, socket.id, socket) : null
+            })
+
+            socket.on('teacherCommand', function(data) {
+                console.log("got command: " + data.command);
+                data.id && data.command ? sendCommandToStudents(data.id, data.command) : null
+            })
         });
+    }
 
-
+/*
         app.put('/teacher/createBrainCellSession', (req, res) => {
         });
 
@@ -68,6 +94,7 @@ var Comm = (function () {
 
         });
     }
+    */
 
     return {
         init
