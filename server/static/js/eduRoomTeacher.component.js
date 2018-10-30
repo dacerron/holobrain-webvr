@@ -32,6 +32,7 @@ AFRAME.registerComponent('eduroomteacher', {
         }.bind(this);
 
         this.readState = function () {
+            /*
             let brainParts, generalPos, generalRot, ventricles, ventriclesPos, ventriclesRot, ventriclesCol, thalamus, thalamusPos, thalamusRot, thalamusCol,
                 subthalamic, subthalamicPos, subthalamicRot, subthalamicCol, lCaudate, lCaudatePos, lCaudateRot, lCaudateCol, lPutamen, lPutamenPos, lPutamenRot, lPutamenCol,
                 lSubstantiaNigra, lSubstantiaNigraPos, lSubstantiaNigraRot, lSubstantiaNigraCol, lGlobusPallidus, lGlobusPallidusPos, lGlobusPallidusRot, lGlobusPallidusCol,
@@ -269,7 +270,8 @@ AFRAME.registerComponent('eduroomteacher', {
                         col: brGlobusPallidusCol,
                     }
                 }
-            }
+            }*/
+            return {}
         }
 
         this.share = function () {

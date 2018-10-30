@@ -5,7 +5,7 @@
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
-  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+  <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"></script>
   <script type="text/javascript" src="js/require.js"></script>
@@ -33,69 +33,69 @@
   <script type="text/javascript" src="js/expand-position.component.js"></script>
   <script type="text/javascript" src="js/og-position.component.js"></script>
   <script type="text/javascript" src="js/eduRoomTeacher.component.js"></script>
+  <script type="text/javascript" src="js/dropdown.js"></script>
   <script type="text/javascript" src="js/change-color-on-hover.component.js"></script>
   <!--This needs to be moved to a seperate file START-->
   <script>
     function myThalFunction() {
       let col = document.getElementById("isolated-Thalamus").getAttribute("material").color;
-      if(col === "yellow") {
-        document.getElementById("isolated-Thalamus").setAttribute('material', {color:'#c2d2ea'});
+      if (col === "yellow") {
+        document.getElementById("isolated-Thalamus").setAttribute('material', { color: '#c2d2ea' });
       } else {
-        document.getElementById("isolated-Thalamus").setAttribute("material", {color: "yellow"});
+        document.getElementById("isolated-Thalamus").setAttribute("material", { color: "yellow" });
       }
     }
   </script>
   <script>
     function mySubThalFunction() {
-      if(document.getElementById("isolated-Subthalamic").getAttribute("material").color === "purple") {
-        document.getElementById("isolated-Subthalamic").setAttribute('material', {color: '#c2d2ea'});
+      if (document.getElementById("isolated-Subthalamic").getAttribute("material").color === "purple") {
+        document.getElementById("isolated-Subthalamic").setAttribute('material', { color: '#c2d2ea' });
       } else {
-        document.getElementById("isolated-Subthalamic").setAttribute('material', {color: 'purple'});
+        document.getElementById("isolated-Subthalamic").setAttribute('material', { color: 'purple' });
       }
     }
   </script>
   <script>
     function mySubstanFunction() {
-      if(document.getElementById("isolated-Lsubstantianigra").getAttribute('material').color === 'red') {
-        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', {color:'#c2d2ea'});
-        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', {color:'#c2d2ea'});
+      if (document.getElementById("isolated-Lsubstantianigra").getAttribute('material').color === 'red') {
+        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', { color: '#c2d2ea' });
+        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', { color: '#c2d2ea' });
       } else {
-        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', {color:'red'});
-        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', {color:'red'});
+        document.getElementById("isolated-Rsubstantianigra").setAttribute('material', { color: 'red' });
+        document.getElementById("isolated-Lsubstantianigra").setAttribute('material', { color: 'red' });
       }
     }
   </script>
   <script>
     function myPutaFunction() {
-      if(document.getElementById("isolated-Lputamen").getAttribute('material').color === 'orange') {
-        document.getElementById("isolated-Lputamen").setAttribute('material', {color:'#c2d2ea'});
-        document.getElementById("isolated-Rputamen").setAttribute('material', {color:'#c2d2ea'});
+      if (document.getElementById("isolated-Lputamen").getAttribute('material').color === 'orange') {
+        document.getElementById("isolated-Lputamen").setAttribute('material', { color: '#c2d2ea' });
+        document.getElementById("isolated-Rputamen").setAttribute('material', { color: '#c2d2ea' });
       } else {
-        document.getElementById("isolated-Lputamen").setAttribute("material", {color: 'orange'});
-        document.getElementById("isolated-Rputamen").setAttribute("material", {color: 'orange'});
+        document.getElementById("isolated-Lputamen").setAttribute("material", { color: 'orange' });
+        document.getElementById("isolated-Rputamen").setAttribute("material", { color: 'orange' });
       }
     }
   </script>
   <script>
     function myCaudFunction() {
-      if(document.getElementById("isolated-Lcaudate").getAttribute("material").color === "teal") {
-        document.getElementById("isolated-Lcaudate").setAttribute("material", {color: "#c2d2ea"});
-        document.getElementById("isolated-Rcaudate").setAttribute("material", {color: "#c2d2ea"});
+      if (document.getElementById("isolated-Lcaudate").getAttribute("material").color === "teal") {
+        document.getElementById("isolated-Lcaudate").setAttribute("material", { color: "#c2d2ea" });
+        document.getElementById("isolated-Rcaudate").setAttribute("material", { color: "#c2d2ea" });
       } else {
-        document.getElementById("isolated-Lcaudate").setAttribute('material', {color:'teal'});
-        document.getElementById("isolated-Rcaudate").setAttribute('material', {color:'teal'});
+        document.getElementById("isolated-Lcaudate").setAttribute('material', { color: 'teal' });
+        document.getElementById("isolated-Rcaudate").setAttribute('material', { color: 'teal' });
       }
     }
   </script>
   <script>
     function myGlobFunction() {
-      if(document.getElementById("isolated-Lglobuspallidus").getAttribute("material").color === "green")
-      {
-        document.getElementById('isolated-Lglobuspallidus').setAttribute("material", {color: "#c2d2ea"});
-        document.getElementById('isolated-Rglobuspallidus').setAttribute("material", {color: "#c2d2ea"});
+      if (document.getElementById("isolated-Lglobuspallidus").getAttribute("material").color === "green") {
+        document.getElementById('isolated-Lglobuspallidus').setAttribute("material", { color: "#c2d2ea" });
+        document.getElementById('isolated-Rglobuspallidus').setAttribute("material", { color: "#c2d2ea" });
       } else {
-        document.getElementById("isolated-Lglobuspallidus").setAttribute('material', {color:'green'});
-        document.getElementById("isolated-Rglobuspallidus").setAttribute('material', {color:'green'})
+        document.getElementById("isolated-Lglobuspallidus").setAttribute('material', { color: 'green' });
+        document.getElementById("isolated-Rglobuspallidus").setAttribute('material', { color: 'green' })
       }
     }
   </script>
@@ -109,68 +109,109 @@
       <img id="bg1" src="public/assets/cell_360.jpg" />
       <img id="rotate-icon" src="public/assets/rotate-icon.png" />
       <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
-      <a-asset-item id="cortex" src="public/assets/cortex_low.obj"></a-asset-item>
-      <a-asset-item id="ventricle" src="public/assets/ventricle.obj"></a-asset-item>
-      <a-asset-item id="thalamus" src="public/assets/thalamus.obj"></a-asset-item>
-      <a-asset-item id="lcaudate" src="public/assets/left_caudate.obj"></a-asset-item>
-      <a-asset-item id="subthalamic" src="public/assets/left_and_right_subthalamic.obj"></a-asset-item>
-      <a-asset-item id="lsubstantianigra" src="public/assets/left_substantia_nigra.obj"></a-asset-item>
-      <a-asset-item id="lglobuspallidus" src="public/assets/left_globus_pallidus.obj"></a-asset-item>
-      <a-asset-item id="lputamen" src="public/assets/left_putamen.obj"></a-asset-item>
-      <a-asset-item id="rcaudate" src="public/assets/right_caudate.obj"></a-asset-item>
-      <a-asset-item id="rsubstantianigra" src="public/assets/right_substantia_nigra.obj"></a-asset-item>
-      <a-asset-item id="rglobuspallidus" src="public/assets/right_globus_pallidus.obj"></a-asset-item>
-      <a-asset-item id="rputamen" src="public/assets/right_putamen.obj"></a-asset-item>
+      <a-asset-item id="arteries-obj" src="public/assets/Arteries.obj"></a-asset-item>
+      <a-asset-item id="cerebellum-obj" src="public/assets/cerebellum.obj"></a-asset-item>
+      <a-asset-item id="cortex-obj" src="public/assets/Cortex.obj"></a-asset-item>
+      <a-asset-item id="fornix-obj" src="public/assets/Fornix.obj"></a-asset-item>
+      <a-asset-item id="hippocampus-obj" src="public/assets/Hippocampus.obj"></a-asset-item>
+      <a-asset-item id="lamygdala-obj" src="public/assets/L-Amygdala.obj"></a-asset-item>
+      <a-asset-item id="lcaudate-obj" src="public/assets/L-Caudate.obj"></a-asset-item>
+      <a-asset-item id="lglobus-obj" src="public/assets/L-Globus.obj"></a-asset-item>
+      <a-asset-item id="lputamen-obj" src="public/assets/L-Putamen.obj"></a-asset-item>
+      <a-asset-item id="mamtract-obj" src="public/assets/MamilloThalamic Tract.obj"></a-asset-item>
+      <a-asset-item id="mambodies-obj" src="public/assets/MammillaryBodies.obj"></a-asset-item>
+      <a-asset-item id="ramygdala-obj" src="public/assets/R-Amygdala.obj"></a-asset-item>
+      <a-asset-item id="rcaudate-obj" src="public/assets/R-Caudate.obj"></a-asset-item>
+      <a-asset-item id="rglobus-obj" src="public/assets/R-Globus.obj"></a-asset-item>
+      <a-asset-item id="rputamen-obj" src="public/assets/R-Putamen.obj"></a-asset-item>
+      <a-asset-item id="sinuses-obj" src="public/assets/Sinuses.obj"></a-asset-item>
+      <a-asset-item id="subnigra-obj" src="public/assets/Substantia-Nigra.obj"></a-asset-item>
+      <a-asset-item id="subnuclei-obj" src="public/assets/Subthalamic-Nuclei.obj"></a-asset-item>
+      <a-asset-item id="thalamus-obj" src="public/assets/Thalamus.obj"></a-asset-item>
+      <a-asset-item id="ventricles-obj" src="public/assets/Ventricles.obj"></a-asset-item>
     </a-assets>
 
     <a-entity id="photosphere" geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double;color:#ffffff;fog:false; src:#bg1"
       scale="-1 1 1" rotation="0 -80 0">
     </a-entity>
-    
+
     <a-entity position="0 -0.5 -2">
-      <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="rotate" font-family="Helvetica"
-        margin="0 0 0.05 0" assign-rotate>
+      <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon"
+        value="rotate" font-family="Helvetica" margin="0 0 0.05 0" assign-rotate>
       </a-gui-button>
 
-      <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
+      <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon"
+        value=" + " font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
       </a-gui-button>
 
-      <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - "
-        font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
+      <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon"
+        value=" - " font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
       </a-gui-button>
 
-      <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value="expand"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
+      <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon"
+        value="expand" font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
       </a-gui-button>
 
-      <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value="collapse"
-        font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
+      <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon"
+        value="collapse" font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
       </a-gui-button>
 
-      <a-gui-button id="thalamusButton" class="interactible" position="-4.5 -0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="thal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myThalFunction">
-      </a-gui-button>
+      <a-entity id="dropdownContainer" position="-4.5 0 -2">
+        <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1"
+          opacity="0" width="2.5" height="0.75" position="0 0.375 0" rotation="0 0 0" gui-item="" geometry="" material=""
+          gui-flex-container="">
+          <a-gui-icon-label-button class="interactible" width="2.5" height="0.75" onclick="openDropdown" icon="android-menu"
+            value="dropdown" font-family="Arial" visible="true" gui-interactable="" gui-item="" geometry="" material=""
+            role="button" gui-icon-label-button="" position="" rotation="">
+            <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards" to="180 0 0"></a-animation>
+            <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500" to="false"></a-animation>
+            <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards" to="0 0 0"></a-animation>
+            <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500" to="true"></a-animation>
+          </a-gui-icon-label-button>
+        </a-gui-flex-container>
+        <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
+          opacity="0" width="2.5" height="0.75" position="0 0 -0.15" rotation="0 0 0" scale="1 0.001 0.001" visible="false"
+          gui-item="" geometry="" material="" gui-flex-container="">
+          <a-gui-button id="thalamusButton" class="interactible" position="0 -0.5 -1.5" rotation="0 0 0" width="1"
+            height="1" material="src: #rotate-icon" value="thal" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="myThalFunction">
+          </a-gui-button>
 
-      <a-gui-button id="subthalamicButton" class="interactible" position="-4.5 -0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="subthal" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubThalFunction">
-      </a-gui-button>
+          <a-gui-button id="subthalamicButton" class="interactible" position="0 -0.5 -0.5" rotation="0 0 0" width="1"
+            height="1" material="src: #rotate-icon" value="subthal" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="mySubThalFunction">
+          </a-gui-button>
 
-      <a-gui-button id="caudateButton" class="interactible" position="-4.5 -1.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="caudate" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myCaudFunction">
-      </a-gui-button>
+          <a-gui-button id="caudateButton" class="interactible" position="0 -1.5 -1.5" rotation="0 0 0" width="1"
+            height="1" material="src: #rotate-icon" value="caudate" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="myCaudFunction">
+          </a-gui-button>
 
-      <a-gui-button id="globusButton" class="interactible" position="-4.5 -1.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="globus" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myGlobFunction">
-      </a-gui-button>
+          <a-gui-button id="globusButton" class="interactible" position="0 -1.5 -0.5" rotation="0 0 0" width="1" height="1"
+            material="src: #rotate-icon" value="globus" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="myGlobFunction">
+          </a-gui-button>
 
-      <a-gui-button id="putamenButton" class="interactible" position="-4.5 0.5 -1.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="putam" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="myPutaFunction">
-      </a-gui-button>
+          <a-gui-button id="putamenButton" class="interactible" position="0 0.5 -1.5" rotation="0 0 0" width="1" height="1"
+            material="src: #rotate-icon" value="putam" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="myPutaFunction">
+          </a-gui-button>
 
-      <a-gui-button id="substantiaButton" class="interactible" position="-4.5 0.5 -0.5" rotation="0 90 0" width="1" height="1" material="src: #rotate-icon"
-        value="substan" font-family="Helvetica" margin="0 0 0.05 0" change-color-on-hover="color: red" onclick="mySubstanFunction">
-      </a-gui-button>
+          <a-gui-button id="substantiaButton" class="interactible" position="0 0.5 -0.5" rotation="0 0 0" width="1"
+            height="1" material="src: #rotate-icon" value="substan" font-family="Helvetica" margin="0 0 0.05 0"
+            change-color-on-hover="color: red" onclick="mySubstanFunction">
+          </a-gui-button>
+
+          <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
+          <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards" to="0 0.375 0.15"></a-animation>
+          <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100" to="true"></a-animation>
+
+          <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards" to="1 0.001 0.001"></a-animation>
+          <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards" to="0 0 -0.15"></a-animation>
+          <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500" dur="100"
+            to="false"></a-animation>
+        </a-gui-flex-container>
+      </a-entity>
     </a-entity>
     <a-entity id="player" wasd-controls>
       <a-camera active="true" user-height="0" position="0 2 0" look-controls>
@@ -181,86 +222,94 @@
 
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
 
-    <a-entity id="holobrain" position="0 1.5 -3" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
-      
-      <a-entity id="brain-parts" position="0 0 0" rotation="0 0 0">
-        <a-entity id="ventricles" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #ventricle" material="color: #c2d2ea;"
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: blue" og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="Thalamus" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #thalamus" material="color: #c2d2ea; "
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: yellow" og-position="pos:0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="Subthalamic" class="interactible" position="0 -0.15 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #subthalamic" material="color: #c2d2ea;"
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: purple" og-position="pos: 0 -0.15 0" expand-position="pos: 0 -0.35 0"></a-entity>
-        <a-entity id="Lcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lcaudate" material="color: #c2d2ea; "
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: teal" og-position="pos: 0 0 0" expand-position="pos:0 0 -0.3"></a-entity>
-        <a-entity id="Lputamen" class="interactible" position="-0.2 0.1 0.1" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lputamen" material="color: #c2d2ea;"
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: orange" og-position="pos: -0.2 0.1 0.1" expand-position="pos: -0.2 0.1 -0.5"></a-entity>
-        <a-entity id="Lsubstantianigra" class="interactible" position="0 -0.15 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lsubstantianigra"
-          material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: green" og-position="pos: 0 -0.15 0" expand-position="pos: 0 -0.45 -0.05"></a-entity>
-        <a-entity id="Lglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lglobuspallidus"
-          material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: red" og-position="pos: -0.2 0.1 0" expand-position="pos: -0.2 0.1 -0.1"></a-entity>
-        <a-entity id="Rcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rcaudate" material="color: #c2d2ea; "
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: teal" og-position="pos: 0 0 0" expand-position="pos: 0 0 0.3"></a-entity>
-        <a-entity id="Rputamen" class="interactible" position="-0.2 0.1 -0.1" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rputamen" material="color: #c2d2ea; "
-          override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: orange" og-position="pos: -0.2 0.1 -0.1" expand-position="pos: -0.2 0.1 0.5"></a-entity>
-        <a-entity id="Rsubstantianigra" class="interactible" position="0 -0.15 -0.05" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rsubstantianigra"
-          material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: green" og-position="pos: 0 -0.15 -0.05" expand-position="pos:0 -0.45 0"></a-entity>
-        <a-entity id="Rglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rglobuspallidus"
-          material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-          change-color-on-hover="color: red" og-position="pos: -0.2 0.1 0" expand-position="pos:-0.2 0.1 0.1"></a-entity>
+    <a-entity id="holobrain" position="-2.4 0 -4" scale="0.01 0.01 0.01" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+      <a-entity id="brain-parts">
+        <a-entity id="sinuses" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #sinuses-obj"
+          material="side: back; color: #c2d2ea; transparent: true; opacity: 0.6" material="color: #c2d2ea;"
+          override-material change-color-on-hover="color: #003366" og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="ramygdala" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #ramygdala-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff81b0" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="lamygdala" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lamygdala-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff81b0" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="mambodies" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #mambodies-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #00ffff" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="mamtract" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #mamtract-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #66cd00" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="hippocampus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #hippocampus-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ffd700" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="fornix" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #fornix-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #be29ec" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="arteries" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #arteries-obj"
+          mmaterial="side: front; color: #c2d2ea; transparent: true; opacity: 0.6" override-material change-color-on-hover="color: #950714" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="cerebellum" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #cerebellum-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff7f50" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="thalamus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #thalamus-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: #008080" og-position="pos:0 0 0"
+          expand-position="pos: 0 0 0"></a-entity>
+        <a-entity id="subthalamic" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #subnuclei-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #000000" og-position="pos: 0 0 0"
+          expand-position="pos: 0 -0.35 0"></a-entity>
+        <a-entity id="lcaudate" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lcaudate-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: #f6546a" og-position="pos: 0 0 0"
+          expand-position="pos:0 0 -0.3"></a-entity>
+        <a-entity id="lputamen" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lputamen-obj"
+          material="color: #c2d2ea;" override-material change-color-on-hover="color: #000000" og-position="pos: 0 0 0"
+          expand-position="pos: -0.2 0.1 -0.5"></a-entity>
+        <a-entity id="lglobuspallidus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lglobus-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: #6760aa" og-position="pos: 0 0 0"
+          expand-position="pos: -0.2 0.1 -0.1"></a-entity>
+        <a-entity id="rcaudate" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rcaudate-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: #f6546a" og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0.3"></a-entity>
+        <a-entity id="rputamen" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rputamen-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: orange" og-position="pos: 0 0 0"
+          expand-position="pos: -0.2 0.1 0.5"></a-entity>
+        <a-entity id="rsubstantianigra" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #subnigra-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: green" og-position="pos: 0 0 0"
+          expand-position="pos:0 -0.45 0"></a-entity>
+        <a-entity id="rglobuspallidus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rglobus-obj"
+          material="color: #c2d2ea; " override-material change-color-on-hover="color: #6760aa" og-position="pos: 0 0 0"
+          expand-position="pos:-0.2 0.1 0.1"></a-entity>
       </a-entity>
-     <a-entity id="brain-cortex" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #cortex" material="side: double; color: #c2d2ea; transparent: false; opacity: 0.3"
-        animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+      <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" obj-model="obj: #cortex-obj" material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
       </a-entity>
     </a-entity>
 
 
     <a-entity id="isolated-brain-parts" position="-5 2 -1" scale="2.0 2.0 2.0">
-      <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite">
+      <!--  <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite">
       </a-animation>
-      <a-entity id="isolated-ventricles" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #ventricle" material="color: #c2d2ea;"
-        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: blue"></a-entity>
-      <a-entity id="isolated-Thalamus" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #thalamus" material="color: #c2d2ea;"
-        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: yellow"></a-entity>
-      <a-entity id="isolated-Subthalamic" class="interactible" position="-0.05 -0.11 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #subthalamic"
-        material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: purple"></a-entity>
-      <a-entity id="isolated-Lcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lcaudate" material="color: #c2d2ea;"
-        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: teal"></a-entity>
-      <a-entity id="isolated-Lputamen" class="interactible" position="-0.2 0.1 0.1" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lputamen"
-        material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: orange"></a-entity>
-      <a-entity id="isolated-Lsubstantianigra" class="interactible" position="-0.0 -0.12 0.05" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lsubstantianigra"
-        material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: green"></a-entity>
-      <a-entity id="isolated-Lglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #lglobuspallidus"
-        material="color: #c2d2ea; " override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: red"></a-entity>
-      <a-entity id="isolated-Rcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rcaudate" material="color: #c2d2ea;"
-        override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: teal"></a-entity>
-      <a-entity id="isolated-Rputamen" class="interactible" position="-0.2 0.1 -0.1" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rputamen"
-        material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: orange"></a-entity>
-      <a-entity id="isolated-Rsubstantianigra" class="interactible" position="-0.0 -0.10 -0.05" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rsubstantianigra"
-        material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: green"></a-entity>
-      <a-entity id="isolated-Rglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15" rotation="-90 90 0" obj-model="obj: #rglobuspallidus"
-        material="color: #c2d2ea;" override-material animation__rot="property: rotation; from: -90 90 0; to: -90 450 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false"
-        change-color-on-hover="color: red"></a-entity>
+      <a-entity id="isolated-ventricles" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #ventricles" material="color: #c2d2ea;" override-material change-color-on-hover="color: blue"></a-entity>
+      <a-entity id="isolated-Thalamus" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #thalamus" material="color: #c2d2ea;" override-material change-color-on-hover="color: yellow"></a-entity>
+      <a-entity id="isolated-Subthalamic" class="interactible" position="-0.05 -0.11 0" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #subnuclei" material="color: #c2d2ea;" override-material change-color-on-hover="color: purple"></a-entity>
+      <a-entity id="isolated-Lcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #lcaudate" material="color: #c2d2ea;" override-material change-color-on-hover="color: teal"></a-entity>
+      <a-entity id="isolated-Lputamen" class="interactible" position="-0.2 0.1 0.1" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #lputamen" material="color: #c2d2ea;" override-material change-color-on-hover="color: orange"></a-entity>
+      <a-entity id="isolated-Lglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15"
+        rotation="-90 90 0" obj-model="obj: #lglobus" material="color: #c2d2ea; " override-material change-color-on-hover="color: red"></a-entity>
+      <a-entity id="isolated-Rcaudate" class="interactible" position="0 0 0" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #rcaudate" material="color: #c2d2ea;" override-material change-color-on-hover="color: teal"></a-entity>
+      <a-entity id="isolated-Rputamen" class="interactible" position="-0.2 0.1 -0.1" scale="0.15 0.15 0.15" rotation="0 0 0"
+        obj-model="obj: #rputamen" material="color: #c2d2ea;" override-material change-color-on-hover="color: orange"></a-entity>
+      <a-entity id="isolated-Rsubstantianigra" class="interactible" position="-0.0 -0.10 -0.05" scale="0.15 0.15 0.15"
+        rotation="-90 90 0" obj-model="obj: #subnigra" material="color: #c2d2ea;" override-material change-color-on-hover="color: green"></a-entity>
+      <a-entity id="isolated-Rglobuspallidus" class="interactible" position="-0.2 0.1 0" scale="0.15 0.15 0.15"
+        rotation="-90 90 0" obj-model="obj: #rglobus" material="color: #c2d2ea;" override-material change-color-on-hover="color: red"></a-entity>
+    -->
     </a-entity>
   </a-scene>
 </body>
+
 </html>
