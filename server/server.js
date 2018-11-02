@@ -52,6 +52,6 @@ app.get('/', (req, res) => {
 
 Comm.init(app);
 
-server.listen(Env.port, Env.addr_local, () => {
+server.listen(Env.port, Env.addr_public, () => {
     console.log("the app is listening on port " + Env.port)
 });
