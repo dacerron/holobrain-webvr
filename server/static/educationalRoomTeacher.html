@@ -38,8 +38,9 @@
   <script type="text/javascript" src="js/toggle-structure.component.js"></script>
   <script type="text/javascript" src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
+
 <body style='margin: 0px; overflow: hidden;'>
-  <a-scene eduRoomTeacher embedded arjs>
+  <a-scene eduRoomTeacher embedded arjs="trackingMethod: best;">
     <a-assets>
       <img id="bg1" src="public/assets/cell_360.jpg" />
       <img id="rotate-icon" src="public/assets/rotate-icon.png" />
@@ -171,20 +172,20 @@
         </a-gui-flex-container>
         <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0 -0.15" scale="1 0.001 0.001" visible="false">
-          <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-caudate">
+          <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-caudate">
           </a-gui-button>
-          <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon" value="Globus Pallidus" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-globuspallidus">
+          <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon" value="Globus Pallidus"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-globuspallidus">
           </a-gui-button>
-          <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-thalamus">
+          <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-thalamus">
           </a-gui-button>
-          <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-putamen">
+          <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-putamen">
           </a-gui-button>
-          <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon" value="Subthalamic Nuclei" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-subthalamic">
+          <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon" value="Subthalamic Nuclei"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-subthalamic">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#basalGangliaContainer"
             icon="android-close" role="button">
@@ -214,23 +215,23 @@
         <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="2.5" height="0.75" position="0 0 -0.15" rotation="0 0 0" scale="1 0.001 0.001" visible="false"
           gui-item="" geometry="" material="" gui-flex-container="">
-          <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-fornix">
+          <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-fornix">
           </a-gui-button>
-          <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon" value="Hippocampus" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-hippocampus">
+          <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon" value="Hippocampus"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-hippocampus">
           </a-gui-button>
-          <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-amygdala">
+          <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-amygdala">
           </a-gui-button>
-          <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="MammillaryBodies" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mambodies">
+          <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="MammillaryBodies"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mambodies">
           </a-gui-button>
-          <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon" value="Mammillothallamic Tract" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mamtract">
+          <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon" value="Mammillothallamic Tract"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mamtract">
           </a-gui-button>
-          <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon" value="Substantia Nigra" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-substantianigra">
+          <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon" value="Substantia Nigra"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-substantianigra">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#limbicSystemContainer"
             icon="android-close" role="button">
@@ -260,17 +261,17 @@
         </a-gui-flex-container>
         <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0 -0.15" rotation="0 0 0" scale="1 0.001 0.001" visible="false">
-          <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries" width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-arteries">
+          <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-arteries">
           </a-gui-button>
-          <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon" value="Ventricles" width="3" height="0.75"  
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-ventricles">
+          <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon" value="Ventricles"
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-ventricles">
           </a-gui-button>
-          <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses"  width="3" height="0.75"
-            font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-sinuses">
+          <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses" width="3"
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-sinuses">
           </a-gui-button>
-          <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#vesselsContainer" width="3" height="0.75"
-            icon="android-close" role="button">
+          <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#vesselsContainer"
+            width="3" height="0.75" icon="android-close" role="button">
           </a-gui-icon-button>
 
           <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
@@ -287,58 +288,59 @@
 
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
 
-    <a-entity id="isolated-brain-parts" position="-3 3.5 -1" scale="1 1 1">
-      <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite">
-      </a-animation>
-      <a-entity id="isolated-brain-parts" scale="0.0125 0.0125 0.0125">
-        <a-entity id="isolated-sinuses" class="interactible isolated-sinuses" obj-model="obj: #sinuses-obj" material="side: front; color: #003366; transparent: true; opacity: 0.6"
-          override-material></a-entity>
-        <a-entity id="isolated-ramygdala" class="interactible isolated-amygdala" obj-model="obj: #ramygdala-obj" material="color: #ff81b0;"
-          override-material></a-entity>
-        <a-entity id="isolated-lamygdala" class="interactible isolated-amygdala" obj-model="obj: #lamygdala-obj" material="color: #ff81b0;"
-          override-material></a-entity>
-        <a-entity id="isolated-mambodies" class="interactible isolated-mambodies" obj-model="obj: #mambodies-obj" material="color: #00ffff;"
-          override-material></a-entity>
-        <a-entity id="isolated-mamtract" class="interactible isolated-mamtract" obj-model="obj: #mamtract-obj" material="color: #66cd00;"
-          override-material></a-entity>
-        <a-entity id="isolated-hippocampus" class="interactible isolated-hippocampus" obj-model="obj: #hippocampus-obj" material="color: #ffd700;"
-          override-material></a-entity>
-        <a-entity id="isolated-fornix" class="interactible isolated-fornix" obj-model="obj: #fornix-obj" material="color: #be29ec;"
-          override-material></a-entity>
-        <a-entity id="isolated-arteries" class="interactible isolated-arteries" obj-model="obj: #arteries-obj" material="side: front; color: #950714; transparent: true; opacity: 0.6"
-          override-material></a-entity>
-        <a-entity id="isolated-cerebellum" class="interactible isolated-cerebellum" obj-model="obj: #cerebellum-obj" material="color: #ff7f50;"
-          override-material></a-entity>
-        <a-entity id="isolated-thalamus" class="interactible isolated-thalamus" obj-model="obj: #thalamus-obj" material="color: #008080; "
-          override-material></a-entity>
-        <a-entity id="isolated-subthalamic" class="interactible isolated-subthalamic" obj-model="obj: #subnuclei-obj" material="color: #000000;"
-          override-material></a-entity>
-        <a-entity id="isolated-lcaudate" class="interactible isolated-caudate" obj-model="obj: #lcaudate-obj" material="color: #f6546a; "
-          override-material></a-entity>
-        <a-entity id="isolated-lputamen" class="interactible isolated-putamen" obj-model="obj: #lputamen-obj" material="color: #45a54f;"
-          override-material></a-entity>
-        <a-entity id="isolated-lglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #lglobus-obj" material="color: #6760aa;"
-          override-material></a-entity>
-        <a-entity id="isolated-rcaudate" class="interactible isolated-caudate" obj-model="obj: #rcaudate-obj" material="color: #f6546a; "
-          override-material></a-entity>
-        <a-entity id="isolated-rputamen" class="interactible isolated-putamen" obj-model="obj: #rputamen-obj" material="color: #45a54f;"
-          override-material></a-entity>
-        <a-entity id="isolated-substantianigra" class="interactible isolated-substantianigra" obj-model="obj: #subnigra-obj" material="color: #4d4e4f;"
-          override-material></a-entity>
-        <a-entity id="isolated-rglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #rglobus-obj" material="color: #6760aa;"
-          override-material></a-entity>
-        <a-entity id="isolated-ventricles" class="interactible isolated-ventricles" obj-model="obj: #ventricles-obj" material="color: #3b5998;"
-          override-material></a-entity>
+    <a-anchor hit-testing-enabled="true" position rotation scale visible material arjs-anchor arjs-hit-testing>
+      <a-entity id="isolated-brain-parts" position="-3 3.5 -1" scale="1 1 1">
+        <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite">
+        </a-animation>
+        <a-entity id="isolated-brain-parts" scale="0.0125 0.0125 0.0125">
+          <a-entity id="isolated-sinuses" class="interactible isolated-sinuses" obj-model="obj: #sinuses-obj" material="side: front; color: #003366; transparent: true; opacity: 0.6"
+            override-material></a-entity>
+          <a-entity id="isolated-ramygdala" class="interactible isolated-amygdala" obj-model="obj: #ramygdala-obj"
+            material="color: #ff81b0;" override-material></a-entity>
+          <a-entity id="isolated-lamygdala" class="interactible isolated-amygdala" obj-model="obj: #lamygdala-obj"
+            material="color: #ff81b0;" override-material></a-entity>
+          <a-entity id="isolated-mambodies" class="interactible isolated-mambodies" obj-model="obj: #mambodies-obj"
+            material="color: #00ffff;" override-material></a-entity>
+          <a-entity id="isolated-mamtract" class="interactible isolated-mamtract" obj-model="obj: #mamtract-obj"
+            material="color: #66cd00;" override-material></a-entity>
+          <a-entity id="isolated-hippocampus" class="interactible isolated-hippocampus" obj-model="obj: #hippocampus-obj"
+            material="color: #ffd700;" override-material></a-entity>
+          <a-entity id="isolated-fornix" class="interactible isolated-fornix" obj-model="obj: #fornix-obj" material="color: #be29ec;"
+            override-material></a-entity>
+          <a-entity id="isolated-arteries" class="interactible isolated-arteries" obj-model="obj: #arteries-obj"
+            material="side: front; color: #950714; transparent: true; opacity: 0.6" override-material></a-entity>
+          <a-entity id="isolated-cerebellum" class="interactible isolated-cerebellum" obj-model="obj: #cerebellum-obj"
+            material="color: #ff7f50;" override-material></a-entity>
+          <a-entity id="isolated-thalamus" class="interactible isolated-thalamus" obj-model="obj: #thalamus-obj"
+            material="color: #008080; " override-material></a-entity>
+          <a-entity id="isolated-subthalamic" class="interactible isolated-subthalamic" obj-model="obj: #subnuclei-obj"
+            material="color: #000000;" override-material></a-entity>
+          <a-entity id="isolated-lcaudate" class="interactible isolated-caudate" obj-model="obj: #lcaudate-obj"
+            material="color: #f6546a; " override-material></a-entity>
+          <a-entity id="isolated-lputamen" class="interactible isolated-putamen" obj-model="obj: #lputamen-obj"
+            material="color: #45a54f;" override-material></a-entity>
+          <a-entity id="isolated-lglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #lglobus-obj"
+            material="color: #6760aa;" override-material></a-entity>
+          <a-entity id="isolated-rcaudate" class="interactible isolated-caudate" obj-model="obj: #rcaudate-obj"
+            material="color: #f6546a; " override-material></a-entity>
+          <a-entity id="isolated-rputamen" class="interactible isolated-putamen" obj-model="obj: #rputamen-obj"
+            material="color: #45a54f;" override-material></a-entity>
+          <a-entity id="isolated-substantianigra" class="interactible isolated-substantianigra" obj-model="obj: #subnigra-obj"
+            material="color: #4d4e4f;" override-material></a-entity>
+          <a-entity id="isolated-rglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #rglobus-obj"
+            material="color: #6760aa;" override-material></a-entity>
+          <a-entity id="isolated-ventricles" class="interactible isolated-ventricles" obj-model="obj: #ventricles-obj"
+            material="color: #3b5998;" override-material></a-entity>
+        </a-entity>
+        <a-entity id="isolated-brain-cortex" position="0 0 0" scale="0.0125 0.0125 0.0125" rotation="0 0 0" obj-model="obj: #cortex-obj"
+          material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
+        </a-entity>
       </a-entity>
-      <a-entity id="isolated-brain-cortex" position="0 0 0" scale="0.0125 0.0125 0.0125" rotation="0 0 0" obj-model="obj: #cortex-obj"
-        material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
-      </a-entity>
-    </a-entity>
-
-    <a-marker-camera preset='hiro' active="true" user-height="0" position="0 2 0" look-controls>
-      <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
-      </a-ring>
-    </a-marker-camera>
+    </a-anchor>
+    <a-camera-static>
+      <!--<a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+      </a-ring>-->
+    </a-camera-static>
   </a-scene>
 </body>
 
