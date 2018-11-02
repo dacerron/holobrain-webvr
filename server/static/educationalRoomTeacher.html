@@ -36,9 +36,10 @@
   <script type="text/javascript" src="js/dropdown.js"></script>
   <script type="text/javascript" src="js/change-color-on-hover.component.js"></script>
   <script type="text/javascript" src="js/toggle-structure.component.js"></script>
+  <script type="text/javascript" src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
-<body>
-  <a-scene eduRoomTeacher>
+<body style='margin: 0px; overflow: hidden;'>
+  <a-scene eduRoomTeacher embedded arjs>
     <a-assets>
       <img id="bg1" src="public/assets/cell_360.jpg" />
       <img id="rotate-icon" src="public/assets/rotate-icon.png" />
@@ -334,12 +335,10 @@
       </a-entity>
     </a-entity>
 
-    <a-entity id="player" wasd-controls>
-      <a-camera active="true" user-height="0" position="0 2 0" look-controls>
-        <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
-        </a-ring>
-      </a-camera>
-    </a-entity>
+    <a-marker-camera preset='hiro' active="true" user-height="0" position="0 2 0" look-controls>
+      <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+      </a-ring>
+    </a-marker-camera>
   </a-scene>
 </body>
 
