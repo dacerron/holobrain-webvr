@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const http = require("http");
+const https = require("https");
 
 const app = express();
 
-var server = http.Server(app);
+var server = https.Server(app);
 var Comm = require('./comm.js');
 var Env = require('./env.js');
 
