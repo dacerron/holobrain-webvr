@@ -2,7 +2,7 @@ AFRAME.registerComponent('assign-rotate', {
   
   schema: {
     target: {type: 'selector', default: '#holobrain'},
-    paused: {type: 'bool', default: 'false'}
+    paused: {type: 'bool', default: 'true'}
   },
   
   init:function() {

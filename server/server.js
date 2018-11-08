@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const https = require("https");
+const http = require("http");
 
 const app = express();
 
-var server = https.Server(app);
+var server = http.Server(app);
 var Comm = require('./comm.js');
 var Env = require('./env.js');
 
@@ -52,6 +52,6 @@ app.get('/', (req, res) => {
 
 Comm.init(app);
 
-server.listen(Env.port, Env.addr_public, () => {
+server.listen(Env.port, Env.addr_local, () => {
     console.log("the app is listening on port " + Env.port)
 });

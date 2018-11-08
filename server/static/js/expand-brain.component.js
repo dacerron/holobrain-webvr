@@ -24,13 +24,14 @@ AFRAME.registerComponent('expand-brain', {
         for (let i = 0; i < numBrainParts; i++) {
           let brainPart = brainParts[i];
           let oldBrainPos = brainPart.getAttribute("position");
+          let disappear = brainPart.getAttribute("expand-position").disappear;
           let brainPos =  brainPart.getAttribute("expand-position").pos
           
           let oldBrainPosString = oldBrainPos.x + " " + oldBrainPos.y + " " + oldBrainPos.z;
           let brainPosString = brainPos.x + " " + brainPos.y + " " + brainPos.z;
           
           brainPart.setAttribute("animation__pos", "property: position; dur: 600; easing: linear; from: " + oldBrainPosString + "; to: " + brainPosString + ";");
-          //brainPart.setAttribute("position", brainPos);
+          disappear? function(){brainPart.setAttribute("visible", false)}() : null;
         }
         document.querySelectorAll('[expand-brain]').forEach( function(x) { x.setAttribute("expand-brain", "expanded: true")});
       }
@@ -43,12 +44,13 @@ AFRAME.registerComponent('expand-brain', {
           let brainPart = brainParts[i];
           let oldBrainPos = brainPart.getAttribute("position");
           let brainPos = brainPart.getAttribute("og-position").pos;
+          let disappear = brainPart.getAttribute("expand-position").disappear;
           
           let oldBrainPosString = oldBrainPos.x + " " + oldBrainPos.y + " " + oldBrainPos.z;
           let brainPosString = brainPos.x + " " + brainPos.y + " " + brainPos.z;
           
           brainPart.setAttribute("animation__pos", "property: position; dur: 600; easing: linear; from: " + oldBrainPosString + "; to: " + brainPosString + ";");
-          //brainPart.setAttribute("position", brainPos);
+          disappear? function(){brainPart.setAttribute("visible", true)}() : null;
         }
         data.center.setAttribute("material", "opacity", "0.3");
         document.querySelectorAll('[expand-brain]').forEach( function(x) { x.setAttribute("expand-brain", "expanded: false")});

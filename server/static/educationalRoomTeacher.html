@@ -36,6 +36,7 @@
   <script type="text/javascript" src="js/dropdown.js"></script>
   <script type="text/javascript" src="js/change-color-on-hover.component.js"></script>
   <script type="text/javascript" src="js/toggle-structure.component.js"></script>
+  <script type="text/javascript" src="js/hover-highlight.component.js"></script>
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
@@ -91,72 +92,9 @@
       </a-gui-button>
     </a-entity>
 
-    <a-entity id="holobrain" position="0 2.4 -4" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
-      <a-entity id="brain-parts" scale="0.015 0.015 0.015">
-        <a-entity id="sinuses" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #sinuses-obj"
-          material="side: front; color: #c2d2ea; transparent: true; opacity: 0.6" material="color: #c2d2ea;"
-          override-material change-color-on-hover="color: #003366;" og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="ramygdala" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #ramygdala-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff81b0; counterpart: #lamygdala"
-          og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="lamygdala" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lamygdala-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff81b0; counterpart: #ramygdala"
-          og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="mambodies" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #mambodies-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #00ffff" og-position="pos: 0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="mamtract" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #mamtract-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #66cd00" og-position="pos: 0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="hippocampus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #hippocampus-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ffd700" og-position="pos: 0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="fornix" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #fornix-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #be29ec" og-position="pos: 0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="arteries" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #arteries-obj"
-          material="side: front; color: #c2d2ea; transparent: true; opacity: 0.6" override-material
-          change-color-on-hover="color: #950714" og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="ventricles" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #ventricles-obj"
-          material="side: front; color: #c2d2ea; transparent: true; opacity: 0.6" override-material
-          change-color-on-hover="color: #3b5998" og-position="pos: 0 0 0" expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="cerebellum" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #cerebellum-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #ff7f50" og-position="pos: 0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="thalamus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #thalamus-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #008080" og-position="pos:0 0 0"
-          expand-position="pos: 0 0 0"></a-entity>
-        <a-entity id="subthalamic" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #subnuclei-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #000000" og-position="pos: 0 0 0"
-          expand-position="pos: 0 -0.35 0"></a-entity>
-        <a-entity id="lcaudate" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lcaudate-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #f6546a; counterpart:#rcaudate"
-          og-position="pos: 0 0 0" expand-position="pos:0 0 -0.3"></a-entity>
-        <a-entity id="lputamen" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lputamen-obj"
-          material="color: #c2d2ea;" override-material change-color-on-hover="color: #000000; counterpart: #rputamen"
-          og-position="pos: 0 0 0" expand-position="pos: -0.2 0.1 -0.5"></a-entity>
-        <a-entity id="lglobuspallidus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #lglobus-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #6760aa; counterpart: #rglobuspallidus"
-          og-position="pos: 0 0 0" expand-position="pos: -0.2 0.1 -0.1"></a-entity>
-        <a-entity id="rcaudate" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rcaudate-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #f6546a; counterpart: #lcaudate"
-          og-position="pos: 0 0 0" expand-position="pos: 0 0 0.3"></a-entity>
-        <a-entity id="rputamen" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rputamen-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #000000; counterpart: #lputamen"
-          og-position="pos: 0 0 0" expand-position="pos: -0.2 0.1 0.5"></a-entity>
-        <a-entity id="substantianigra" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #subnigra-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #000000" og-position="pos: 0 0 0"
-          expand-position="pos:0 -0.45 0"></a-entity>
-        <a-entity id="rglobuspallidus" class="interactible" position="0 0 0" rotation="0 0 0" obj-model="obj: #rglobus-obj"
-          material="color: #c2d2ea; " override-material change-color-on-hover="color: #6760aa; counterpart: #lglobuspallidus"
-          og-position="pos: 0 0 0" expand-position="pos:-0.2 0.1 0.1"></a-entity>
-      </a-entity>
-      <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" scale="0.015 0.015 0.015" obj-model="obj: #cortex-obj"
-        material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
-      </a-entity>
-    </a-entity>
-    <a-entity id="isolate-menu" position="-3 -1 -1" rotation="-20 60 0">
-      <a-entity id="basalGangliaContainer" position="-3 0 -2">
+
+    <a-entity id="isolate-menu" position="0 0 -4" rotation="0 0 0">
+      <a-entity id="basalGangliaContainer" position="4 3.5 0" rotation="0 -30 0">
         <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
           <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#basalGangliaContainer"
@@ -198,7 +136,7 @@
         </a-gui-flex-container>
       </a-entity>
 
-      <a-entity id="limbicSystemContainer" position="0 0 -2">
+      <a-entity id="limbicSystemContainer" position="-3.5 2.3 0" rotation="0 30 0">
         <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
           <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#limbicSystemContainer"
@@ -216,19 +154,19 @@
             height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-fornix">
           </a-gui-button>
           <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon" value="Hippocampus"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-hippocampus">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-hippocampus">
           </a-gui-button>
           <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala" width="3"
             height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-amygdala">
           </a-gui-button>
-          <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="MammillaryBodies"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mambodies">
+          <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="Mammillary Bodies"
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mambodies">
           </a-gui-button>
           <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon" value="Mammillothallamic Tract"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mamtract">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mamtract">
           </a-gui-button>
           <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon" value="Substantia Nigra"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-substantianigra">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-substantianigra">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#limbicSystemContainer"
             icon="android-close" role="button">
@@ -245,7 +183,7 @@
         </a-gui-flex-container>
       </a-entity>
 
-      <a-entity id="vesselsContainer" position="3 0 -2">
+      <a-entity id="vesselsContainer" position="4 -1 0" rotation="0 -30 0">
         <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0.375 0">
           <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#vesselsContainer"
@@ -282,58 +220,73 @@
         </a-gui-flex-container>
       </a-entity>
     </a-entity>
-
-    <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
-
-    <a-entity id="isolated-brain-parts" position="0 0 0" scale="1 1 1">
-      <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite">
-      </a-animation>
-      <a-entity id="isolated-brain-parts" scale="0.0125 0.0125 0.0125">
-        <a-entity id="isolated-sinuses" class="interactible isolated-sinuses" obj-model="obj: #sinuses-obj" material="side: front; color: #003366; transparent: true; opacity: 0.6"
-          override-material></a-entity>
-        <a-entity id="isolated-ramygdala" class="interactible isolated-amygdala" obj-model="obj: #ramygdala-obj"
-          material="color: #ff81b0;" override-material></a-entity>
-        <a-entity id="isolated-lamygdala" class="interactible isolated-amygdala" obj-model="obj: #lamygdala-obj"
-          material="color: #ff81b0;" override-material></a-entity>
-        <a-entity id="isolated-mambodies" class="interactible isolated-mambodies" obj-model="obj: #mambodies-obj"
-          material="color: #00ffff;" override-material></a-entity>
-        <a-entity id="isolated-mamtract" class="interactible isolated-mamtract" obj-model="obj: #mamtract-obj" material="color: #66cd00;"
-          override-material></a-entity>
-        <a-entity id="isolated-hippocampus" class="interactible isolated-hippocampus" obj-model="obj: #hippocampus-obj"
-          material="color: #ffd700;" override-material></a-entity>
-        <a-entity id="isolated-fornix" class="interactible isolated-fornix" obj-model="obj: #fornix-obj" material="color: #be29ec;"
-          override-material></a-entity>
-        <a-entity id="isolated-arteries" class="interactible isolated-arteries" obj-model="obj: #arteries-obj" material="side: front; color: #950714; transparent: true; opacity: 0.6"
-          override-material></a-entity>
-        <a-entity id="isolated-cerebellum" class="interactible isolated-cerebellum" obj-model="obj: #cerebellum-obj"
-          material="color: #ff7f50;" override-material></a-entity>
-        <a-entity id="isolated-thalamus" class="interactible isolated-thalamus" obj-model="obj: #thalamus-obj" material="color: #008080; "
-          override-material></a-entity>
-        <a-entity id="isolated-subthalamic" class="interactible isolated-subthalamic" obj-model="obj: #subnuclei-obj"
-          material="color: #000000;" override-material></a-entity>
-        <a-entity id="isolated-lcaudate" class="interactible isolated-caudate" obj-model="obj: #lcaudate-obj" material="color: #f6546a; "
-          override-material></a-entity>
-        <a-entity id="isolated-lputamen" class="interactible isolated-putamen" obj-model="obj: #lputamen-obj" material="color: #45a54f;"
-          override-material></a-entity>
-        <a-entity id="isolated-lglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #lglobus-obj"
-          material="color: #6760aa;" override-material></a-entity>
-        <a-entity id="isolated-rcaudate" class="interactible isolated-caudate" obj-model="obj: #rcaudate-obj" material="color: #f6546a; "
-          override-material></a-entity>
-        <a-entity id="isolated-rputamen" class="interactible isolated-putamen" obj-model="obj: #rputamen-obj" material="color: #45a54f;"
-          override-material></a-entity>
-        <a-entity id="isolated-substantianigra" class="interactible isolated-substantianigra" obj-model="obj: #subnigra-obj"
-          material="color: #4d4e4f;" override-material></a-entity>
-        <a-entity id="isolated-rglobuspallidus" class="interactible isolated-globuspallidus" obj-model="obj: #rglobus-obj"
-          material="color: #6760aa;" override-material></a-entity>
-        <a-entity id="isolated-ventricles" class="interactible isolated-ventricles" obj-model="obj: #ventricles-obj"
-          material="color: #3b5998;" override-material></a-entity>
+    <a-entity id="holobrain" position="0 2.4 -4" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+      <a-entity id="brain-parts" scale="0.015 0.015 0.015">
+        <a-entity id="sinuses" class="interactible isolated-sinuses" position="0 0 0" rotation="0 0 0" obj-model="obj: #sinuses-obj"
+          material="side: front; color: #003366; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          expand-position="disappear: true" hover-highlight></a-entity>
+        <a-entity id="ramygdala" class="interactible isolated-amygdala" position="0 0 0" rotation="0 0 0" obj-model="obj: #ramygdala-obj"
+          material="color: #ff81b0;" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 -25"
+          hover-highlight="counterpart:#lamygdala"></a-entity>
+        <a-entity id="lamygdala" class="interactible isolated-amygdala" position="0 0 0" rotation="0 0 0" obj-model="obj: #lamygdala-obj"
+          material="color: #ff81b0;" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 25"
+          hover-highlight="counterpart:#ramygdala"></a-entity>
+        <a-entity id="mambodies" class="interactible isolated-mambodies" position="0 0 0" rotation="0 0 0" obj-model="obj: #mambodies-obj"
+          material="color: #00ffff;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          hover-highlight></a-entity>
+        <a-entity id="mamtract" class="interactible isolated-mamtract" position="0 0 0" rotation="0 0 0" obj-model="obj: #mamtract-obj"
+          material="color: #66cd00;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          hover-highlight></a-entity>
+        <a-entity id="hippocampus" class="interactible isolated-hippocampus" position="0 0 0" rotation="0 0 0"
+          obj-model="obj: #hippocampus-obj" material="color: #ffd700;" override-material og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0" hover-highlight></a-entity>
+        <a-entity id="fornix" class="interactible isolated-fornix" position="0 0 0" rotation="0 0 0" obj-model="obj: #fornix-obj"
+          material="color: #be29ec;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          hover-highlight></a-entity>
+        <a-entity id="arteries" class="interactible isolated-arteries" position="0 0 0" rotation="0 0 0" obj-model="obj: #arteries-obj"
+          material="side: front; color: #950714; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          expand-position="disappear: true" hover-highlight></a-entity>
+        <a-entity id="ventricles" class="interactible isolated-ventricles" position="0 0 0" rotation="0 0 0" obj-model="obj: #ventricles-obj"
+          material="side: front; color: #3b5998; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0" hover-highlight></a-entity>
+        <a-entity id="cerebellum" class="interactible isolated-cerebellum" position="0 0 0" rotation="0 0 0" obj-model="obj: #cerebellum-obj"
+          material="color: #ff7f50;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          hover-highlight></a-entity>
+        <a-entity id="thalamus" class="interactible isolated-thalamus" position="0 0 0" rotation="0 0 0" obj-model="obj: #thalamus-obj"
+          material="color: #008080;" override-material og-position="pos:0 0 0" expand-position="pos: 0 0 0"
+          hover-highlight></a-entity>
+        <a-entity id="subthalamic" class="interactible isolated-subthalamic" position="0 0 0" rotation="0 0 0"
+          obj-model="obj: #subnuclei-obj" material="color: #000000;" override-material og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 0" hover-highlight></a-entity>
+        <a-entity id="lcaudate" class="interactible isolated-caudate" position="0 0 0" rotation="0 0 0" obj-model="obj: #lcaudate-obj"
+          material="color: #f6546a;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 20"
+          hover-highlight="counterpart:#rcaudate"></a-entity>
+        <a-entity id="lputamen" class="interactible isolated-putamen" position="0 0 0" rotation="0 0 0" obj-model="obj: #lputamen-obj"
+          material="color: #45a54f;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 50"
+          hover-highlight="counterpart:#rputamen"></a-entity>
+        <a-entity id="lglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
+          obj-model="obj: #lglobus-obj" material="color: #6760aa; " override-material og-position="pos: 0 0 0"
+          expand-position="pos: 0 0 30" hover-highlight="counterpart:#rglobuspallidus"></a-entity>
+        <a-entity id="rcaudate" class="interactible isolated-caudate" position="0 0 0" rotation="0 0 0" obj-model="obj: #rcaudate-obj"
+          material="color: #f6546a; " override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 -20"
+          hover-highlight="counterpart:#lcaudate"></a-entity>
+        <a-entity id="rputamen" class="interactible isolated-putamen" position="0 0 0" rotation="0 0 0" obj-model="obj: #rputamen-obj"
+          material="color: #45a54f;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 -50"
+          hover-highlight="counterpart:#lputamen"></a-entity>
+        <a-entity id="substantianigra" class="interactible isolated-substantianigra" position="0 0 0" rotation="0 0 0"
+          obj-model="obj: #subnigra-obj" material="color: #4d4e4f; " override-material og-position="pos: 0 0 0"
+          expand-position="pos:0 0 0" hover-highlight></a-entity>
+        <a-entity id="rglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
+          obj-model="obj: #rglobus-obj" material="color: #6760aa; " override-material og-position="pos: 0 0 0"
+          expand-position="pos:0 0 -30" hover-highlight="counterpart:#lglobuspallidus"></a-entity>
       </a-entity>
-      <a-entity id="isolated-brain-cortex" position="0 0 0" scale="0.0125 0.0125 0.0125" rotation="0 0 0" obj-model="obj: #cortex-obj"
+      <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" scale="0.015 0.015 0.015" obj-model="obj: #cortex-obj"
         material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
       </a-entity>
     </a-entity>
+    <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
 
-    <a-camera wasd-controls look-controls>
+    <a-camera active="true" user-height="0" position="0 2 0" look-controls>
       <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
       </a-ring>
     </a-camera>
