@@ -1,130 +1,75 @@
 AFRAME.registerComponent("eduroomstudent", {
-    schema: { type: 'vec3' },
+    schema: {
+        brain: {type: 'selector', default: '#holobrain'}
+    },
 
     init: function () {
-        this.sessionKey = Number.parseInt(CookieParser.grabCookie("session"));
+        var data = this.data;
+        var sessionKey = Number.parseInt(CookieParser.grabCookie("session"));
+        var parts,cortex, sinuses, ramygdala, lamygdala, mambodies, mamtract, hippocampus, fornix,
+            arteries, ventricles, cerebellum, thalamus, subthalamic, lcaudate, lputamen, lglobuspallidus,
+            rcaudate, rputamen, substantianigra, rglobuspallidus;
+        brain = data.brain;
+        cortex = data.brain.querySelector("#brain-cortex");
+        sinuses = data.brain.querySelector("#sinuses");
+        ramygdala = data.brain.querySelector("#ramygdala");
+        lamygdala = data.brain.querySelector("#lamygdala");
+        mambodies = data.brain.querySelector("#mambodies");
+        mamtract = data.brain.querySelector("#mamtract");
+        hippocampus = data.brain.querySelector("#hippocampus");
+        fornix = data.brain.querySelector("#fornix"); 
+        arteries = data.brain.querySelector("#arteries");
+        ventricles = data.brain.querySelector("#ventricles");
+        cerebellum = data.brain.querySelector("#cerebellum");
+        thalamus = data.brain.querySelector("#thalamus");
+        subthalamic = data.brain.querySelector("#subthalamic");
+        lcaudate = data.brain.querySelector("#lcaudate");
+        lputamen = data.brain.querySelector("#lputamen");
+        lglobuspallidus = data.brain.querySelector("#lglobuspallidus");
+        rcaudate = data.brain.querySelector("#rcaudate");
+        rputamen = data.brain.querySelector("#rputamen");
+        substantianigra = data.brain.querySelector("#substantianigra");
+        rglobuspallidus = data.brain.querySelector("#rglobuspallidus");
 
-        //TODO: extend this function with ActiveXML and others if we want to support more browsers
-        this.makeXHR = function () {
-            return new XMLHttpRequest();
-        };
+        var socket = io.connect('/');
+        socket.on('ready', function() {
+            socket.on('studentShareState', function(data) {
+                setState(data.state);
+            });
+            socket.emit('studentJoin', {key: sessionKey});
+        }.bind(this));
 
-        this.fetchState = function () {
-            return new Promise(function (resolve, reject) {
-                var req = this.makeXHR();
-                req.open('GET', '/student/getEducationalState?key=' + this.sessionKey);
-                req.onload = function () {
-                    if (req.status === 200) {
-                        this.setState(JSON.parse(req.response));
-                        resolve();
-                    } else {
-                        console.log("failed to update state");
-                        reject();
-                    }
-                }.bind(this);
-                req.send();
-            }.bind(this));
-        };
-
-        this.setState = function (state) {
-            let brainParts, ventricles, thalamus, subthalamic, lCaudate, lPutamen, lSubstantiaNigra,
-                lGlobusPallidus, rCaudate, rPutamen, rGlobusPallidus;
-            state = state.state;
-            brainParts = document.querySelector("#isolated-brain-parts");
-            brainParts.setAttribute("position", state.brainParts.general.pos);
-            brainParts.setAttribute("rotation", state.brainParts.general.rot);
-
-            ventricles = brainParts.querySelector("#isolated-ventricles");
-            this.updateObject(ventricles, state.brainParts.ventricles);
-
-            thalamus = brainParts.querySelector("#isolated-Thalamus");
-            this.updateObject(thalamus, state.brainParts.thalamus);
-
-            subthalamic = brainParts.querySelector("#isolated-Subthalamic");
-            this.updateObject(subthalamic, state.brainParts.subthalamic);
-
-            lCaudate = brainParts.querySelector("#isolated-Lcaudate");
-            this.updateObject(lCaudate, state.brainParts.lCaudate);
-
-            lPutamen = brainParts.querySelector("#isolated-Lputamen");
-            this.updateObject(lPutamen, state.brainParts.lPutamen);
-
-            lSubstantiaNigra = brainParts.querySelector("#isolated-Lsubstantianigra");
-            this.updateObject(lSubstantiaNigra, state.brainParts.lSubstantiaNigra);
-
-            lGlobusPallidus = brainParts.querySelector("#isolated-Lglobuspallidus");
-            this.updateObject(lGlobusPallidus, state.brainParts.lGlobusPallidus);
-
-            rCaudate = brainParts.querySelector("#isolated-Rcaudate");
-            this.updateObject(rCaudate, state.brainParts.lGlobusPallidus);
-
-            rPutamen = brainParts.querySelector("#isolated-Rcaudate");
-            this.updateObject(rPutamen, state.brainParts.rPutamen);
-
-            rSubstantiaNigra = brainParts.querySelector("#isolated-Rsubstantianigra");
-            this.updateObject(rSubstantiaNigra, state.brainParts.rSubstantiaNigra);
-
-            rGlobusPallidus = brainParts.querySelector("#isolated-Rglobuspallidus");
-            this.updateObject(rGlobusPallidus, state.brainParts.rGlobusPallidus);
-
-            brainParts = document.querySelector("#holobrain");
-            brainParts.setAttribute("position", state.brain.general.pos);
-            brainParts.setAttribute("rotation", state.brain.general.rot);
-            brainParts.setAttribute("scale", state.brain.general.scaleX + " " + state.brain.general.scaleY + " " + state.brain.general.scaleZ);
-            brainParts.querySelector("#brain-cortex").setAttribute("material", "opacity", state.brain.general.corOpac);
-
-            ventricles = brainParts.querySelector("#ventricles");
-            this.updateObject(ventricles, state.brain.ventricles);
-
-            thalamus = brainParts.querySelector("#Thalamus");
-            this.updateObject(thalamus, state.brain.thalamus);
-
-            subthalamic = brainParts.querySelector("#Subthalamic");
-            this.updateObject(subthalamic, state.brain.subthalamic);
-
-            lCaudate = brainParts.querySelector("#Lcaudate");
-            this.updateObject(lCaudate, state.brain.lCaudate);
-
-            lPutamen = brainParts.querySelector("#Lputamen");
-            this.updateObject(lPutamen, state.brain.lPutamen);
-
-            lSubstantiaNigra = brainParts.querySelector("#Lsubstantianigra");
-            this.updateObject(lSubstantiaNigra, state.brain.lSubstantiaNigra);
-
-            lGlobusPallidus = brainParts.querySelector("#Lglobuspallidus");
-            this.updateObject(lGlobusPallidus, state.brain.lGlobusPallidus);
-
-            rCaudate = brainParts.querySelector("#Rcaudate");
-            this.updateObject(rCaudate, state.brain.rCaudate);
-
-            rPutamen = brainParts.querySelector("#Rputamen");
-            this.updateObject(rPutamen, state.brain.rPutamen);
-
-            rSubstantiaNigra = brainParts.querySelector("#Rsubstantianigra");
-            this.updateObject(rSubstantiaNigra, state.brain.rSubstantiaNigra);
-
-            rGlobusPallidus = brainParts.querySelector("#Rglobuspallidus");
-            this.updateObject(rGlobusPallidus, state.brain.rGlobusPallidus);
+        var setState = function (state) {
+            brain.setAttribute("position", state.brain.pos);
+            brain.setAttribute("rotation", state.brain.rot);
+            updateObject(ventricles, state.ventricles);
+            updateObject(thalamus, state.thalamus);
+            updateObject(subthalamic, state.subthalamic);
+            updateObject(lcaudate, state.lcaudate);
+            updateObject(lputamen, state.lputamen);
+            updateObject(substantianigra, state.substantianigra);
+            updateObject(lglobuspallidus, state.lglobuspallidus);
+            updateObject(rcaudate, state.lglobuspallidus);
+            updateObject(rputamen, state.rputamen);
+            updateObject(cortex, state.cortex);
+            updateObject(sinuses, state.sinuses);
+            updateObject(ramygdala, state.ramygdala);
+            updateObject(lamygdala, state.lamygdala);
+            updateObject(mambodies, state.mambodies);
+            updateObject(mamtract, state.mamtract);
+            updateObject(hippocampus, state.hippocampus);
+            updateObject(fornix, state.fornix);
+            updateObject(arteries, state.arteries);
+            updateObject(cerebellum, state.cerebellum);
+            updateObject(rglobuspallidus, state.rglobuspallidus);
         }
 
-        this.updateObject = function(obj, state) {
+        var updateObject = function(obj, state) {
             obj.setAttribute("position", state.pos);
             obj.setAttribute("rotation", state.rot);
             obj.setAttribute("material", {color: state.col});
         }
-
-        this.share = function () {
-            setTimeout(function () {
-                this.fetchState()
-                    .then(function () {
-                        this.share();
-                    }.bind(this))
-                    .catch(function () {
-                        this.share();
-                    }.bind(this));
-            }.bind(this), 40);
-        };
-
+/*
         var stream;
         //session is created, connect to audio server
         function convertBlock(incoming) {
@@ -177,5 +122,6 @@ AFRAME.registerComponent("eduroomstudent", {
             }, 1000)
         }
         this.share();
+        */
     }
 });
