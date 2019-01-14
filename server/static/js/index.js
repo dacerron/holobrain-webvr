@@ -7,7 +7,6 @@ var Index = (function() {
                 if(e.target.classList.contains("student")) {
                     document.cookie = "session=" + e.target.parentElement.querySelector(".session-key").value;
                 }
-
                 window.location.href = e.target.getAttribute("value");
             });
         }
