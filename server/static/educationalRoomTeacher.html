@@ -2,67 +2,53 @@
 
 <head>
   <title>Educational Room</title>
-  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
   <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
-  <script type="text/javascript" src="js/require.js"></script>
-  <script type="text/javascript" src="js/env.js"></script>
-  <script type="text/javascript" src="js/cookieParser.js"></script>
-  <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
-  <script type="text/javascript" src="js/hide-if-not-mobile.component.js"></script>
-  <script type="text/javascript" src="js/override-material.component.js"></script>
-  <script type="text/javascript" src="js/assign-rotate.component.js"></script>
-  <script type="text/javascript" src="js/scale-brain.component.js"></script>
-  <script type="text/javascript" src="js/expand-brain.component.js"></script>
+  <script type="text/javascript" src="/js/cookieParser.js"></script>
+  <script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>
+  <script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>
+  <script type="text/javascript" src="/js/override-material.component.js"></script>
+  <script type="text/javascript" src="/js/assign-rotate.component.js"></script>
+  <script type="text/javascript" src="/js/scale-brain.component.js"></script>
+  <script type="text/javascript" src="/js/expand-brain.component.js"></script>
   <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
-  <script type="text/javascript" src="js/aframe.propagate.js"></script>
-  <script type="text/javascript" src="js/assign-microglia.component.js"></script>
-  <script type="text/javascript" src="js/assign-channel.component.js"></script>
-  <script type="text/javascript" src="js/scale-cells.component.js"></script>
-  <script type="text/javascript" src="js/assign-skip.component.js"></script>
-  <script type="text/javascript" src="js/slide-container.component.js"></script>
-  <script type="text/javascript" src="js/play-button.component.js"></script>
-  <script type="text/javascript" src="js/show-mri.component.js"></script>
-  <script type="text/javascript" src="js/rotate-mri.component.js"></script>
-  <script type="text/javascript" src="js/rotate-mriroom.component.js"></script>
-  <script type="text/javascript" src="js/slice-controller.component.js"></script>
-  <script type="text/javascript" src="js/slice-renderer.component.js"></script>
-  <script type="text/javascript" src="js/expand-position.component.js"></script>
-  <script type="text/javascript" src="js/og-position.component.js"></script>
-  <script type="text/javascript" src="js/eduRoomTeacher.component.js"></script>
-  <script type="text/javascript" src="js/dropdown.js"></script>
-  <script type="text/javascript" src="js/change-color-on-hover.component.js"></script>
-  <script type="text/javascript" src="js/toggle-structure.component.js"></script>
-  <script type="text/javascript" src="js/hover-highlight.component.js"></script>
+  <script type="text/javascript" src="/js/expand-position.component.js"></script>
+  <script type="text/javascript" src="/js/og-position.component.js"></script>
+  <script type="text/javascript" src="/js/eduRoomTeacher.component.js"></script>
+  <script type="text/javascript" src="/js/dropdown.js"></script>
+  <script type="text/javascript" src="/js/change-color-on-hover.component.js"></script>
+  <script type="text/javascript" src="/js/toggle-structure.component.js"></script>
+  <script type="text/javascript" src="/js/hover-highlight.component.js"></script>
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
   <a-scene eduroomteacher>
     <a-assets timeout="100000">
-      <img id="bg1" src="public/assets/bg1.jpeg">
-      <img id="rotate-icon" src="public/assets/rotate-icon.png">
-      <img id="MRI-button" src="public/assets/MRI-rough.jpg">
-      <a-asset-item id="cortex-obj" src="public/assets/Cortex.obj"></a-asset-item>
-      <a-asset-item id="arteries-obj" src="public/assets/Arteries.obj"></a-asset-item>
-      <a-asset-item id="cerebellum-obj" src="public/assets/cerebellum.obj"></a-asset-item>
-      <a-asset-item id="fornix-obj" src="public/assets/Fornix.obj"></a-asset-item>
-      <a-asset-item id="hippocampus-obj" src="public/assets/Hippocampus.obj"></a-asset-item>
-      <a-asset-item id="lamygdala-obj" src="public/assets/L-Amygdala.obj"></a-asset-item>
-      <a-asset-item id="lcaudate-obj" src="public/assets/L-Caudate.obj"></a-asset-item>
-      <a-asset-item id="lglobus-obj" src="public/assets/L-Globus.obj"></a-asset-item>
-      <a-asset-item id="lputamen-obj" src="public/assets/L-Putamen.obj"></a-asset-item>
-      <a-asset-item id="mamtract-obj" src="public/assets/MamilloThalamic Tract.obj"></a-asset-item>
-      <a-asset-item id="mambodies-obj" src="public/assets/MammillaryBodies.obj"></a-asset-item>
-      <a-asset-item id="ramygdala-obj" src="public/assets/R-Amygdala.obj"></a-asset-item>
-      <a-asset-item id="rcaudate-obj" src="public/assets/R-Caudate.obj"></a-asset-item>
-      <a-asset-item id="rglobus-obj" src="public/assets/R-Globus.obj"></a-asset-item>
-      <a-asset-item id="rputamen-obj" src="public/assets/R-Putamen.obj"></a-asset-item>
-      <a-asset-item id="sinuses-obj" src="public/assets/Sinuses.obj"></a-asset-item>
-      <a-asset-item id="subnigra-obj" src="public/assets/Substantia-Nigra.obj"></a-asset-item>
-      <a-asset-item id="subnuclei-obj" src="public/assets/Subthalamic-Nuclei.obj"></a-asset-item>
-      <a-asset-item id="thalamus-obj" src="public/assets/Thalamus.obj"></a-asset-item>
-      <a-asset-item id="ventricles-obj" src="public/assets/Ventricles.obj"></a-asset-item>
+      <img id="bg1" src="/public/assets/bg1.jpeg">
+      <img id="rotate-icon" src="/public/assets/rotate-icon.png">
+      <img id="MRI-button" src="/public/assets/MRI-rough.jpg">
+      <a-asset-item id="cortex-obj" src="/public/assets/Cortex.obj"></a-asset-item>
+      <a-asset-item id="arteries-obj" src="/public/assets/Arteries.obj"></a-asset-item>
+      <a-asset-item id="cerebellum-obj" src="/public/assets/cerebellum.obj"></a-asset-item>
+      <a-asset-item id="fornix-obj" src="/public/assets/Fornix.obj"></a-asset-item>
+      <a-asset-item id="hippocampus-obj" src="/public/assets/Hippocampus.obj"></a-asset-item>
+      <a-asset-item id="lamygdala-obj" src="/public/assets/L-Amygdala.obj"></a-asset-item>
+      <a-asset-item id="lcaudate-obj" src="/public/assets/L-Caudate.obj"></a-asset-item>
+      <a-asset-item id="lglobus-obj" src="/public/assets/L-Globus.obj"></a-asset-item>
+      <a-asset-item id="lputamen-obj" src="/public/assets/L-Putamen.obj"></a-asset-item>
+      <a-asset-item id="mamtract-obj" src="/public/assets/MamilloThalamicTract.obj"></a-asset-item>
+      <a-asset-item id="mambodies-obj" src="/public/assets/MammillaryBodies.obj"></a-asset-item>
+      <a-asset-item id="ramygdala-obj" src="/public/assets/R-Amygdala.obj"></a-asset-item>
+      <a-asset-item id="rcaudate-obj" src="/public/assets/R-Caudate.obj"></a-asset-item>
+      <a-asset-item id="rglobus-obj" src="/public/assets/R-Globus.obj"></a-asset-item>
+      <a-asset-item id="rputamen-obj" src="/public/assets/R-Putamen.obj"></a-asset-item>
+      <a-asset-item id="sinuses-obj" src="/public/assets/Sinuses.obj"></a-asset-item>
+      <a-asset-item id="subnigra-obj" src="/public/assets/Substantia-Nigra.obj"></a-asset-item>
+      <a-asset-item id="subnuclei-obj" src="/public/assets/Subthalamic-Nuclei.obj"></a-asset-item>
+      <a-asset-item id="thalamus-obj" src="/public/assets/Thalamus.obj"></a-asset-item>
+      <a-asset-item id="ventricles-obj" src="/public/assets/Ventricles.obj"></a-asset-item>
     </a-assets>
 
     <a-entity position="0 -0.5 -2">
@@ -241,7 +227,7 @@
         <a-entity id="fornix" class="interactible isolated-fornix" position="0 0 0" rotation="0 0 0" obj-model="obj: #fornix-obj"
           material="color: #be29ec;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
-                <a-entity id="ventricles" class="interactible isolated-ventricles" position="0 0 0" rotation="0 0 0" obj-model="obj: #ventricles-obj"
+        <a-entity id="ventricles" class="interactible isolated-ventricles" position="0 0 0" rotation="0 0 0" obj-model="obj: #ventricles-obj"
           material="side: front; color: #3b5998; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
           expand-position="pos: 0 0 0" hover-highlight></a-entity>
         <a-entity id="cerebellum" class="interactible isolated-cerebellum" position="0 0 0" rotation="0 0 0" obj-model="obj: #cerebellum-obj"
@@ -280,8 +266,6 @@
       </a-entity>
     </a-entity>
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
-    <a-sky src="#bg1">
-    </a-sky>
     <a-camera active="true" user-height="0" position="0 2 0" look-controls>
       <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
       </a-ring>

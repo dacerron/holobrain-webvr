@@ -81,6 +81,12 @@ AFRAME.registerComponent('eduroomteacher', {
                     rot: mamtract.getAttribute("rotation"),
                     col: mamtract.getAttribute("material").color
                 },
+                arteries: {
+                    pos: arteries.getAttribute("position"),
+                    rot: arteries.getAttribute("rotation"),
+                    col: arteries.getAttribute("material").color
+                },
+                /*
                 hippocampus: {
                     pos: hippocampus.getAttribute("position"),
                     rot: hippocampus.getAttribute("rotation"),
@@ -90,11 +96,6 @@ AFRAME.registerComponent('eduroomteacher', {
                     pos: fornix.getAttribute("position"),
                     rot: fornix.getAttribute("rotation"),
                     col: fornix.getAttribute("material").color
-                },
-                arteries: {
-                    pos: arteries.getAttribute("position"),
-                    rot: arteries.getAttribute("rotation"),
-                    col: arteries.getAttribute("material").color
                 },
                 ventricles: {
                     pos: ventricles.getAttribute("position"),
@@ -110,17 +111,17 @@ AFRAME.registerComponent('eduroomteacher', {
                     pos: thalamus.getAttribute("position"),
                     rot: thalamus.getAttribute("rotation"),
                     col: thalamus.getAttribute("material").color
-                },
+                },*/
                 subthalamic: {
                     pos: subthalamic.getAttribute("position"),
                     rot: subthalamic.getAttribute("rotation"),
                     col: subthalamic.getAttribute("material").color
-                },
+                },/*
                 lcaudate: {
                     pos: lcaudate.getAttribute("position"),
                     rot: lcaudate.getAttribute("rotation"),
                     col: lcaudate.getAttribute("material").color
-                },
+                },*/
                 lputamen: {
                     pos: lputamen.getAttribute("position"),
                     rot: lputamen.getAttribute("rotation"),
@@ -130,12 +131,12 @@ AFRAME.registerComponent('eduroomteacher', {
                     pos: lglobuspallidus.getAttribute("position"),
                     rot: lglobuspallidus.getAttribute("rotation"),
                     col: lglobuspallidus.getAttribute("material").color
-                },
+                },/*
                 rcaudate: {
                     pos: rcaudate.getAttribute("position"),
                     rot: rcaudate.getAttribute("rotation"),
                     col: rcaudate.getAttribute("material").color
-                },
+                },*/
                 rputamen: {
                     pos: rputamen.getAttribute("position"),
                     rot: rputamen.getAttribute("rotation"),
