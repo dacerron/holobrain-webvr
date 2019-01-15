@@ -39,13 +39,12 @@
 
 <body style='margin: 0px; overflow: hidden;'>
   <a-scene eduroomteacher>
-    <a-assets>
+    <a-assets timeout="100000">
       <img id="bg1" src="public/assets/bg1.jpeg">
       <img id="rotate-icon" src="public/assets/rotate-icon.png">
       <img id="MRI-button" src="public/assets/MRI-rough.jpg">
       <a-asset-item id="cortex-obj" src="public/assets/Cortex.obj"></a-asset-item>
       <a-asset-item id="arteries-obj" src="public/assets/Arteries.obj"></a-asset-item>
-     <!-- 
       <a-asset-item id="cerebellum-obj" src="public/assets/cerebellum.obj"></a-asset-item>
       <a-asset-item id="fornix-obj" src="public/assets/Fornix.obj"></a-asset-item>
       <a-asset-item id="hippocampus-obj" src="public/assets/Hippocampus.obj"></a-asset-item>
@@ -63,10 +62,8 @@
       <a-asset-item id="subnigra-obj" src="public/assets/Substantia-Nigra.obj"></a-asset-item>
       <a-asset-item id="subnuclei-obj" src="public/assets/Subthalamic-Nuclei.obj"></a-asset-item>
       <a-asset-item id="thalamus-obj" src="public/assets/Thalamus.obj"></a-asset-item>
-    <a-asset-item id="ventricles-obj" src="public/assets/Ventricles.obj"></a-asset-item>
-    --> 
+      <a-asset-item id="ventricles-obj" src="public/assets/Ventricles.obj"></a-asset-item>
     </a-assets>
-
 
     <a-entity position="0 -0.5 -2">
       <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon"
@@ -220,7 +217,6 @@
     </a-entity>
     <a-entity id="holobrain" position="0 2.4 -4" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
       <a-entity id="brain-parts" scale="0.015 0.015 0.015">
-       <!-- 
         <a-entity id="arteries" class="interactible isolated-arteries" position="0 0 0" rotation="0 0 0" obj-model="obj: #arteries-obj"
           material="side: back; color: #950714; opacity: 0.6" override-material og-position="pos: 0 0 0"
           expand-position="disappear: true" hover-highlight></a-entity>
@@ -278,7 +274,6 @@
         <a-entity id="rglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
           obj-model="obj: #rglobus-obj" material="color: #6760aa; " override-material og-position="pos: 0 0 0"
           expand-position="pos:0 0 -30" hover-highlight="counterpart:#lglobuspallidus"></a-entity>
--->
       </a-entity>
       <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" scale="0.015 0.015 0.015" obj-model="obj: #cortex-obj"
         material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">

@@ -56,7 +56,6 @@ AFRAME.registerComponent('eduroomteacher', {
                     rot: cortex.getAttribute("rotation"),
                     col: cortex.getAttribute("material").color
                 },
-                /*
                 sinuses: {
                     pos: sinuses.getAttribute("position"),
                     rot: sinuses.getAttribute("rotation"),
@@ -151,7 +150,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     pos: rglobuspallidus.getAttribute("position"),
                     rot: rglobuspallidus.getAttribute("rotation"),
                     col: rglobuspallidus.getAttribute("material").color
-                },*/
+                },
             }
         }
 
