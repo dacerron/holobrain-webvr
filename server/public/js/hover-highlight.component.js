@@ -7,16 +7,16 @@ AFRAME.registerComponent('hover-highlight', {
     init: function () {
       var data = this.data;
       var el = this.el;
-      var ogColor = el.getAttribute("material").color
+      var ogColor = el.getAttribute("gltf-color").current;
 
       el.addEventListener('mouseenter', function (e) {
-        el.setAttribute('material', {color: "#ffffff"});
-        data.counterpart? data.counterpart.setAttribute('material', {color: "#ffffff"}): null;
+        el.setAttribute('gltf-color', {current: "#ffffff"});
+        data.counterpart? data.counterpart.setAttribute('gltf-color', {current: "#ffffff"}): null;
       });
 
       el.addEventListener('mouseleave', function (e) {
-        el.setAttribute('material', {color: ogColor});
-        data.counterpart? data.counterpart.setAttribute('material', {color: ogColor}): null;
+        el.setAttribute('gltf-color', {current: ogColor});
+        data.counterpart? data.counterpart.setAttribute('gltf-color', {current: ogColor}): null;
       });
     }
   });

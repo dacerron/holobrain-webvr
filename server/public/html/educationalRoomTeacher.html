@@ -22,34 +22,16 @@
   <script type="text/javascript" src="/js/toggle-structure.component.js"></script>
   <script type="text/javascript" src="/js/hover-highlight.component.js"></script>
   <script type="text/javascript" src="/js/model-opacity.component.js"></script>
+  <script type="text/javascript" src="/js/gltf-color.component.js"></script>
+  <script type="text/javascript" src="/js/structure-src.js"></script>
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
   <a-scene eduroomteacher>
     <a-assets timeout="100000">
-      <img id="bg1" src="/public/assets/bg1.jpeg">
-      <img id="rotate-icon" src="/public/assets/rotate-icon.png">
-      <img id="MRI-button" src="/public/assets/MRI-rough.jpg">
-      <a-asset-item id="cortex-model" src="/public/assets/Cortex.glb"></a-asset-item>
-      <a-asset-item id="arteries-model" src="/public/assets/Arteries.glb"></a-asset-item>
-      <a-asset-item id="cerebellum-model" src="/public/assets/cerebellum.glb"></a-asset-item>
-      <a-asset-item id="fornix-model" src="/public/assets/Fornix.glb"></a-asset-item>
-      <a-asset-item id="hippocampus-model" src="/public/assets/Hippocampus.glb"></a-asset-item>
-      <a-asset-item id="lamygdala-model" src="/public/assets/L-Amygdala.glb"></a-asset-item>
-      <a-asset-item id="lcaudate-model" src="/public/assets/L-Caudate.glb"></a-asset-item>
-      <a-asset-item id="lglobus-model" src="/public/assets/L-Globus.glb"></a-asset-item>
-      <a-asset-item id="lputamen-model" src="/public/assets/L-Putamen.glb"></a-asset-item>
-      <a-asset-item id="mamtract-model" src="/public/assets/MamilloThalamicTract.glb"></a-asset-item>
-      <a-asset-item id="mambodies-model" src="/public/assets/MammillaryBodies.glb"></a-asset-item>
-      <a-asset-item id="ramygdala-model" src="/public/assets/R-Amygdala.glb"></a-asset-item>
-      <a-asset-item id="rcaudate-model" src="/public/assets/R-Caudate.glb"></a-asset-item>
-      <a-asset-item id="rglobus-model" src="/public/assets/R-Globus.glb"></a-asset-item>
-      <a-asset-item id="rputamen-model" src="/public/assets/R-Putamen.glb"></a-asset-item>
-      <a-asset-item id="sinuses-model" src="/public/assets/Sinuses.glb"></a-asset-item>
-      <a-asset-item id="subnigra-model" src="/public/assets/Substantia-Nigra.glb"></a-asset-item>
-      <a-asset-item id="subnuclei-model" src="/public/assets/Subthalamic-Nuclei.glb"></a-asset-item>
-      <a-asset-item id="thalamus-model" src="/public/assets/Thalamus.glb"></a-asset-item>
-      <a-asset-item id="ventricles-model" src="/public/assets/Ventricles.glb"></a-asset-item>
+      <img id="bg1" src="/assets/bg1.jpeg">
+      <img id="rotate-icon" src="/assets/rotate-icon.png">
+      <img id="MRI-button" src="/assets/MRI-rough.jpg">
     </a-assets>
 
     <a-entity position="0 -0.5 -2">
@@ -205,65 +187,65 @@
     <a-entity id="holobrain" position="0 2.4 -4" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
       <a-entity id="brain-parts" scale="0.015 0.015 0.015">
         <a-entity id="arteries" class="interactible isolated-arteries" position="0 0 0" rotation="0 0 0" gltf-model="#arteries-model"
-          material="side: back; color: #950714; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          gltf-color="current:#950714" model-opacity="0.6" override-material og-position="pos: 0 0 0"
           expand-position="disappear: true" hover-highlight></a-entity>
         <a-entity id="sinuses" class="interactible isolated-sinuses" position="0 0 0" rotation="0 0 0" gltf-model="#sinuses-model"
-          material="side: front; color: #003366; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          gltf-color="current:#003366" model-opacity="0.6" override-material og-position="pos: 0 0 0"
           expand-position="disappear: true" hover-highlight></a-entity>
         <a-entity id="ramygdala" class="interactible isolated-amygdala" position="0 0 0" rotation="0 0 0" gltf-model="#ramygdala-model"
-          material="color: #ff81b0;" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 -25"
+          gltf-color="current:#ff81b0" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 -25"
           hover-highlight="counterpart:#lamygdala"></a-entity>
         <a-entity id="lamygdala" class="interactible isolated-amygdala" position="0 0 0" rotation="0 0 0" gltf-model="#lamygdala-model"
-          material="color: #ff81b0;" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 25"
+          gltf-color="current:#ff81b0" override-material og-position="pos: 0 0 0" expand-position="pos: -25 -25 25"
           hover-highlight="counterpart:#ramygdala"></a-entity>
         <a-entity id="mambodies" class="interactible isolated-mambodies" position="0 0 0" rotation="0 0 0" gltf-model="#mambodies-model"
-          material="color: #00ffff;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          gltf-color="current:#00ffff" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
         <a-entity id="mamtract" class="interactible isolated-mamtract" position="0 0 0" rotation="0 0 0" gltf-model="#mamtract-model"
-          material="color: #66cd00;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          gltf-color="current:#66cd00" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
         <a-entity id="hippocampus" class="interactible isolated-hippocampus" position="0 0 0" rotation="0 0 0"
-          gltf-model="#hippocampus-model" material="color: #ffd700;" override-material og-position="pos: 0 0 0"
+          gltf-model="#hippocampus-model" gltf-color="current:#ffd700" override-material og-position="pos: 0 0 0"
           expand-position="pos: 0 0 0" hover-highlight></a-entity>
         <a-entity id="fornix" class="interactible isolated-fornix" position="0 0 0" rotation="0 0 0" gltf-model="#fornix-model"
-          material="color: #be29ec;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          gltf-color="current:#be29ec" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
         <a-entity id="ventricles" class="interactible isolated-ventricles" position="0 0 0" rotation="0 0 0" gltf-model="#ventricles-model"
-          material="side: front; color: #3b5998; transparent: true; opacity: 0.6" override-material og-position="pos: 0 0 0"
+          gltf-color="current:#3b5998" model-opacity="0.6" override-material og-position="pos: 0 0 0"
           expand-position="pos: 0 0 0" hover-highlight></a-entity>
         <a-entity id="cerebellum" class="interactible isolated-cerebellum" position="0 0 0" rotation="0 0 0" gltf-model="#cerebellum-model"
-          material="color: #ff7f50;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
+          gltf-color="current:#ff7f50" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
         <a-entity id="thalamus" class="interactible isolated-thalamus" position="0 0 0" rotation="0 0 0" gltf-model="#thalamus-model"
-          material="color: #008080;" override-material og-position="pos:0 0 0" expand-position="pos: 0 0 0"
+          gltf-color="current:#008080" override-material og-position="pos:0 0 0" expand-position="pos: 0 0 0"
           hover-highlight></a-entity>
         <a-entity id="subthalamic" class="interactible isolated-subthalamic" position="0 0 0" rotation="0 0 0"
-          gltf-model="#subnuclei-model" material="color: #000000;" override-material og-position="pos: 0 0 0"
+          gltf-model="#subnuclei-model" gltf-color="current:#000000" override-material og-position="pos: 0 0 0"
           expand-position="pos: 0 0 0" hover-highlight></a-entity>
         <a-entity id="lcaudate" class="interactible isolated-caudate" position="0 0 0" rotation="0 0 0" gltf-model="#lcaudate-model"
-          material="color: #f6546a;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 20"
+          gltf-color="current:#f6546a" override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 20"
           hover-highlight="counterpart:#rcaudate"></a-entity>
         <a-entity id="lputamen" class="interactible isolated-putamen" position="0 0 0" rotation="0 0 0" gltf-model="#lputamen-model"
-          material="color: #45a54f;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 50"
+          gltf-color="current:#45a54f" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 50"
           hover-highlight="counterpart:#rputamen"></a-entity>
         <a-entity id="lglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
-          gltf-model="#lglobus-model" material="color: #6760aa; " override-material og-position="pos: 0 0 0"
+          gltf-model="#lglobus-model" gltf-color="current:#6760aa" override-material og-position="pos: 0 0 0"
           expand-position="pos: 0 0 30" hover-highlight="counterpart:#rglobuspallidus"></a-entity>
         <a-entity id="rcaudate" class="interactible isolated-caudate" position="0 0 0" rotation="0 0 0" gltf-model="#rcaudate-model"
-          material="color: #f6546a; " override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 -20"
+          gltf-color="current:#f6546a" override-material og-position="pos: 0 0 0" expand-position="pos: 0 10 -20"
           hover-highlight="counterpart:#lcaudate"></a-entity>
         <a-entity id="rputamen" class="interactible isolated-putamen" position="0 0 0" rotation="0 0 0" gltf-model="#rputamen-model"
-          material="color: #45a54f;" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 -50"
+          gltf-color="current:#45a54f" override-material og-position="pos: 0 0 0" expand-position="pos: 0 0 -50"
           hover-highlight="counterpart:#lputamen"></a-entity>
         <a-entity id="substantianigra" class="interactible isolated-substantianigra" position="0 0 0" rotation="0 0 0"
-          gltf-model="#subnigra-model" material="color: #4d4e4f; " override-material og-position="pos: 0 0 0"
+          gltf-model="#subnigra-model" gltf-color="current:#4d4e4f" override-material og-position="pos: 0 0 0"
           expand-position="pos:0 0 0" hover-highlight></a-entity>
         <a-entity id="rglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
-          gltf-model="#rglobus-model" material="color: #6760aa; " override-material og-position="pos: 0 0 0"
+          gltf-model="#rglobus-model" gltf-color="current:#6760aa"  override-material og-position="pos: 0 0 0"
           expand-position="pos:0 0 -30" hover-highlight="counterpart:#lglobuspallidus"></a-entity>
       </a-entity>
       <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" scale="0.015 0.015 0.015" gltf-model="#cortex-model"
-        material="side: front; vertexColors: none; color: #c2d2ea; transparent: true; opacity: 0.3">
+        model-opacity="0.3">
       </a-entity>
     </a-entity>
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
