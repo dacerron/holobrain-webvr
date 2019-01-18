@@ -1,16 +1,20 @@
 /*
 *  Refreshes the raycasters for all cursors in the scene 
-*  whenever a 3D model is loaded.
+   on listed events : opendropdown, closedropdown
 */
 
 AFRAME.registerComponent('raycaster-autorefresh', {
   init: function () {
     var el = this.el;
-    this.el.addEventListener('model-loaded', function () {
+    this.el.addEventListener('opendropdown', function () {
+      console.log("refresh raycast");
       var cursorEl = el.querySelector('[cursor]');
       cursorEl.components.raycaster.refreshObjects();
-      var overrideMat = el.querySelector('[override-material]');
-      overrideMat.components["override-material"].update();
     });
+    this.el.addEventListener('closedropdown', function() {
+      console.log("refresh raycast");
+      var cursorEl = el.querySelector('[cursor]');
+      cursorEl.components.raycaster.refreshObjects();
+    })
   }
 });

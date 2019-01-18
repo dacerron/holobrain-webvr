@@ -28,7 +28,7 @@
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
-  <a-scene eduroomteacher>
+  <a-scene eduroomteacher raycaster-autorefresh>
     <a-assets timeout="100000">
       <img id="bg1" src="/assets/bg1.jpeg">
       <img id="rotate-icon" src="/assets/rotate-icon.png">
@@ -88,7 +88,7 @@
             width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .subthalamic">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#basalGangliaContainer"
-            icon="android-close" role="button">
+            icon="android-close" role="button" raycaster-autorefresh>
           </a-gui-icon-button>
           <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
           <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards" to="0 0.375 0.15"></a-animation>
@@ -134,7 +134,7 @@
             width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .substantianigra">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#limbicSystemContainer"
-            icon="android-close" role="button">
+            icon="android-close" role="button" raycaster-autorefresh>
           </a-gui-icon-button>
 
           <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
@@ -171,7 +171,7 @@
             height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .sinuses">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#vesselsContainer"
-            width="3" height="0.75" icon="android-close" role="button">
+            width="3" height="0.75" icon="android-close" role="button" raycaster-autorefresh>
           </a-gui-icon-button>
 
           <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
