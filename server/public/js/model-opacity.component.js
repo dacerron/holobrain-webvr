@@ -11,6 +11,8 @@ AFRAME.registerComponent('model-opacity', {
             if(node.isMesh) {
                 node.material.opacity = data;
                 node.material.transparent = data < 1.0;
+                node.material.alphaTest = 0.5;
+                node.material.depthWrite = false;
                 node.material.needsUpdate = true;
             }
         });

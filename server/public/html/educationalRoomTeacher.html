@@ -23,6 +23,7 @@
   <script type="text/javascript" src="/js/hover-highlight.component.js"></script>
   <script type="text/javascript" src="/js/model-opacity.component.js"></script>
   <script type="text/javascript" src="/js/gltf-color.component.js"></script>
+  <script type="text/javascript" src="/js/structure-loader.component.js"></script>
   <script type="text/javascript" src="/js/structure-src.js"></script>
 </head>
 
@@ -72,19 +73,19 @@
         <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0 -0.15" scale="1 0.001 0.001" visible="false">
           <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-caudate">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .caudate">
           </a-gui-button>
           <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon" value="Globus Pallidus"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-globuspallidus">
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .globuspallidus">
           </a-gui-button>
           <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-thalamus">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .thalamus">
           </a-gui-button>
           <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-putamen">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .putamen">
           </a-gui-button>
           <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon" value="Subthalamic Nuclei"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-subthalamic">
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .subthalamic">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#basalGangliaContainer"
             icon="android-close" role="button">
@@ -115,22 +116,22 @@
           opacity="0" width="2.5" height="0.75" position="0 0 -0.15" rotation="0 0 0" scale="1 0.001 0.001" visible="false"
           gui-item="" geometry="" material="" gui-flex-container="">
           <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-fornix">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .fornix">
           </a-gui-button>
           <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon" value="Hippocampus"
-            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-hippocampus">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .hippocampus">
           </a-gui-button>
           <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-amygdala">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .amygdala">
           </a-gui-button>
           <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="Mammillary Bodies"
-            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mambodies">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .mambodies">
           </a-gui-button>
           <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon" value="Mammillothallamic Tract"
-            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-mamtract">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .mamtract">
           </a-gui-button>
           <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon" value="Substantia Nigra"
-            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-substantianigra">
+            width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .substantianigra">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#limbicSystemContainer"
             icon="android-close" role="button">
@@ -161,13 +162,13 @@
         <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1"
           opacity="0" width="3" height="0.75" position="0 0 -0.15" rotation="0 0 0" scale="1 0.001 0.001" visible="false">
           <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-arteries">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .arteries">
           </a-gui-button>
           <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon" value="Ventricles"
-            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-ventricles">
+            width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .ventricles">
           </a-gui-button>
           <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses" width="3"
-            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .isolated-sinuses">
+            height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .sinuses">
           </a-gui-button>
           <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#vesselsContainer"
             width="3" height="0.75" icon="android-close" role="button">
@@ -185,7 +186,8 @@
       </a-entity>
     </a-entity>
     <a-entity id="holobrain" position="0 2.4 -4" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
-      <a-entity id="brain-parts" scale="0.015 0.015 0.015">
+      <a-entity id="brain-parts" scale="0.015 0.015 0.015" structure-loader="container: #brain-parts">
+        <!--
         <a-entity id="arteries" class="interactible isolated-arteries" position="0 0 0" rotation="0 0 0" gltf-model="#arteries-model"
           gltf-color="current:#950714" model-opacity="0.6" override-material og-position="pos: 0 0 0"
           expand-position="disappear: true" hover-highlight></a-entity>
@@ -243,10 +245,12 @@
         <a-entity id="rglobuspallidus" class="interactible isolated-globuspallidus" position="0 0 0" rotation="0 0 0"
           gltf-model="#rglobus-model" gltf-color="current:#6760aa"  override-material og-position="pos: 0 0 0"
           expand-position="pos:0 0 -30" hover-highlight="counterpart:#lglobuspallidus"></a-entity>
+-->
       </a-entity>
+      <!--
       <a-entity id="brain-cortex" position="0 0 0" rotation="0 0 0" scale="0.015 0.015 0.015" gltf-model="#cortex-model"
         model-opacity="0.3">
-      </a-entity>
+      </a-entity>-->
     </a-entity>
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
     <a-camera active="true" user-height="0" position="0 2 0" look-controls>

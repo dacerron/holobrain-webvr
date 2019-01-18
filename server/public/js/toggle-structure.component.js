@@ -4,15 +4,14 @@ AFRAME.registerComponent('toggle-structure', {
     },
 
     init: function () {
-        var el = this.el;
-        var target = this.data.target;
-        if (target) {
-            console.log(target);
-            el.addEventListener('click', function () {
+        this.el.addEventListener('click', function () {
+            let target = this.data.target
+            if (target) {
+                console.log(target);
                 target.forEach((e) => {
                     e.getAttribute("visible") ? e.setAttribute("visible", false) : e.setAttribute("visible", true);
                 });
-            });
-        }
+            }
+        }.bind(this));
     }
 })

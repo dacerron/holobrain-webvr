@@ -30,6 +30,7 @@ AFRAME.registerComponent('eduroomteacher', {
         substantianigra = data.brain.querySelector("#substantianigra");
         rglobuspallidus = data.brain.querySelector("#rglobuspallidus");
 
+        /*
         var sessionKey;
         var socket = io.connect('/');
         socket.on('ready', function() {
@@ -44,6 +45,7 @@ AFRAME.registerComponent('eduroomteacher', {
             });
             socket.emit('teacherJoin');
         })
+        */
 
         var getState = function() {
             return {
