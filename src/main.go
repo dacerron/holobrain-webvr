@@ -1,10 +1,10 @@
 package main
 
 import (
+	"./comm"
 	"fmt"
 	"log"
 	"net/http"
-	"./comm"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 			r.ParseForm()
 			buf := make([]byte, 2048)
 			r.Body.Read(buf)
-			fmt.Println("calling ReceiveHighlight with", string(buf))
+			//fmt.Println("calling ReceiveHighlight with", string(buf))
 			server.ReceiveHighlight(r.Form["id"][0], string(buf))
 			w.Write([]byte("ack"))
 		default:
@@ -38,6 +38,7 @@ func main() {
 			r.ParseForm()
 			buf := make([]byte, 2048)
 			r.Body.Read(buf)
+			r.Body.Read(buf)
 			server.ReceiveInfo(r.Form["id"][0], string(buf))
 			w.Write([]byte("ack"))
 		default:
@@ -48,7 +49,11 @@ func main() {
 	http.HandleFunc("/student/requestInfo", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
-			//do stuff here
+			r.ParseForm()
+			fmt.Println("got info request")
+			w.Header().Add("Content-Type", "text/plain")
+			w.Write([]byte(server.RegisterStudentInfoRequest(r.Form["id"][0])))
+			fmt.Println("finished processing info request")
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}
@@ -57,7 +62,11 @@ func main() {
 	http.HandleFunc("/student/requestHighlight", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
-			//do stuff here
+			r.ParseForm()
+			fmt.Println("got highlight request")
+			w.Header().Add("Content-Type", "text/plain")
+			w.Write([]byte(server.RegisterStudentHighlightRequest(r.Form["id"][0])))
+			fmt.Println("finished processing highlight request")
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}

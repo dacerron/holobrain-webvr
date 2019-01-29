@@ -8,7 +8,10 @@ AFRAME.registerComponent('structure-loader', {
         var ERROR_COUNT = 0;
         const MAX_ERRORS = 100;
         var addModel = function (iter, i) {
-            let curModel = document.createElement('a-entity');
+            let curModel = document.getElementById("#" + iter[i])
+            if (!curModel) {
+                curModel = document.createElement('a-entity')
+            }
 
             curModel.addEventListener('model-loaded', function () {
                 let index = i + 1;

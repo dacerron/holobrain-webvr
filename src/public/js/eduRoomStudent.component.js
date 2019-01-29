@@ -6,68 +6,57 @@ AFRAME.registerComponent("eduroomstudent", {
     init: function () {
         var data = this.data;
         var sessionKey = Number.parseInt(CookieParser.grabCookie("session"));
-        var parts,cortex, sinuses, ramygdala, lamygdala, mambodies, mamtract, hippocampus, fornix,
-            arteries, ventricles, cerebellum, thalamus, subthalamic, lcaudate, lputamen, lglobuspallidus,
-            rcaudate, rputamen, substantianigra, rglobuspallidus;
-        brain = data.brain;
-        cortex = data.brain.querySelector("#brain-cortex");
-        sinuses = data.brain.querySelector("#sinuses");
-        ramygdala = data.brain.querySelector("#ramygdala");
-        lamygdala = data.brain.querySelector("#lamygdala");
-        mambodies = data.brain.querySelector("#mambodies");
-        mamtract = data.brain.querySelector("#mamtract");
-        hippocampus = data.brain.querySelector("#hippocampus");
-        fornix = data.brain.querySelector("#fornix"); 
-        arteries = data.brain.querySelector("#arteries");
-        ventricles = data.brain.querySelector("#ventricles");
-        cerebellum = data.brain.querySelector("#cerebellum");
-        thalamus = data.brain.querySelector("#thalamus");
-        subthalamic = data.brain.querySelector("#subthalamic");
-        lcaudate = data.brain.querySelector("#lcaudate");
-        lputamen = data.brain.querySelector("#lputamen");
-        lglobuspallidus = data.brain.querySelector("#lglobuspallidus");
-        rcaudate = data.brain.querySelector("#rcaudate");
-        rputamen = data.brain.querySelector("#rputamen");
-        substantianigra = data.brain.querySelector("#substantianigra");
-        rglobuspallidus = data.brain.querySelector("#rglobuspallidus");
 
-        var socket = io.connect('/');
-        socket.on('ready', function() {
-            socket.on('studentShareState', function(data) {
-                setState(data.state);
-            });
-            socket.emit('studentJoin', {key: sessionKey});
-        }.bind(this));
+        document.addEventListener("structures-loaded", function() {
+            console.log("heard structures loaded event")
+            if(sessionKey) {
+                console.log("starting info request")
+                startInfoRequest()
+            } else {
+                console.log("no session key, not communicating")
+            }
+        })
 
-        var setState = function (state) {
-            brain.setAttribute("position", state.brain.pos);
-            brain.setAttribute("rotation", state.brain.rot);
-            updateObject(ventricles, state.ventricles);
-            updateObject(thalamus, state.thalamus);
-            updateObject(subthalamic, state.subthalamic);
-            updateObject(lcaudate, state.lcaudate);
-            updateObject(lputamen, state.lputamen);
-            updateObject(substantianigra, state.substantianigra);
-            updateObject(lglobuspallidus, state.lglobuspallidus);
-            updateObject(rcaudate, state.lglobuspallidus);
-            updateObject(rputamen, state.rputamen);
-            updateObject(cortex, state.cortex);
-            updateObject(sinuses, state.sinuses);
-            updateObject(ramygdala, state.ramygdala);
-            updateObject(lamygdala, state.lamygdala);
-            updateObject(mambodies, state.mambodies);
-            updateObject(mamtract, state.mamtract);
-            updateObject(hippocampus, state.hippocampus);
-            updateObject(fornix, state.fornix);
-            updateObject(arteries, state.arteries);
-            updateObject(cerebellum, state.cerebellum);
-            updateObject(rglobuspallidus, state.rglobuspallidus);
+        var startInfoRequest = function() {
+            fetch("/student/requestInfo?id=" + sessionKey, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "text/plain"
+                }
+            }).then((response) => {
+                return response.text()
+            }).then((text) => {=
+                console.log(text)
+                StructureManager.PutStructuresInfo(JSON.parse(text))
+                setTimeout(a => startInfoRequest(), 250)
+            }).catch((err) => {
+                console.log("problem while fetching info: " + err.message)
+                setTimeout((e) => {
+                    console.log("retrying...")
+                    startInfoRequest()
+                })
+            })
         }
 
-        var updateObject = function(obj, state) {
-            obj.setAttribute("position", state.pos);
-            obj.setAttribute("rotation", state.rot);
-            obj.setAttribute("material", {color: state.col});
+        var startHighlightRequest = function() {
+            fetch("/student/requestHighlight?id=" + sessionKey, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "text/plain"
+                },
+            }).then((response) => {
+                return response.text()
+            }).then((text) => {
+                console.log("got highlight response: " + text)
+                StructureManager.PutStructuresHighlight(text)
+                setTimeout(() => startHighlightRequest(), 75)
+            }).catch((err) => {
+                console.log("error while fetching highlight: "  + err.message)
+                setTimeout(() => {
+                    console.log("retrying...")
+                    startHighlightRequest()
+                })
+            })
         }
 /*
         var stream;

@@ -1,7 +1,7 @@
 AFRAME.registerComponent('expand-brain', {
   
   schema: {
-    target: {type: 'string', default: '#brain-parts'},
+    target: {type: 'string', default: '#cortex'},
     center: {type: 'string', default: '#cortex'},
     expanded: {type: 'bool', default: 'false'},
     expand: {type: 'bool', default: 'true'}

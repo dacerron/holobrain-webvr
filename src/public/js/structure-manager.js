@@ -19,6 +19,12 @@ StructureManager = (function () {
             var current = document.getElementById(name)
             struc[name].position = current.getAttribute("position")
             struc[name].rotation = current.getAttribute("rotation")
+            if(current.hasAttribute("model-opacity")) {
+                struc[name].opacity = current.getAttribute("model-opacity")
+            }
+            if(current.hasAttribute("scale")) {
+                struc[name].scale = current.getAttribute("scale")
+            }
         }
     }
 
@@ -47,8 +53,14 @@ StructureManager = (function () {
         structures = getStructures()
         for (var name in structures) {
             let current = document.querySelector("#" + name)
-            current.setAttribute("position", struct[name].position)
-            current.setAttribute("rotation", struct[name].rotation)
+            current.setAttribute("position", struc[name].position)
+            current.setAttribute("rotation", struc[name].rotation)
+            if(struc[name].opacity) {
+                current.setAttribute("model-opacity", struc[name].opacity)
+            }
+            if(struc[name].scale) {
+                current.setAttribute("rotation", struc[name].scale)
+            }
         }
     }
 

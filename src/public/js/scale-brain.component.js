@@ -2,7 +2,7 @@ AFRAME.registerComponent('scale-brain', {
   
   schema: {
     scale: {type: 'number', default: '1'}, 
-    target: {type: 'selector', default: '#holobrain'},
+    target: {type: 'selector', default: '#cortex'},
     increase: {type: 'bool', default: 'true'}
   },
    

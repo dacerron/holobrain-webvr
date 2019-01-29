@@ -13,6 +13,7 @@ AFRAME.registerComponent('eduroomteacher', {
             }).then(function(text) {
                 console.log("created session: " + text)
                 sessionNumber = text
+                document.getElementById("session").setAttribute("value", text)
                 shareInfo();
                 shareHighlight();
             }).catch(function(err) {
@@ -46,7 +47,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     headers: {
                         "Content-Type": "text/plain"
                     },
-                    body: JSON.stringify(highlighted)
+                    body: highlighted
                 }).then(response => {
                     shareHighlight();
                 }).catch(err => {
