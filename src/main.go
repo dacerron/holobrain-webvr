@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -68,7 +69,11 @@ func main() {
 		}
 	})
 
-	http.Handle("/", http.FileServer(http.Dir("/Users/WorkLearn/Documents/Dante/HIVE/holobrain-webvr/src/public/")))
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	http.Handle("/", http.FileServer(http.Dir(dir + "\\public\\")))
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

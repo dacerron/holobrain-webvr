@@ -52,7 +52,7 @@ func (s *Server) ReceiveInfo(sessionId string, info []byte) {
 }
 
 func (s *Server) ReceiveHighlight(sessionId string, highlight []byte) {
-	s.sessions[sessionId].teacher.highlightChannel <- highlight
+		s.sessions[sessionId].teacher.highlightChannel <- highlight
 }
 
 func (s *Server) RegisterStudentInfoRequest(id string) []byte {
