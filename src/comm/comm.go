@@ -88,7 +88,7 @@ func (s *Server) monitorTeacherInfo(id string) {
 		for i := 0; i < len(s.sessions[id].infoRequests); i++ {
 			go func(dist []byte, index int) {
 				if !s.sessions[id].infoRequests[index].fulfilled {
-					s.sessions[id].infoRequests[index].channel <- msg
+					s.sessions[id].infoRequests[index].channel <- dist
 					s.sessions[id].infoRequests[index].fulfilled = true
 					//newList = append(newList, s.sessions[id].infoRequests[i])
 				}
