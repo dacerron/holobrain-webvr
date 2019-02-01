@@ -18,42 +18,39 @@ func main() {
 	})
 
 	http.HandleFunc("/teacher/shareHighlight", func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "POST":
-			r.ParseForm()
-			buf := make([]byte, 2048)
-			r.Body.Read(buf)
-			//fmt.Println("calling ReceiveHighlight with", string(buf))
-			server.ReceiveHighlight(r.Form["id"][0], string(buf))
-			w.Write([]byte("ack"))
-		default:
-			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-		}
-
+			switch r.Method {
+			case "POST":
+				r.ParseForm()
+				buf := make([]byte, 4096)
+				r.Body.Read(buf)
+				//fmt.Println("calling ReceiveHighlight with", string(buf))
+				server.ReceiveHighlight(r.Form["id"][0], buf)
+				w.Write([]byte("ack"))
+			default:
+				http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+			}
 	})
 
 	http.HandleFunc("/teacher/shareInfo", func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "POST":
-			r.ParseForm()
-			buf := make([]byte, 2048)
-			r.Body.Read(buf)
-			r.Body.Read(buf)
-			server.ReceiveInfo(r.Form["id"][0], string(buf))
-			w.Write([]byte("ack"))
-		default:
-			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-		}
+			switch r.Method {
+			case "POST":
+				r.ParseForm()
+				buf := make([]byte, 4096)
+				r.Body.Read(buf)
+				server.ReceiveInfo(r.Form["id"][0], buf)
+				w.Write([]byte("ack"))
+			default:
+				http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+			}
 	})
 
 	http.HandleFunc("/student/requestInfo", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
 			r.ParseForm()
-			fmt.Println("got info request")
+			//fmt.Println("got info request")
 			w.Header().Add("Content-Type", "text/plain")
-			w.Write([]byte(server.RegisterStudentInfoRequest(r.Form["id"][0])))
-			fmt.Println("finished processing info request")
+			w.Write(server.RegisterStudentInfoRequest(r.Form["id"][0]))
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}
@@ -63,10 +60,9 @@ func main() {
 		switch r.Method {
 		case "GET":
 			r.ParseForm()
-			fmt.Println("got highlight request")
+			//fmt.Println("got highlight request")
 			w.Header().Add("Content-Type", "text/plain")
-			w.Write([]byte(server.RegisterStudentHighlightRequest(r.Form["id"][0])))
-			fmt.Println("finished processing highlight request")
+			w.Write(server.RegisterStudentHighlightRequest(r.Form["id"][0]))
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}

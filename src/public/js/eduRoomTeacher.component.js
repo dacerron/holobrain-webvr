@@ -24,6 +24,7 @@ AFRAME.registerComponent('eduroomteacher', {
         var shareInfo = function() {
             setTimeout(() => {
                 var info = StructureManager.GetStructuresInfo()
+                console.log("sending info: " + info)
                 fetch("/teacher/shareInfo?" + "id=" + sessionNumber, {
                     method: "POST",
                     headers: {
@@ -36,7 +37,7 @@ AFRAME.registerComponent('eduroomteacher', {
                     console.log("problem sharing info with server, retrying: " + err.message)
                     shareInfo()
                 })
-            }, 300)
+            }, 100)
         }
 
         var shareHighlight = function() {

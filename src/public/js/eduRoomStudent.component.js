@@ -12,6 +12,8 @@ AFRAME.registerComponent("eduroomstudent", {
             if(sessionKey) {
                 console.log("starting info request")
                 startInfoRequest()
+                console.log("starting highlight request")
+                startHighlightRequest()
             } else {
                 console.log("no session key, not communicating")
             }
@@ -25,16 +27,15 @@ AFRAME.registerComponent("eduroomstudent", {
                 }
             }).then((response) => {
                 return response.text()
-            }).then((text) => {=
-                console.log(text)
-                StructureManager.PutStructuresInfo(JSON.parse(text))
-                setTimeout(a => startInfoRequest(), 250)
+            }).then((text) => {
+                StructureManager.PutStructuresInfo(JSON.parse(text.replace(/\s+/g, '').replace(/\0/g, '')))
+                setTimeout(a => startInfoRequest(), 100)
             }).catch((err) => {
                 console.log("problem while fetching info: " + err.message)
                 setTimeout((e) => {
                     console.log("retrying...")
                     startInfoRequest()
-                })
+                }, 100)
             })
         }
 
@@ -47,15 +48,14 @@ AFRAME.registerComponent("eduroomstudent", {
             }).then((response) => {
                 return response.text()
             }).then((text) => {
-                console.log("got highlight response: " + text)
-                StructureManager.PutStructuresHighlight(text)
+                StructureManager.PutStructuresHighlight(text.replace(/\s+/g, '').replace(/\0/g, ''))
                 setTimeout(() => startHighlightRequest(), 75)
             }).catch((err) => {
                 console.log("error while fetching highlight: "  + err.message)
                 setTimeout(() => {
                     console.log("retrying...")
                     startHighlightRequest()
-                })
+                }, 75)
             })
         }
 /*

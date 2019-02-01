@@ -13,11 +13,6 @@ AFRAME.registerComponent('hover-highlight', {
         el.addEventListener('mouseenter', function (e) {
             el.setAttribute('gltf-color', {current: "#ffffff"});
             el.setAttribute('hover-highlight', {highlighted: true})
-            for(var cur of document.querySelectorAll(".interactible")) {
-                if(cur.getAttribute("id") != el.getAttribute("id")) {
-                    cur.emit("mouseleave")
-                }
-            }
             data.counterpart ? data.counterpart.setAttribute('gltf-color', {current: "#ffffff"}) : null;
         });
 

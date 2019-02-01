@@ -18,12 +18,12 @@ type Server struct {
 }
 
 type teacherConn struct {
-	infoChannel      chan string
-	highlightChannel chan string
+	infoChannel      chan []byte
+	highlightChannel chan []byte
 }
 
 type studentRequest struct {
-	channel   chan string
+	channel   chan []byte
 	fulfilled bool
 }
 
@@ -35,11 +35,11 @@ func (s *Server) GenerateSession() string {
 
 	rand.Seed(int64(time.Now().Nanosecond()))
 	sessionId := strconv.Itoa(rand.Intn(999999))
-	teacherInfoChan := make(chan string)
-	teacherHighlightChan := make(chan string)
+	teacherInfoChan := make(chan []byte)
+	teacherHighlightChan := make(chan []byte)
 
-	infoRequests := make([]*studentRequest, 0, 256)
-	highlightRequests := make([]*studentRequest, 0, 256)
+	infoRequests := make([]*studentRequest, 0, 4096)
+	highlightRequests := make([]*studentRequest, 0, 4096)
 
 	s.sessions[sessionId] = &session{&teacherConn{teacherInfoChan, teacherHighlightChan}, infoRequests, highlightRequests}
 	go s.monitorTeacherInfo(sessionId)
@@ -47,66 +47,68 @@ func (s *Server) GenerateSession() string {
 	return sessionId
 }
 
-func (s *Server) ReceiveInfo(sessionId string, info string) {
+func (s *Server) ReceiveInfo(sessionId string, info []byte) {
 	s.sessions[sessionId].teacher.infoChannel <- info //writes to channel so that info can be distributed to session
 }
 
-func (s *Server) ReceiveHighlight(sessionId string, highlight string) {
+func (s *Server) ReceiveHighlight(sessionId string, highlight []byte) {
 	s.sessions[sessionId].teacher.highlightChannel <- highlight
 }
 
-func (s *Server) RegisterStudentInfoRequest(id string) string {
+func (s *Server) RegisterStudentInfoRequest(id string) []byte {
 	session, err := s.sessions[id]
 	if err == false {
 		fmt.Println("student tried to request info from session that doesnt exist:", id)
 	}
 
-	curChannel := make(chan string)
+	curChannel := make(chan []byte)
 	curRequest := studentRequest{curChannel, false}
 	session.infoRequests = append(session.infoRequests, &curRequest)
 	result := <-curRequest.channel
-	fmt.Println("data came through from teacher to student info request channel")
 	return result
 }
 
-func (s *Server) RegisterStudentHighlightRequest(id string) string {
+func (s *Server) RegisterStudentHighlightRequest(id string) []byte {
 	session, err := s.sessions[id]
 	if err == false {
 		fmt.Println("student tried to request highlight from session that doesnt exist:", id)
 	}
 
-	curChannel := make(chan string)
+	curChannel := make(chan []byte)
 	curRequest := studentRequest{curChannel, false}
 	session.highlightRequests = append(session.highlightRequests, &curRequest)
 	result := <-curRequest.channel
-	fmt.Println("data came through from teacher to student highlight request channel")
 	return result
 }
 
 func (s *Server) monitorTeacherInfo(id string) {
 	for msg := range s.sessions[id].teacher.infoChannel {
-		fmt.Println("received data on info channel, students waiting for data: ", len(s.sessions[id].infoRequests))
+		//newList := make([]*studentRequest, 0, 256)
+		//fmt.Println("received data on info channel, students waiting for data: ", len(s.sessions[id].infoRequests))
 		for i := 0; i < len(s.sessions[id].infoRequests); i++ {
-			curList := s.sessions[id].infoRequests
-			if curList[i].fulfilled == false {
-				curList[i].channel <- msg
-				curList[i].fulfilled = true
-			}
-			s.sessions[id].infoRequests = make([]*studentRequest, 0, 256)
+			go func(dist []byte, index int) {
+				if !s.sessions[id].infoRequests[index].fulfilled {
+					s.sessions[id].infoRequests[index].channel <- msg
+					s.sessions[id].infoRequests[index].fulfilled = true
+					//newList = append(newList, s.sessions[id].infoRequests[i])
+				}
+			}(msg, i)
 		}
 	}
 }
 
 func (s *Server) monitorTeacherHighlight(id string) {
 	for msg := range s.sessions[id].teacher.highlightChannel {
-		fmt.Println("received data on highlight channel, students waiting for data: ", len(s.sessions[id].highlightRequests))
+		//newList := make([]*studentRequest, 0, 256)
+		//fmt.Println("received data on highlight channel, students waiting for data: ", len(s.sessions[id].highlightRequests))
 		for i := 0; i < len(s.sessions[id].highlightRequests); i++ {
-			curList := s.sessions[id].highlightRequests
-			if curList[i].fulfilled == false {
-				curList[i].channel <- msg
-				curList[i].fulfilled = true
-			}
-			s.sessions[id].highlightRequests = make([]*studentRequest, 0, 256)
+			go func(dist []byte, index int) {
+				if !s.sessions[id].highlightRequests[index].fulfilled {
+					s.sessions[id].highlightRequests[index].channel <- dist
+					s.sessions[id].highlightRequests[index].fulfilled = true
+					//newList = append(newList, s.sessions[id].highlightRequests[i])
+				}
+			}(msg, i)
 		}
 	}
 }

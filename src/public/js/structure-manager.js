@@ -52,14 +52,24 @@ StructureManager = (function () {
     PutStructuresInfo = function (struc) {
         structures = getStructures()
         for (var name in structures) {
-            let current = document.querySelector("#" + name)
-            current.setAttribute("position", struc[name].position)
-            current.setAttribute("rotation", struc[name].rotation)
-            if(struc[name].opacity) {
-                current.setAttribute("model-opacity", struc[name].opacity)
+            console.log("updating " + JSON.stringify(struc[name]))
+            let current = document.getElementById(name)
+            let newRot = struc[name]["rotation"]
+            let newPos = struc[name]["position"]
+            let oldRot = current.getAttribute("rotation")
+            let oldPos = current.getAttribute("position")
+            current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
+            if(oldRot.y  > newRot.y) {
+                oldRot.y = 0
+                //current.setAttribute("animation__rotation", "property: rotation; from:"+oldRot.x+" "+(-1*(360-oldRot.y))+" "+oldRot.z+"; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            }/* else {*/
+                current.setAttribute("animation__rotation", "property: rotation; from:"+oldRot.x+" "+oldRot.y+" "+oldRot.z+"; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            //}
+            if('opacity' in struc[name]) {
+                current.setAttribute("model-opacity", struc[name]["opacity"])
             }
-            if(struc[name].scale) {
-                current.setAttribute("rotation", struc[name].scale)
+            if('scale' in struc[name]) {
+                current.setAttribute("rotation", struc[name]["scale"])
             }
         }
     }
@@ -68,7 +78,8 @@ StructureManager = (function () {
         if (currentHighlight != "") {
             document.querySelector("#" + currentHighlight).emit("mouseleave") // this is bad coupling, eventually all highlight behaviour should be encapsulated
         }
-        document.querySelector("#" + highlighted).emit("mouseenter")
+        currentHighlight = highlighted
+        document.querySelector("#" + currentHighlight).emit("mouseenter")
     }
 
     var src = {
