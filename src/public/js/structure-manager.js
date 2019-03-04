@@ -59,13 +59,8 @@ StructureManager = (function () {
             let oldRot = current.getAttribute("rotation")
             let oldPos = current.getAttribute("position")
             current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
-            if(!(oldRot.x === newRot.x && oldRot.y === newRot.y && oldRot.z === newRot.z)) {
-                if(oldRot.y  > newRot.y) {
-                    current.setAttribute("animation__rotation", "property: rotation; from:"+oldRot.x+" "+(-1*(360-oldRot.y))+" "+oldRot.z+"; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
-                } else {
-                    current.setAttribute("animation__rotation", "property: rotation; from:"+oldRot.x+" "+oldRot.y+" "+oldRot.z+"; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
-                }
-            }
+            current.setAttribute("animation__rotation", "property: rotation; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+
             if('opacity' in struc[name]) {
                 current.setAttribute("model-opacity", struc[name]["opacity"])
             }

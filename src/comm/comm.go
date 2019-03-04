@@ -9,8 +9,10 @@ import (
 
 type session struct {
 	teacher           *teacherConn
-	infoRequests      []*studentRequest
-	highlightRequests []*studentRequest
+	infoRequestBuffer      []*studentRequest
+	infoIndex				int
+	highlightRequestBuffer []*studentRequest
+	highlightIndex			int
 }
 
 type Server struct {
@@ -24,7 +26,6 @@ type teacherConn struct {
 
 type studentRequest struct {
 	channel   chan []byte
-	fulfilled bool
 }
 
 //generating session means teacher has made first contact, on ack they will start sharing
@@ -38,12 +39,17 @@ func (s *Server) GenerateSession() string {
 	teacherInfoChan := make(chan []byte)
 	teacherHighlightChan := make(chan []byte)
 
-	infoRequests := make([]*studentRequest, 0, 4096)
-	highlightRequests := make([]*studentRequest, 0, 4096)
+	infoRequests := make([]*studentRequest, 4096, 4096)
+	highlightRequests := make([]*studentRequest, 4096, 4096)
 
-	s.sessions[sessionId] = &session{&teacherConn{teacherInfoChan, teacherHighlightChan}, infoRequests, highlightRequests}
-	go s.monitorTeacherInfo(sessionId)
-	go s.monitorTeacherHighlight(sessionId)
+	for i:= 0; i < 4096; i++ {
+		infoRequests[i] = &studentRequest{make(chan []byte)}
+		highlightRequests[i] = &studentRequest{make(chan []byte)}
+	}
+
+	s.sessions[sessionId] = &session{&teacherConn{teacherInfoChan, teacherHighlightChan}, infoRequests, 0,highlightRequests, 0}
+	go s.multiplexInfoChannel(sessionId)
+	go s.multiplexHighlightChannel(sessionId)
 	return sessionId
 }
 
@@ -52,7 +58,7 @@ func (s *Server) ReceiveInfo(sessionId string, info []byte) {
 }
 
 func (s *Server) ReceiveHighlight(sessionId string, highlight []byte) {
-		s.sessions[sessionId].teacher.highlightChannel <- highlight
+	s.sessions[sessionId].teacher.highlightChannel <- highlight
 }
 
 func (s *Server) RegisterStudentInfoRequest(id string) []byte {
@@ -61,11 +67,9 @@ func (s *Server) RegisterStudentInfoRequest(id string) []byte {
 		fmt.Println("student tried to request info from session that doesnt exist:", id)
 	}
 
-	curChannel := make(chan []byte)
-	curRequest := studentRequest{curChannel, false}
-	session.infoRequests = append(session.infoRequests, &curRequest)
-	result := <-curRequest.channel
-	return result
+	index := session.infoIndex
+	session.infoIndex += 1
+	return <-session.infoRequestBuffer[index].channel
 }
 
 func (s *Server) RegisterStudentHighlightRequest(id string) []byte {
@@ -74,41 +78,46 @@ func (s *Server) RegisterStudentHighlightRequest(id string) []byte {
 		fmt.Println("student tried to request highlight from session that doesnt exist:", id)
 	}
 
-	curChannel := make(chan []byte)
-	curRequest := studentRequest{curChannel, false}
-	session.highlightRequests = append(session.highlightRequests, &curRequest)
-	result := <-curRequest.channel
-	return result
+	index := session.highlightIndex
+	session.highlightIndex += 1
+	return <-session.highlightRequestBuffer[index].channel
 }
 
-func (s *Server) monitorTeacherInfo(id string) {
+func (s *Server) multiplexInfoChannel(id string) {
 	for msg := range s.sessions[id].teacher.infoChannel {
 		//newList := make([]*studentRequest, 0, 256)
 		//fmt.Println("received data on info channel, students waiting for data: ", len(s.sessions[id].infoRequests))
-		for i := 0; i < len(s.sessions[id].infoRequests); i++ {
+		for i := 0; i < len(s.sessions[id].infoRequestBuffer); i++ {
 			go func(dist []byte, index int) {
-				if !s.sessions[id].infoRequests[index].fulfilled {
-					s.sessions[id].infoRequests[index].channel <- dist
-					s.sessions[id].infoRequests[index].fulfilled = true
-					//newList = append(newList, s.sessions[id].infoRequests[i])
+				select {
+				case <-s.sessions[id].infoRequestBuffer[index].channel:
+					s.sessions[id].infoRequestBuffer[index].channel <- dist
+					break
+				default:
+					s.sessions[id].infoRequestBuffer[index].channel <- dist
 				}
 			}(msg, i)
 		}
+		s.sessions[id].infoIndex = 0
 	}
 }
 
-func (s *Server) monitorTeacherHighlight(id string) {
+func (s *Server) multiplexHighlightChannel(id string) {
 	for msg := range s.sessions[id].teacher.highlightChannel {
 		//newList := make([]*studentRequest, 0, 256)
 		//fmt.Println("received data on highlight channel, students waiting for data: ", len(s.sessions[id].highlightRequests))
-		for i := 0; i < len(s.sessions[id].highlightRequests); i++ {
+		for i := 0; i < len(s.sessions[id].highlightRequestBuffer); i++ {
 			go func(dist []byte, index int) {
-				if !s.sessions[id].highlightRequests[index].fulfilled {
-					s.sessions[id].highlightRequests[index].channel <- dist
-					s.sessions[id].highlightRequests[index].fulfilled = true
-					//newList = append(newList, s.sessions[id].highlightRequests[i])
+				select {
+				case <-s.sessions[id].highlightRequestBuffer[index].channel:
+					s.sessions[id].highlightRequestBuffer[index].channel <- dist
+					break
+				default:
+					s.sessions[id].highlightRequestBuffer[index].channel <- dist
+					break
 				}
 			}(msg, i)
 		}
+		s.sessions[id].highlightIndex = 0
 	}
 }

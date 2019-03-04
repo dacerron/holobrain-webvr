@@ -13,7 +13,8 @@ AFRAME.registerComponent('eduroomteacher', {
             }).then(function(text) {
                 console.log("created session: " + text)
                 sessionNumber = text
-                document.getElementById("session").setAttribute("value", text)
+				let session = document.getElementById("session");
+                session? session.setAttribute("value", text) : null;
                 shareInfo();
                 shareHighlight();
             }).catch(function(err) {
