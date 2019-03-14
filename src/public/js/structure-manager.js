@@ -19,6 +19,7 @@ StructureManager = (function () {
             var current = document.getElementById(name)
             struc[name].position = current.getAttribute("position")
             struc[name].rotation = current.getAttribute("rotation")
+            struc[name].visible = current.getAttribute("visible")
             if(current.hasAttribute("model-opacity")) {
                 struc[name].opacity = current.getAttribute("model-opacity")
             }
@@ -60,6 +61,7 @@ StructureManager = (function () {
             let oldPos = current.getAttribute("position")
             current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
             current.setAttribute("animation__rotation", "property: rotation; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            current.setAttribute("visible", struc[name]["visible"])
 
             if('opacity' in struc[name]) {
                 current.setAttribute("model-opacity", struc[name]["opacity"])
