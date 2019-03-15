@@ -8,13 +8,14 @@ import (
 )
 
 type session struct {
-	teacher           *teacherConn
+	teacher                *teacherConn
 	infoRequestBuffer      []*studentRequest
-	infoIndex				int
+	infoIndex              int
 	highlightRequestBuffer []*studentRequest
-	highlightIndex			int
+	highlightIndex         int
 }
 
+//Server is a container for all the connections to students and teachers
 type Server struct {
 	sessions map[string]*session
 }
@@ -25,61 +26,77 @@ type teacherConn struct {
 }
 
 type studentRequest struct {
-	channel   chan []byte
+	channel chan []byte
 }
 
-//generating session means teacher has made first contact, on ack they will start sharing
+//GenerateSession means teacher has made first contact, on ack they will start sharing
 func (s *Server) GenerateSession() string {
 	if s.sessions == nil {
 		s.sessions = make(map[string]*session)
 	}
 
 	rand.Seed(int64(time.Now().Nanosecond()))
-	sessionId := strconv.Itoa(rand.Intn(999999))
+	sessionID := strconv.Itoa(rand.Intn(999999))
 	teacherInfoChan := make(chan []byte)
 	teacherHighlightChan := make(chan []byte)
 
 	infoRequests := make([]*studentRequest, 4096, 4096)
 	highlightRequests := make([]*studentRequest, 4096, 4096)
 
-	for i:= 0; i < 4096; i++ {
+	for i := 0; i < 4096; i++ {
 		infoRequests[i] = &studentRequest{make(chan []byte)}
 		highlightRequests[i] = &studentRequest{make(chan []byte)}
 	}
 
-	s.sessions[sessionId] = &session{&teacherConn{teacherInfoChan, teacherHighlightChan}, infoRequests, 0,highlightRequests, 0}
-	go s.multiplexInfoChannel(sessionId)
-	go s.multiplexHighlightChannel(sessionId)
-	return sessionId
+	s.sessions[sessionID] = &session{&teacherConn{teacherInfoChan, teacherHighlightChan}, infoRequests, 0, highlightRequests, 0}
+	go s.multiplexInfoChannel(sessionID)
+	go s.multiplexHighlightChannel(sessionID)
+	return sessionID
 }
 
-func (s *Server) ReceiveInfo(sessionId string, info []byte) {
-	s.sessions[sessionId].teacher.infoChannel <- info //writes to channel so that info can be distributed to session
+//ReceiveInfo put the teacher's shared info into the buffer to be distributed by the multiplex method
+func (s *Server) ReceiveInfo(sessionID string, info []byte) {
+	_, err := s.sessions[sessionID]
+	if err == false {
+		fmt.Println("teacher tried to share to a session that doesnt exist")
+		return
+	}
+	s.sessions[sessionID].teacher.infoChannel <- info //writes to channel so that info can be distributed to session
 }
 
-func (s *Server) ReceiveHighlight(sessionId string, highlight []byte) {
-	s.sessions[sessionId].teacher.highlightChannel <- highlight
+//ReceiveHighlight put the teacher's shared highlight into the buffer to be distributed by the multiplex method
+func (s *Server) ReceiveHighlight(sessionID string, highlight []byte) {
+	_, err := s.sessions[sessionID]
+	if err == false {
+		fmt.Println("teacher tried to share to a session that doesnt exist")
+		return
+	}
+	s.sessions[sessionID].teacher.highlightChannel <- highlight
 }
 
+// RegisterStudentInfoRequest put student's request on the waiting list to be distributed on next teacher share
 func (s *Server) RegisterStudentInfoRequest(id string) []byte {
 	session, err := s.sessions[id]
 	if err == false {
 		fmt.Println("student tried to request info from session that doesnt exist:", id)
+		return make([]byte, 0)
 	}
 
 	index := session.infoIndex
-	session.infoIndex += 1
+	session.infoIndex++
 	return <-session.infoRequestBuffer[index].channel
 }
 
+// RegisterStudentHighlightRequest put student's request on the waiting list to be distributed on next teacher share
 func (s *Server) RegisterStudentHighlightRequest(id string) []byte {
 	session, err := s.sessions[id]
 	if err == false {
 		fmt.Println("student tried to request highlight from session that doesnt exist:", id)
+		return make([]byte, 0)
 	}
 
 	index := session.highlightIndex
-	session.highlightIndex += 1
+	session.highlightIndex++
 	return <-session.highlightRequestBuffer[index].channel
 }
 
