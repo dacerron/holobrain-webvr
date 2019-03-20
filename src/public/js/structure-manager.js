@@ -120,7 +120,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "interactible",
+            class: "",
             opacity: 0.5,
             gltfColor: "#ffffff",
             hoverHighlight: false
