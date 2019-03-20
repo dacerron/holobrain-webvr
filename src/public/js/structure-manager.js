@@ -59,8 +59,12 @@ StructureManager = (function () {
             let newPos = struc[name]["position"]
             let oldRot = current.getAttribute("rotation")
             let oldPos = current.getAttribute("position")
-            current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
-            current.setAttribute("animation__rotation", "property: rotation; from: "+oldRot.x+" "+oldRot.y+" "+oldRot.z+";to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            if(differenceIsBigEnough(oldRot, newRot)){
+                current.setAttribute("animation__rotation", "property: rotation; from: "+oldRot.x+" "+oldRot.y+" "+oldRot.z+";to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            }
+            if(differenceIsBigEnough(oldPos, newPos)) {
+                current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
+            }
             current.setAttribute("visible", struc[name]["visible"])
 
             if('opacity' in struc[name]) {
@@ -78,6 +82,11 @@ StructureManager = (function () {
         }
         currentHighlight = highlighted
         document.querySelector("#" + currentHighlight).emit("mouseenter")
+    }
+
+    //expected object with x, y and z number attributes
+    differenceIsBigEnough = function(old, next) {
+        Math.abs(old.x - next.x) > 1 && Math.abs(old.y - next.y) > 1 && Math.abs(old.z - next.z) > 1
     }
 
     var src = {
