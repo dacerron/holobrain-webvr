@@ -86,7 +86,7 @@ StructureManager = (function () {
 
     //expected object with x, y and z number attributes
     differenceIsBigEnough = function(old, next) {
-        Math.abs(old.x - next.x) > 1 && Math.abs(old.y - next.y) > 1 && Math.abs(old.z - next.z) > 1
+        Math.abs(old.x - next.x) > 1 || Math.abs(old.y - next.y) > 1 || Math.abs(old.z - next.z) > 1
     }
 
     var src = {
