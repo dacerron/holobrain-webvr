@@ -28,7 +28,7 @@
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
-<a-scene eduroomteacher raycaster-autorefresh>
+<a-scene raycaster-autorefresh>
     <a-assets timeout="100000">
         <img id="bg1" src="/assets/fMRI_360.jpg">
         <img id="rotate-icon" src="/assets/rotate-icon.png">
@@ -88,27 +88,27 @@
                 <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .caudate">
+                              toggle-structure="target: caudate">
                 </a-gui-button>
                 <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon"
                               value="Globus Pallidus"
                               width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .globuspallidus">
+                              toggle-structure="target: globuspallidus">
                 </a-gui-button>
                 <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .thalamus">
+                              toggle-structure="target: thalamus">
                 </a-gui-button>
                 <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .putamen">
+                              toggle-structure="target: putamen">
                 </a-gui-button>
                 <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon"
                               value="Subthalamic Nuclei"
                               width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .subthalamic">
+                              toggle-structure="target: subthalamic">
                 </a-gui-button>
                 <a-gui-icon-button width="0.5" class="interactible" height="0.5"
                                    closedropdown="target:#basalGangliaContainer"
@@ -157,32 +157,32 @@
                 <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .fornix">
+                              toggle-structure="target: fornix">
                 </a-gui-button>
                 <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon"
                               value="Hippocampus"
                               width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .hippocampus">
+                              toggle-structure="target: hippocampus">
                 </a-gui-button>
                 <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .amygdala">
+                              toggle-structure="target: amygdala">
                 </a-gui-button>
                 <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon"
                               value="Mammillary Bodies"
                               width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .mambodies">
+                              toggle-structure="target: mambodies">
                 </a-gui-button>
                 <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon"
                               value="Mammillothallamic Tract"
                               width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .mamtract">
+                              toggle-structure="target: mamtract">
                 </a-gui-button>
                 <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon"
                               value="Substantia Nigra"
                               width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .substantianigra">
+                              toggle-structure="target: substantianigra">
                 </a-gui-button>
                 <a-gui-icon-button width="0.5" class="interactible" height="0.5"
                                    closedropdown="target:#limbicSystemContainer"
@@ -231,17 +231,17 @@
                 <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .arteries">
+                              toggle-structure="target: arteries">
                 </a-gui-button>
                 <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon"
                               value="Ventricles"
                               width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .ventricles">
+                              toggle-structure="target: ventricles">
                 </a-gui-button>
                 <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses"
                               width="3"
                               height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .sinuses">
+                              toggle-structure="target: sinuses">
                 </a-gui-button>
                 <a-gui-icon-button width="0.5" class="interactible" height="0.5"
                                    closedropdown="target:#vesselsContainer"
@@ -271,7 +271,8 @@
         </a-entity>
     </a-entity>
     <a-sky src="#bg1" radius="300"></a-sky>
-    <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
+    <!--
+    <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>-->
     <a-camera active="true" user-height="0" position="0 2 0" look-controls>
         <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white"
                 scale="0.005 0.005 0.005">
