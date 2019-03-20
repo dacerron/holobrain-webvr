@@ -60,7 +60,7 @@ StructureManager = (function () {
             let oldRot = current.getAttribute("rotation")
             let oldPos = current.getAttribute("position")
             current.setAttribute("animation__position", "property: position; from:"+oldPos.x+" "+oldPos.y+" "+oldPos.z+"; to:"+newPos.x+" "+newPos.y+" "+newPos.z+"; dur: 400; easing: linear")
-            current.setAttribute("animation__rotation", "property: rotation; to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
+            current.setAttribute("animation__rotation", "property: rotation; from: "+oldRot.x+" "+oldRot.y+" "+oldRot.z+";to:"+newRot.x+" "+newRot.y+" "+newRot.z+"; dur: 400; easing: linear")
             current.setAttribute("visible", struc[name]["visible"])
 
             if('opacity' in struc[name]) {
