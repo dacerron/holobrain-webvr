@@ -71,7 +71,7 @@ StructureManager = (function () {
                 current.setAttribute("model-opacity", struc[name]["opacity"])
             }
             if('scale' in struc[name]) {
-                current.setAttribute("rotation", struc[name]["scale"])
+                current.setAttribute("scale", struc[name]["scale"])
             }
         }
     }
