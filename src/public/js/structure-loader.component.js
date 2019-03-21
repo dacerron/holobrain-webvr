@@ -40,25 +40,25 @@ AFRAME.registerComponent('structure-loader', {
                 curModel.setAttribute('id', STRUCTURE_ITERATOR[index]);
                 let curRules = StructureManager.rules[STRUCTURE_ITERATOR[index]];
                 if (curRules) {
-                    if (curRules.opacity) {
+                    if ('opacity' in curRules) {
                         curModel.setAttribute('model-opacity', curRules.opacity);
                     }
-                    if (curRules.gltfColor) {
+                    if ('gltfColor' in curRules) {
                         curModel.setAttribute('gltf-color', "current:" + curRules.gltfColor);
                     }
-                    if (curRules.class) {
+                    if ('class' in curRules) {
                         curModel.setAttribute('class', curRules.class);
                     }
-                    if (curRules.expandPosition) {
+                    if ('expandPosition' in curRules) {
                         curModel.setAttribute('expand-position', 'disappear:' + curRules.expandPosition.disappear + '; pos:' + curRules.expandPosition.pos);
                     }
-                    if (curRules.ogPosition) {
+                    if ('ogPosition' in curRules) {
                         curModel.setAttribute('og-position', 'pos:' + curRules.ogPosition.pos)
                     }
-                    if (curRules.hoverHighlight) {
+                    if ('hoverHighlight' in curRules) {
                         curModel.setAttribute("hover-highlight", curRules.hoverHighlight.counterPart? "counterpart:" + curRules.hoverHighlight.counterPart:"")
                     }
-                    if(curRules.visible) {
+                    if('visible' in curRules) {
                         curModel.setAttribute("visible", curRules.visible)
                     }
                 }
