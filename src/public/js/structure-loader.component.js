@@ -58,6 +58,9 @@ AFRAME.registerComponent('structure-loader', {
                     if (curRules.hoverHighlight) {
                         curModel.setAttribute("hover-highlight", curRules.hoverHighlight.counterPart? "counterpart:" + curRules.hoverHighlight.counterPart:"")
                     }
+                    if(curRules.visible) {
+                        curModel.setAttribute("visible", curRules.visible)
+                    }
                 }
                 if(STRUCTURE_ITERATOR[index] !== "cortex") {
                     cortex.appendChild(curModel);

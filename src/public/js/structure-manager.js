@@ -123,7 +123,8 @@ StructureManager = (function () {
             class: "",
             opacity: 0.5,
             gltfColor: "#ffffff",
-            hoverHighlight: false
+            hoverHighlight: false,
+            visible: true,
         },
         arteries: {
             ogPosition: {
@@ -136,7 +137,8 @@ StructureManager = (function () {
             class: "arteries interactible",
             opacity: 0.6,
             gltfColor: "#950714",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         sinuses: {
             expandPosition: {
@@ -149,7 +151,8 @@ StructureManager = (function () {
             class: "sinuses interactible",
             opacity: 0.6,
             gltfColor: "#003366",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         ramygdala: {
             expandPosition: {
@@ -163,7 +166,8 @@ StructureManager = (function () {
             gltfColor: "#ff81b0",
             hoverHighlight: {
                 counterPart: "#lamygdala"
-            }
+            },
+            visible: false
         },
         lamygdala: {
             expandPosition: {
@@ -177,7 +181,8 @@ StructureManager = (function () {
             gltfColor: "#ff81b0",
             hoverHighlight: {
                 counterPart: "#ramygdala"
-            }
+            },
+            visible: false
         },
         mambodies: {
             expandPosition: {
@@ -189,7 +194,8 @@ StructureManager = (function () {
             },
             class: "mambodies interactible",
             gltfColor: "#00ffff",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         mamtract: {
             expandPosition: {
@@ -201,7 +207,8 @@ StructureManager = (function () {
             },
             class: "mamtract interactible",
             gltfColor: "#66cd00",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         hippocampus: {
             expandPosition: {
@@ -213,7 +220,8 @@ StructureManager = (function () {
             },
             class: "hippocampus interactible",
             gltfColor: "#ffd700",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         fornix: {
             expandPosition: {
@@ -225,7 +233,8 @@ StructureManager = (function () {
             },
             class: "fornix interactible",
             gltfColor: "#be29ec",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         ventricles: {
             expandPosition: {
@@ -238,7 +247,8 @@ StructureManager = (function () {
             class: "ventricles interactible",
             opacity: 0.6,
             gltfColor: "#3b5998",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: true
         },
         cerebellum: {
             expandPosition: {
@@ -250,7 +260,8 @@ StructureManager = (function () {
             },
             class: "cerebellum interactible",
             gltfColor: "#ff7f50",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         thalamus: {
             expandPosition: {
@@ -262,7 +273,8 @@ StructureManager = (function () {
             },
             class: "thalamus interactible",
             gltfColor: "#008080",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         subthalamic: {
             expandPosition: {
@@ -274,7 +286,8 @@ StructureManager = (function () {
             },
             class: "subthalamic interactible",
             gltfColor: "#000000",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         lcaudate: {
             expandPosition: {
@@ -288,7 +301,8 @@ StructureManager = (function () {
             gltfColor: "#f6546a",
             hoverHighlight: {
                 counterPart: "#rcaudate"
-            }
+            },
+            visible: false
         },
         lputamen: {
             expandPosition: {
@@ -302,7 +316,8 @@ StructureManager = (function () {
             gltfColor: "#45a54f",
             hoverHighlight: {
                 counterPart: "#rputamen"
-            }
+            },
+            visible: false
         },
         lglobus: {
             expandPosition: {
@@ -316,7 +331,8 @@ StructureManager = (function () {
             gltfColor: "#6760aa",
             hoverHighlight: {
                 counterPart: "#rglobus"
-            }
+            },
+            visible: false
         },
         rcaudate: {
             expandPosition: {
@@ -330,7 +346,8 @@ StructureManager = (function () {
             gltfColor: "#f6546a",
             hoverHighlight: {
                 counterPart: "#lcaudate"
-            }
+            },
+            visible: false
         },
         rputamen: {
             expandPosition: {
@@ -344,7 +361,8 @@ StructureManager = (function () {
             gltfColor: "#45a54f",
             hoverHighlight: {
                 counterPart: "#lputamen"
-            }
+            },
+            visible: false
         },
         subnigra: {
             expandPosition: {
@@ -356,7 +374,8 @@ StructureManager = (function () {
             },
             class: "substantianigra interactible",
             gltfColor: "#4d4e4f",
-            hoverHighlight: true
+            hoverHighlight: true,
+            visible: false
         },
         rglobus: {
             expandPosition: {
@@ -370,7 +389,8 @@ StructureManager = (function () {
             gltfColor: "#6760aa",
             hoverHighlight: {
                 counterPart: "#lglobus"
-            }
+            },
+            visible: false
         }
     }
 
