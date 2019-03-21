@@ -12,8 +12,7 @@
     <script type="text/javascript" src="/js/assign-rotate.component.js"></script>
     <script type="text/javascript" src="/js/scale-brain.component.js"></script>
     <script type="text/javascript" src="/js/expand-brain.component.js"></script>
-    <script type="text/javascript"
-            src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script type="text/javascript" src="/js/expand-position.component.js"></script>
     <script type="text/javascript" src="/js/og-position.component.js"></script>
     <script type="text/javascript" src="/js/eduRoomTeacher.component.js"></script>
@@ -28,257 +27,205 @@
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
-<a-scene raycaster-autorefresh>
-    <a-assets timeout="100000">
-        <img id="bg1" src="/assets/fMRI_360.jpg">
-        <img id="rotate-icon" src="/assets/rotate-icon.png">
-        <img id="MRI-button" src="/assets/MRI-rough.jpg">
-    </a-assets>
+    <a-scene raycaster-autorefresh>
+        <a-assets timeout="100000">
+            <img id="bg1" src="/assets/fMRI_360.jpg">
+            <img id="rotate-icon" src="/assets/rotate-icon.png">
+            <img id="MRI-button" src="/assets/MRI-rough.jpg">
+        </a-assets>
 
-    <a-entity position="0 -0.5 -2">
-        <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1"
-                      margin="0 0 0.05 0" value="rotate" assign-rotate>
-        </a-gui-button>
-        
+        <a-entity position="0 -0.5 -2">
+            <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" margin="0 0 0.05 0"
+                value="rotate" assign-rotate>
+            </a-gui-button>
 
-        <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5"
-                      material="src: #rotate-icon"
-                      value=" + " font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
-        </a-gui-button>
 
-        <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5"
-                      material="src: #rotate-icon"
-                      value=" - " font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
-        </a-gui-button>
+            <a-gui-button id="scaleUp-button" class="interactible" position="-1 -0.75 -3" width="1" height="0.5"
+                material="src: #rotate-icon" value=" + " font-family="Helvetica" margin="0 0 0.05 0" scale-brain>
+            </a-gui-button>
 
-        <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5"
-                      material="src: #rotate-icon"
-                      value="expand" font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
-        </a-gui-button>
+            <a-gui-button id="scaleDown-button" class="interactible" position="-1 -0.25 -3" width="1" height="0.5"
+                material="src: #rotate-icon" value=" - " font-family="Helvetica" margin="0 0 0.05 0" scale-brain="increase: false">
+            </a-gui-button>
 
-        <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5"
-                      material="src: #rotate-icon"
-                      value="collapse" font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
-        </a-gui-button>
-    </a-entity>
+            <a-gui-button id="expand-button" class="interactible" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon"
+                value="expand" font-family="Helvetica" margin="0 0 0.05 0" expand-brain>
+            </a-gui-button>
 
-    <a-entity id="isolate-menu" position="0 0 -4" rotation="0 0 0">
-        <a-entity id="basalGangliaContainer" position="4 3.5 0" rotation="0 -30 0">
-            <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
-                <a-gui-icon-label-button class="interactible" width="3" height="0.75"
-                                         opendropdown="target:#basalGangliaContainer"
-                                         icon="android-menu" value="Basal Ganglia" font-family="Arial" visible="true"
-                                         role="button">
-                    <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
-                                 to="180 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
-                                 to="false"></a-animation>
-                    <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
-                                 to="0 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
-                                 to="true"></a-animation>
-                </a-gui-icon-label-button>
-            </a-gui-flex-container>
-            <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="3" height="0.75" position="0 0 -0.15" scale="1 0.001 0.001"
-                                  visible="false">
-                <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .caudate">
-                </a-gui-button>
-                <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon"
-                              value="Globus Pallidus"
-                              width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .globuspallidus">
-                </a-gui-button>
-                <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .thalamus">
-                </a-gui-button>
-                <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .putamen">
-                </a-gui-button>
-                <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon"
-                              value="Subthalamic Nuclei"
-                              width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .subthalamic">
-                </a-gui-button>
-                <a-gui-icon-button width="0.5" class="interactible" height="0.5"
-                                   closedropdown="target:#basalGangliaContainer"
-                                   icon="android-close" role="button" raycaster-autorefresh>
-                </a-gui-icon-button>
-                <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards"
-                             to="1 1 1"></a-animation>
-                <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
-                             to="0 0.375 0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100"
-                             to="true"></a-animation>
-
-                <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
-                             to="1 0.001 0.001"></a-animation>
-                <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
-                             to="0 0 -0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
-                             dur="100"
-                             to="false"></a-animation>
-            </a-gui-flex-container>
+            <a-gui-button id="collapse-button" class="interactible" position="1 -0.25 -3" width="1" height="0.5"
+                material="src: #rotate-icon" value="collapse" font-family="Helvetica" margin="0 0 0.05 0" expand-brain="expand: false">
+            </a-gui-button>
         </a-entity>
 
-        <a-entity id="limbicSystemContainer" position="-3.5 2.3 0" rotation="0 30 0">
-            <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
-                <a-gui-icon-label-button class="interactible" width="3" height="0.75"
-                                         opendropdown="target:#limbicSystemContainer"
-                                         icon="android-menu" value="Limbic System" font-family="Arial" visible="true"
-                                         role="button">
-                    <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
-                                 to="180 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
-                                 to="false"></a-animation>
-                    <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
-                                 to="0 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
-                                 to="true"></a-animation>
-                </a-gui-icon-label-button>
-            </a-gui-flex-container>
-            <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="2.5" height="0.75" position="0 0 -0.15" rotation="0 0 0"
-                                  scale="1 0.001 0.001" visible="false"
-                                  gui-item="" geometry="" material="" gui-flex-container="">
-                <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .fornix">
-                </a-gui-button>
-                <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon"
-                              value="Hippocampus"
-                              width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .hippocampus">
-                </a-gui-button>
-                <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .amygdala">
-                </a-gui-button>
-                <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon"
-                              value="Mammillary Bodies"
-                              width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .mambodies">
-                </a-gui-button>
-                <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon"
-                              value="Mammillothallamic Tract"
-                              width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .mamtract">
-                </a-gui-button>
-                <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon"
-                              value="Substantia Nigra"
-                              width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .substantianigra">
-                </a-gui-button>
-                <a-gui-icon-button width="0.5" class="interactible" height="0.5"
-                                   closedropdown="target:#limbicSystemContainer"
-                                   icon="android-close" role="button" raycaster-autorefresh>
-                </a-gui-icon-button>
+        <a-entity id="isolate-menu" position="0 0 -4" rotation="0 0 0">
+            <a-entity id="basalGangliaContainer" position="4 3.5 0" rotation="0 -30 0">
+                <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
+                    <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#basalGangliaContainer"
+                        icon="android-menu" value="Basal Ganglia" font-family="Arial" visible="true" role="button">
+                        <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
+                            to="180 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
+                            to="false"></a-animation>
+                        <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
+                            to="0 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
+                            to="true"></a-animation>
+                    </a-gui-icon-label-button>
+                </a-gui-flex-container>
+                <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0 -0.15" scale="1 0.001 0.001"
+                    visible="false">
+                    <a-gui-button id="toggleCaudateBtn" class="interactible" material="src: #rotate-icon" value="Caudate"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .caudate">
+                    </a-gui-button>
+                    <a-gui-button id="toggleGlobusBtn" class="interactible" material="src: #rotate-icon" value="Globus Pallidus"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .globuspallidus">
+                    </a-gui-button>
+                    <a-gui-button id="toggleThalamusBtn" class="interactible" material="src: #rotate-icon" value="Thalamus"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .thalamus">
+                    </a-gui-button>
+                    <a-gui-button id="togglePutamenBtn" class="interactible" material="src: #rotate-icon" value="Putamen"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .putamen">
+                    </a-gui-button>
+                    <a-gui-button id="toggleSubthalNucleiBtn" class="interactible" material="src: #rotate-icon" value="Subthalamic Nuclei"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .subthalamic">
+                    </a-gui-button>
+                    <a-gui-button id="toggleSubNigraBtn" class="interactible" material="src: #rotate-icon" value="Substantia Nigra"
+                        width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .substantianigra">
+                    </a-gui-button>
+                    <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#basalGangliaContainer"
+                        icon="android-close" role="button" raycaster-autorefresh>
+                    </a-gui-icon-button>
+                    <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
+                        to="0 0.375 0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100" to="true"></a-animation>
 
-                <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards"
-                             to="1 1 1"></a-animation>
-                <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
-                             to="0 0.375 0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100"
-                             to="true"></a-animation>
+                    <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
+                        to="1 0.001 0.001"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
+                        to="0 0 -0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
+                        dur="100" to="false"></a-animation>
+                </a-gui-flex-container>
+            </a-entity>
 
-                <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
-                             to="1 0.001 0.001"></a-animation>
-                <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
-                             to="0 0 -0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
-                             dur="100"
-                             to="false"></a-animation>
+            <a-entity id="limbicSystemContainer" position="-3.5 2.3 0" rotation="0 30 0">
+                <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
+                    <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#limbicSystemContainer"
+                        icon="android-menu" value="Limbic System" font-family="Arial" visible="true" role="button">
+                        <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
+                            to="180 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
+                            to="false"></a-animation>
+                        <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
+                            to="0 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
+                            to="true"></a-animation>
+                    </a-gui-icon-label-button>
+                </a-gui-flex-container>
+                <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="2.5" height="0.75" position="0 0 -0.15" rotation="0 0 0"
+                    scale="1 0.001 0.001" visible="false" gui-item="" geometry="" material="" gui-flex-container="">
+                    <a-gui-button id="toggleFornixBtn" class="interactible" material="src: #rotate-icon" value="Fornix"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .fornix">
+                    </a-gui-button>
+                    <a-gui-button id="toggleHippocampusBtn" class="interactible" material="src: #rotate-icon" value="Hippocampus"
+                        width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .hippocampus">
+                    </a-gui-button>
+                    <a-gui-button id="toggleAmygdalaBtn" class="interactible" material="src: #rotate-icon" value="Amygdala"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .amygdala">
+                    </a-gui-button>
+                    <a-gui-button id="toggleMamBodBtn" class="interactible" material="src: #rotate-icon" value="Mammillary Bodies"
+                        width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .mambodies">
+                    </a-gui-button>
+                    <a-gui-button id="toggleMamTractBtn" class="interactible" material="src: #rotate-icon" value="Mammillothallamic Tract"
+                        width="3.05" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .mamtract">
+                    </a-gui-button>
+
+                    <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#limbicSystemContainer"
+                        icon="android-close" role="button" raycaster-autorefresh>
+                    </a-gui-icon-button>
+
+                    <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
+                        to="0 0.375 0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100" to="true"></a-animation>
+
+                    <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
+                        to="1 0.001 0.001"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
+                        to="0 0 -0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
+                        dur="100" to="false"></a-animation>
+                </a-gui-flex-container>
+            </a-entity>
+
+            <a-gui-flex-container position="-3.5 0 0" flex-direction="column" justify-content="center" align-items="normal">
+                <a-gui-button id="toggleCerebellumBtn" class="interactible" material="src: #rotate-icon" value="Cerebellum"
+                width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .cerebellum">
+                </a-gui-button>
             </a-gui-flex-container>
+
+            <a-entity id="vesselsContainer" position="4 -1 0" rotation="0 -30 0">
+                <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0.375 0">
+                    <a-gui-icon-label-button class="interactible" width="3" height="0.75" opendropdown="target:#vesselsContainer"
+                        icon="android-menu" value="Vessels" font-family="Arial" visible="true" role="button">
+                        <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
+                            to="180 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
+                            to="false"></a-animation>
+                        <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
+                            to="0 0 0"></a-animation>
+                        <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
+                            to="true"></a-animation>
+                    </a-gui-icon-label-button>
+                </a-gui-flex-container>
+                <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
+                    component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0 -0.15" rotation="0 0 0"
+                    scale="1 0.001 0.001" visible="false">
+                    <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .arteries">
+                    </a-gui-button>
+                    <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon" value="Ventricles"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .ventricles">
+                    </a-gui-button>
+                    <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses"
+                        width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0" toggle-structure="target: .sinuses">
+                    </a-gui-button>
+                    <a-gui-icon-button width="0.5" class="interactible" height="0.5" closedropdown="target:#vesselsContainer"
+                        width="3" height="0.75" icon="android-close" role="button" raycaster-autorefresh>
+                    </a-gui-icon-button>
+
+                    <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards" to="1 1 1"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
+                        to="0 0.375 0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100" to="true"></a-animation>
+
+                    <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
+                        to="1 0.001 0.001"></a-animation>
+                    <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
+                        to="0 0 -0.15"></a-animation>
+                    <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
+                        dur="100" to="false"></a-animation>
+                </a-gui-flex-container>
+            </a-entity>
         </a-entity>
-
-        <a-entity id="vesselsContainer" position="4 -1 0" rotation="0 -30 0">
-            <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="3" height="0.75" position="0 0.375 0">
-                <a-gui-icon-label-button class="interactible" width="3" height="0.75"
-                                         opendropdown="target:#vesselsContainer"
-                                         icon="android-menu" value="Vessels" font-family="Arial" visible="true"
-                                         role="button">
-                    <a-animation attribute="rotation" id="dropani" begin="opendropdown" dur="1000" fill="forwards"
-                                 to="180 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1" begin="opendropdown" fill="forwards" delay="500"
-                                 to="false"></a-animation>
-                    <a-animation attribute="rotation" id="dropaniback" begin="closedropdown" dur="1000" fill="forwards"
-                                 to="0 0 0"></a-animation>
-                    <a-animation attribute="visible" id="dropani1back" begin="closedropdown" fill="forwards" delay="500"
-                                 to="true"></a-animation>
-                </a-gui-icon-label-button>
-            </a-gui-flex-container>
-            <a-gui-flex-container flex-direction="column" justify-content="center" align-items="normal"
-                                  component-padding="0.1"
-                                  opacity="0" width="3" height="0.75" position="0 0 -0.15" rotation="0 0 0"
-                                  scale="1 0.001 0.001" visible="false">
-                <a-gui-button id="toggleArteriesBtn" class="interactible" material="src: #rotate-icon" value="Arteries"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .arteries">
-                </a-gui-button>
-                <a-gui-button id="toggleVentriclesBtn" class="interactible" material="src: #rotate-icon"
-                              value="Ventricles"
-                              width="3" height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .ventricles">
-                </a-gui-button>
-                <a-gui-button id="toggleSinusesBtn" class="interactible" material="src: #rotate-icon" value="Sinuses"
-                              width="3"
-                              height="0.75" font-family="Helvetica" margin="0 0 0.05 0"
-                              toggle-structure="target: .sinuses">
-                </a-gui-button>
-                <a-gui-icon-button width="0.5" class="interactible" height="0.5"
-                                   closedropdown="target:#vesselsContainer"
-                                   width="3" height="0.75" icon="android-close" role="button" raycaster-autorefresh>
-                </a-gui-icon-button>
-
-                <a-animation attribute="scale" id="dropvalani" begin="opendropdown" dur="1000" fill="forwards"
-                             to="1 1 1"></a-animation>
-                <a-animation attribute="position" id="dropvalani1" begin="opendropdown" dur="1000" fill="forwards"
-                             to="0 0.375 0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2" begin="opendropdown" fill="forwards" dur="100"
-                             to="true"></a-animation>
-
-                <a-animation attribute="scale" id="dropvalaniback" begin="closedropdown" dur="1000" fill="forwards"
-                             to="1 0.001 0.001"></a-animation>
-                <a-animation attribute="position" id="dropvalani1back" begin="closedropdown" dur="1000" fill="forwards"
-                             to="0 0 -0.15"></a-animation>
-                <a-animation attribute="visible" id="dropvalani2back" begin="closedropdown" fill="forwards" delay="500"
-                             dur="100"
-                             to="false"></a-animation>
-            </a-gui-flex-container>
+        <a-entity id="brain-parts" position="0 2.4 -4" scale="0.015 0.015 0.015" structure-loader>
+            <a-entity id="cortex" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+            </a-entity>
         </a-entity>
-    </a-entity>
-    <a-entity id="brain-parts" position="0 2.4 -4" scale="0.015 0.015 0.015" structure-loader>
-        <a-entity id="cortex" scale="1 1 1"
-                  animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
-        </a-entity>
-    </a-entity>
-    <a-sky src="#bg1" radius="300"></a-sky>
-    <!--
+        <a-sky src="#bg1" radius="300"></a-sky>
+        <!--
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>-->
-    <a-camera active="true" user-height="0" position="0 2 0" look-controls>
-        <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white"
-                scale="0.005 0.005 0.005">
-        </a-ring>
-    </a-camera>
-</a-scene>
+        <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+            <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+            </a-ring>
+        </a-camera>
+    </a-scene>
 </body>
 
 </html>
