@@ -14,16 +14,16 @@ var Env = require('./env.js');
 app.use(compression());
 
 app.get('/rooms/educational-room-teacher', (req, res) => {
-    res.sendFile('educationalRoomTeacher.html', {root: path.join(__dirname, 'static')});
+    res.sendFile('educationalRoomTeacher.html', {root: path.join(__dirname, 'public/html')});
 });
 
 app.get('/rooms/educational-room-student', (req, res) => {
-    res.sendFile('educationalRoomStudent.html', {root: path.join(__dirname, 'static')});
+    res.sendFile('educationalRoomStudent.html', {root: path.join(__dirname, 'public/html')});
 });
 
-app.get('/rooms/js/:name', function(req, res) {
+app.get('/js/:name', function(req, res) {
     var options = {
-        root: __dirname + '/static/js/',
+        root: __dirname + '/public/js/',
     }
     var fileName = req.params.name;
     console.log("sending " + fileName);
@@ -34,9 +34,9 @@ app.get('/rooms/js/:name', function(req, res) {
     });
 });
 
-app.get('/rooms/public/assets/:name', function(req, res) {
+app.get('/assets/:name', function(req, res) {
     var options = {
-        root: __dirname + '/static/public/assets/',
+        root: __dirname + '/public/assets/',
     }
     var fileName = req.params.name;
     console.log("sending: " + fileName);
@@ -50,7 +50,7 @@ app.get('/rooms/public/assets/:name', function(req, res) {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile('index.html', {root: path.join(__dirname, 'static')})
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')})
 });
 
 //Comm.init(io);
