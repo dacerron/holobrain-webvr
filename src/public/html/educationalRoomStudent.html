@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <title>Educational Room</title>
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+  <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+  <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
+  <script type="text/javascript" src="/js/cookieParser.js"></script>
+  <script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>
+  <script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>
+  <script type="text/javascript" src="/js/override-material.component.js"></script>
+  <script type="text/javascript"
+          src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+  <script type="text/javascript" src="/js/expand-position.component.js"></script>
+  <script type="text/javascript" src="/js/og-position.component.js"></script>
+  <script type="text/javascript" src="/js/eduRoomStudent.component.js"></script>
+  <script type="text/javascript" src="/js/structure-manager.js"></script>
+  <script type="text/javascript" src="/js/change-color-on-hover.component.js"></script>
+  <script type="text/javascript" src="/js/hover-highlight.component.js"></script>
+  <script type="text/javascript" src="/js/model-opacity.component.js"></script>
+  <script type="text/javascript" src="/js/gltf-color.component.js"></script>
+  <script type="text/javascript" src="/js/structure-loader.component.js"></script>
+
+</head>
+
+<body style='margin: 0px; overflow: hidden;'>
+<a-scene eduroomstudent raycaster-autorefresh>
+  <a-assets timeout="100000">
+    <img id="bg1" src="/assets/bg1.jpeg">
+    <img id="rotate-icon" src="/assets/rotate-icon.png">
+    <img id="MRI-button" src="/assets/MRI-rough.jpg">
+  </a-assets>
+  <a-entity id="brain-parts" position="0 2.4 -4" scale="0.015 0.015 0.015" structure-loader>
+    <a-entity id="cortex" scale="1 1 1">
+    </a-entity>
+  </a-entity>
+  <a-sky src="#bg1"></a-sky>
+  <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>
+  <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+    <a-ring cursor="fuse: false" position="0 0 -0.5" color="white"
+            scale="0.005 0.005 0.005">
+    </a-ring>
+  </a-camera>
+</a-scene>
+</body>
+
+</html>

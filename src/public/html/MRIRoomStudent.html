@@ -1,0 +1,153 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="easyrtc/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+    <script type="text/javascript" src="js/raycaster-autorefresh.component.js"></script>
+    <script type="text/javascript" src="js/hide-if-not-mobile.component.js"></script>
+    <script type="text/javascript" src="js/override-material.component.js"></script>
+    <script type="text/javascript" src="js/assign-rotate.component.js"></script>
+    <script type="text/javascript" src="js/scale-brain.component.js"></script>
+    <script type="text/javascript" src="js/expand-brain.component.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+    <script type="text/javascript" src="js/aframe.propagate.js"></script>
+    <script type="text/javascript" src="js/assign-microglia.component.js"></script>
+    <script type="text/javascript" src="js/assign-channel.component.js"></script>
+    <script type="text/javascript" src="js/scale-cells.component.js"></script>
+    <script type="text/javascript" src="js/assign-skip.component.js"></script>
+    <script type="text/javascript" src="js/slide-container.component.js"></script>
+    <script type="text/javascript" src="js/play-button.component.js"></script>
+    <script type="text/javascript" src="js/show-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mri.component.js"></script>
+    <script type="text/javascript" src="js/rotate-mriroom.component.js"></script>
+    <script type="text/javascript" src="js/slice-controller.component.js"></script>
+    <script type="text/javascript" src="js/slice-renderer.component.js"></script>
+    <script type="text/javascript" src="js/og-position.component.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="slice_0_0" src="public/assets/brain_slices/cortex_0_0.obj"></a-asset-item>
+            <a-asset-item id="slice_0_1" src="public/assets/brain_slices/cortex_0_1.obj"></a-asset-item>
+            <a-asset-item id="slice_0_2" src="public/assets/brain_slices/cortex_0_2.obj"></a-asset-item>
+            <a-asset-item id="slice_0_3" src="public/assets/brain_slices/cortex_0_3.obj"></a-asset-item>
+            <a-asset-item id="slice_1_0" src="public/assets/brain_slices/cortex_1_0.obj"></a-asset-item>
+            <a-asset-item id="slice_1_1" src="public/assets/brain_slices/cortex_1_1.obj"></a-asset-item>
+            <a-asset-item id="slice_1_2" src="public/assets/brain_slices/cortex_1_2.obj"></a-asset-item>
+            <a-asset-item id="slice_1_3" src="public/assets/brain_slices/cortex_1_3.obj"></a-asset-item>
+            <a-asset-item id="slice_2_0" src="public/assets/brain_slices/cortex_0_0.obj"></a-asset-item>
+            <a-asset-item id="slice_2_1" src="public/assets/brain_slices/cortex_2_1.obj"></a-asset-item>
+            <a-asset-item id="slice_2_2" src="public/assets/brain_slices/cortex_2_2.obj"></a-asset-item>
+            <a-asset-item id="slice_2_3" src="public/assets/brain_slices/cortex_2_3.obj"></a-asset-item>
+            <a-asset-item id="slice_2_4" src="public/assets/brain_slices/cortex_2_4.obj"></a-asset-item>
+            <a-asset-item id="slice_3_0" src="public/assets/brain_slices/cortex_3_0.obj"></a-asset-item>
+            <a-asset-item id="slice_3_1" src="public/assets/brain_slices/cortex_3_1.obj"></a-asset-item>
+            <a-asset-item id="slice_3_2" src="public/assets/brain_slices/cortex_3_2.obj"></a-asset-item>
+            <a-asset-item id="slice_3_3" src="public/assets/brain_slices/cortex_3_3.obj"></a-asset-item>
+            <a-asset-item id="slice_3_4" src="public/assets/brain_slices/cortex_3_4.obj"></a-asset-item>
+            <a-asset-item id="slice_4_0" src="public/assets/brain_slices/cortex_4_0.obj"></a-asset-item>
+            <a-asset-item id="slice_4_1" src="public/assets/brain_slices/cortex_4_1.obj"></a-asset-item>
+            <a-asset-item id="slice_4_2" src="public/assets/brain_slices/cortex_4_2.obj"></a-asset-item>
+            <a-asset-item id="slice_4_3" src="public/assets/brain_slices/cortex_4_3.obj"></a-asset-item>
+            <a-asset-item id="slice_4_4" src="public/assets/brain_slices/cortex_4_4.obj"></a-asset-item>
+            <img id="bg3" src="public/assets/bg1.jpeg" />
+            <img id="rotate-icon" src="public/assets/rotate-icon.png" />
+            <img id="MRI-button" src="public/assets/MRI-rough.jpg" />
+        </a-assets>
+
+        <a-entity geometry="primitive:sphere;radius:500;segmentsWidth:64;segmentsHeight:64" material="shader:flat;side:double; color:#ffffff;fog:false; src:#bg3"
+            scale="-1 1 1" rotation="0 -60 0" id="photosphere3">
+        </a-entity>
+        <a-entity id="brainStuff" position="0 2 -4" rotation="0 45 0" scale="1.3 1.3 1.3" animation__rot="property: rotation; from: 0 45 0; to: 0 405 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+            <a-entity id="brainslices" slice-renderer="slices:.brainslice; controllers:.sliceController">
+                <a-entity class="brainslice" position="0 -0.4 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_0"></a-entity>
+                <a-entity class="brainslice" position="0 -0.4 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_1"></a-entity>
+                <a-entity class="brainslice" position="0 -0.4 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_2"></a-entity>
+                <a-entity class="brainslice" position="0 -0.4 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_3"></a-entity>
+                <a-entity class="brainslice" position="0 -0.4 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_4_4"></a-entity>
+                <a-entity class="brainslice" position="0 -0.2 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_0"></a-entity>
+                <a-entity class="brainslice" position="0 -0.2 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_1"></a-entity>
+                <a-entity class="brainslice" position="0 -0.2 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_2"></a-entity>
+                <a-entity class="brainslice" position="0 -0.2 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_3"></a-entity>
+                <a-entity class="brainslice" position="0 -0.2 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_3_4"></a-entity>
+                <a-entity class="brainslice" position="0 0 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_0"></a-entity>
+                <a-entity class="brainslice" position="0 0 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_1"></a-entity>
+                <a-entity class="brainslice" position="0 0 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_2"></a-entity>
+                <a-entity class="brainslice" position="0 0 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_3"></a-entity>
+                <a-entity class="brainslice" position="0 0 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_2_4"></a-entity>
+                <a-entity class="brainslice" position="0 0.2 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_0"></a-entity>
+                <a-entity class="brainslice" position="0 0.2 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_1"></a-entity>
+                <a-entity class="brainslice" position="0 0.2 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_2"></a-entity>
+                <a-entity class="brainslice" position="0 0.2 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_1_3"></a-entity>
+                <a-entity class="brainslice" position="0 0.2 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position visible="false"></a-entity>
+                <a-entity class="brainslice" position="0 0.4 -0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_0"></a-entity>
+                <a-entity class="brainslice" position="0 0.4 -0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_1"></a-entity>
+                <a-entity class="brainslice" position="0 0.4 0" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_2"></a-entity>
+                <a-entity class="brainslice" position="0 0.4 0.2" scale="1 0.2 0.2" color="#c2d2ea" og-position obj-model="obj:#slice_0_3"></a-entity>
+                <a-entity class="brainslice" position="0 0.4 0.4" scale="1 0.2 0.2" color="#c2d2ea" og-position visible="false"></a-entity>
+            </a-entity>
+
+            <a-cylinder class="sliceController" position="-0.5 0.65 0.3" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0"
+                slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-0.5 0.65 0.1" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0"
+                slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-0.5 0.65 -0.1" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0"
+                slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-0.5 0.65 -0.3" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="90 90 0"
+                slice-controller="target:#brainslices; axis:z" og-position></a-cylinder>
+
+            <a-cylinder class="sliceController" position="-1 0.3 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90"
+                slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-1 0.1 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90"
+                slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-1 -0.1 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90"
+                slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+            <a-cylinder class="sliceController" position="-1 -0.3 0" segments-radial="3" scale="0.1 0.02 0.15" color="#4CC3D9" rotation="0 90 90"
+                slice-controller="target:#brainslices; axis:y" og-position></a-cylinder>
+
+        </a-entity>
+
+        <a-entity class="room" position="0 0 0" scale="0.8 0.8 0.8" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 18000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
+            <a-entity rotation="0 45 0" position="-3.5 0 -6">
+                <a-box id="MRI-button1" visible="true" position="-1 4 0" width="2" depth="0.2" height="2" color="red" slice-controller="target:#brainslices; axis:y; position_based:false; bound:0.3"></a-box>
+                <a-box id="MRI-button2" visible="true" position="1 4 0" width="2" depth="0.2" height="2" color="yellow" slice-controller="target:#brainslices; axis:y; position_based:false; bound:0.1"></a-box>
+                <a-box id="MRI-button3" visible="true" position="-1 2 0" width="2" depth="0.2" height="2" color="green" slice-controller="target:#brainslices; axis:y; position_based:false; bound:-0.1"></a-box>
+                <a-box id="MRI-button4" visible="true" position="1 2 0" width="2" depth="0.2" height="2" color="blue" slice-controller="target:#brainslices; axis:y; position_based:false; bound:-0.3"></a-box>
+            </a-entity>
+
+            <a-entity rotation="0 135 0" position="3.5 0 -6">
+                <a-box id="MRI-button5" visible="true" position="-1 4 0" width="2" depth="0.2" height="2" color="red" slice-controller="target:#brainslices; axis:z; position_based:false; bound:-0.3"></a-box>
+                <a-box id="MRI-button6" visible="true" position="1 4 0" width="2" depth="0.2" height="2" color="yellow" slice-controller="target:#brainslices; axis:z; position_based:false; bound:-0.1"></a-box>
+                <a-box id="MRI-button7" visible="true" position="-1 2 0" width="2" depth="0.2" height="2" color="green" slice-controller="target:#brainslices; axis:z; position_based:false; bound:0.1"></a-box>
+                <a-box id="MRI-button8" visible="true" position="1 2 0" width="2" depth="0.2" height="2" color="blue" slice-controller="target:#brainslices; axis:z; position_based:false; bound:0.3"></a-box>
+            </a-entity>
+        </a-entity>
+
+        <a-entity position="0 0.5 0">
+            <a-gui-button id="rotate-MRI" position="-1 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="Rotate" font-family="Helvetica"
+                margin="0 0 0.05 0" rotate-mri></a-gui-button>
+
+            <a-gui-button id="rotate-Room" position="0 -0.5 -3" width="1" height="1" material="src: #rotate-icon" value="Room" font-family="Helvetica"
+                margin="0 0 0.05 0" rotate-mriroom></a-gui-button>
+
+            <a-gui-button id="scaleUp-MRI" position="1 -0.75 -3" width="1" height="0.5" material="src: #rotate-icon" value=" + " font-family="Helvetica"
+                margin="0 0 0.05 0" toggle="true" scale-brain></a-gui-button>
+
+            <a-gui-button id="scaleDown-MRI" position="1 -0.25 -3" width="1" height="0.5" material="src: #rotate-icon" value=" - " font-family="Helvetica"
+                margin="0 0 0.05 0" toggle="true" scale-brain="increase: false"></a-gui-button>
+        </a-entity>
+        <a-entity id="player" wasd-controls>
+            <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+                <a-ring cursor="fuse: false" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
+                </a-ring>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+</body>
+
+</html>
