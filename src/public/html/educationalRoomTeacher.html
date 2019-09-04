@@ -29,12 +29,13 @@
 <body style='margin: 0px; overflow: hidden;'>
     <a-scene raycaster-autorefresh>
         <a-assets timeout="100000">
-            <img id="bg1" src="/assets/fMRI_360.jpg">
+            <img id="bg1" src="/assets/360_relax.jpg">
             <img id="rotate-icon" src="/assets/rotate-icon.png">
             <img id="MRI-button" src="/assets/MRI-rough.jpg">
+            <img id="floor-tile" src="/assets/ground.png">
         </a-assets>
 
-        <a-entity position="0 -0.5 -2">
+        <a-entity position="0 0.5 -2">
             <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" margin="0 0 0.05 0"
                 value="rotate" assign-rotate>
             </a-gui-button>
@@ -57,7 +58,7 @@
             </a-gui-button>
         </a-entity>
 
-        <a-entity id="isolate-menu" position="0 0 -4" rotation="0 0 0">
+        <a-entity id="isolate-menu" position="0 1 -4" rotation="0 0 0">
             <a-entity id="basalGangliaContainer" position="4 3.5 0" rotation="0 -30 0">
                 <a-gui-flex-container flex-direction="row" justify-content="center" align-items="normal"
                     component-padding="0.1" opacity="0" width="3" height="0.75" position="0 0.375 0" rotation="0 0 0">
@@ -214,11 +215,12 @@
                 </a-gui-flex-container>
             </a-entity>
         </a-entity>
-        <a-entity id="brain-parts" position="0 2.4 -4" scale="0.015 0.015 0.015" structure-loader>
+        <a-entity id="brain-parts" position="0 2.3 -4" scale="0.015 0.015 0.015" structure-loader>
             <a-entity id="cortex" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
             </a-entity>
         </a-entity>
-        <a-sky src="#bg1" radius="300"></a-sky>
+        <a-image position="0 -1.6 0" height="300" width="300" rotation="90 0 0" src="#floor-tile" repeat="300 300" material="color:#ebd9e9" geometry></a-image>
+        <a-sky src="#bg1"></a-sky>
         <!--
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>-->
         <a-camera active="true" user-height="0" position="0 2 0" look-controls>

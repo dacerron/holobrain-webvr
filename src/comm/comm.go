@@ -83,6 +83,9 @@ func (s *Server) RegisterStudentInfoRequest(id string) []byte {
 	}
 
 	index := session.infoIndex
+	if(index > 4095) {
+		return []byte{}
+	}
 	session.infoIndex++
 	return <-session.infoRequestBuffer[index].channel
 }
