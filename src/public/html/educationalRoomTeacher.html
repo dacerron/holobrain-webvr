@@ -5,13 +5,12 @@
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
     <script type="text/javascript" src="/js/cookieParser.js"></script>
-    <script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>
-    <script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>
+    <!--<script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>-->
+    <!--<script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>-->
     <script type="text/javascript" src="/js/override-material.component.js"></script>
     <script type="text/javascript" src="/js/assign-rotate.component.js"></script>
     <script type="text/javascript" src="/js/scale-brain.component.js"></script>
     <script type="text/javascript" src="/js/expand-brain.component.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script type="text/javascript" src="/js/expand-position.component.js"></script>
     <script type="text/javascript" src="/js/og-position.component.js"></script>
     <script type="text/javascript" src="/js/eduRoomTeacher.component.js"></script>
@@ -222,10 +221,10 @@
         <a-sky src="#bg1"></a-sky>
         <!--
     <a-gui-label id="session" height="0.75" width="2.5" rotation="0 -20 0" position="5 0 -4" value="_"></a-gui-label>-->
-        <a-camera active="true" user-height="0" position="0 2 0" look-controls>
+        <a-entity camera look-controls active="true" user-height="0" position="0 2 0" >
             <a-ring cursor="fuse: false" raycaster="objects: .interactible" position="0 0 -0.5" color="white" scale="0.005 0.005 0.005">
             </a-ring>
-        </a-camera>
+        </a-entity>
     </a-scene>
 </body>
 
