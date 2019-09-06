@@ -25,6 +25,22 @@
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
+    <script>
+        (function() {
+            DeviceMotionEvent.requestPermission().then((response) => {
+                switch(response) {
+                    case "granted" :
+                        console.log("got devicemotion permission");
+                        break;
+                    case "denied" :
+                        console.log("devicemotion permission denied");
+                        break;
+                    default:
+                        console.log("response for devicemotion defaulted");
+                }
+            })
+        })()
+    </script>
     <a-scene raycaster-autorefresh>
         <a-assets timeout="100000">
             <img id="bg1" src="/assets/360_relax.jpg">
@@ -217,7 +233,7 @@
             <a-entity id="cortex" scale="1 1 1" >
             </a-entity>
         </a-entity>
-        <a-image position="0 -1.6 0" height="300" width="300" rotation="90 0 0" src="#floor-tile" repeat="300 300" material="color:#ebd9e9" geometry></a-image>
+        <a-image position="0 -1.6 0" height="300" width="300" rotation="90 0 0" src="#floor-tile" repeat="300 300" material="color:#ebd9e9"></a-image>
         <a-sky src="#bg1"></a-sky>
         <!--animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false" brain: structure-loader; camera:raycaster="objects: .interactible"-->
         <!--
