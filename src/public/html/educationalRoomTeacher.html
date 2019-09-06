@@ -2,11 +2,11 @@
 
 <head>
     <title>Educational Room</title>
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script><!--
     <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
     <script type="text/javascript" src="/js/cookieParser.js"></script>
-    <!--<script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>-->
-    <!--<script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>-->
+    <script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>
+    <script type="text/javascript" src="/js/hide-if-not-mobile.component.js"></script>
     <script type="text/javascript" src="/js/override-material.component.js"></script>
     <script type="text/javascript" src="/js/assign-rotate.component.js"></script>
     <script type="text/javascript" src="/js/scale-brain.component.js"></script>
@@ -21,7 +21,7 @@
     <script type="text/javascript" src="/js/hover-highlight.component.js"></script>
     <script type="text/javascript" src="/js/model-opacity.component.js"></script>
     <script type="text/javascript" src="/js/gltf-color.component.js"></script>
-    <script type="text/javascript" src="/js/structure-loader.component.js"></script>
+    <script type="text/javascript" src="/js/structure-loader.component.js"></script>-->
 </head>
 
 <body style='margin: 0px; overflow: hidden;'>
@@ -32,7 +32,7 @@
             <img id="MRI-button" src="/assets/MRI-rough.jpg">
             <img id="floor-tile" src="/assets/ground.png">
         </a-assets>
-
+<!--
         <a-entity position="0 0.5 -2">
             <a-gui-button id="rotate-button" class="interactible" position="0 -0.5 -3" width="1" height="1" margin="0 0 0.05 0"
                 value="rotate" assign-rotate>
@@ -212,7 +212,7 @@
                         dur="100" to="false"></a-animation>
                 </a-gui-flex-container>
             </a-entity>
-        </a-entity>
+        </a-entity>-->
         <a-entity id="brain-parts" position="0 2.3 -4" scale="0.015 0.015 0.015" structure-loader>
             <a-entity id="cortex" scale="1 1 1" animation__rot="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 6000; easing: linear; pauseEvents: rotate-pause; resumeEvents: rotate-resume; autoplay: false">
             </a-entity>
