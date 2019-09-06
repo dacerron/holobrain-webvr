@@ -2,7 +2,7 @@
 
 <head>
     <title>Educational Room</title>
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script><!--
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script><!--
     <script src="https://rdub80.github.io/aframe-gui/examples/js/aframe-gui.js"></script>
     <script type="text/javascript" src="/js/cookieParser.js"></script>
     <script type="text/javascript" src="/js/raycaster-autorefresh.component.js"></script>
@@ -26,20 +26,6 @@
 
 <body style='margin: 0px; overflow: hidden;'>
     <script>
-        (function() {
-            DeviceMotionEvent.requestPermission().then((response) => {
-                switch(response) {
-                    case "granted" :
-                        console.log("got devicemotion permission");
-                        break;
-                    case "denied" :
-                        console.log("devicemotion permission denied");
-                        break;
-                    default:
-                        console.log("response for devicemotion defaulted");
-                }
-            })
-        })()
     </script>
     <a-scene raycaster-autorefresh>
         <a-assets timeout="100000">
