@@ -8,6 +8,7 @@ AFRAME.registerComponent('opendropdown', {
         if (target) {
             this.el.addEventListener('click', () => {
                 var animateDropdown = target.querySelector("#dropani");
+                console.log("animate dropdown : " + animateDropdown);
                 animateDropdown.emit('opendropdown');
                 var animateDropdown1 = target.querySelector("#dropani1");
                 animateDropdown1.emit('opendropdown');
