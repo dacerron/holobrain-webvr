@@ -90,26 +90,26 @@ StructureManager = (function () {
     }
 
     var src = {
-        cortex: "/assets/Cortex.glb",
-        arteries: "/assets/Arteries.glb",
-        cerebellum: "/assets/Cerebellum.glb",
-        fornix: "/assets/Fornix.glb",
-        hippocampus: "/assets/Hippocampus.glb",
-        lamygdala: "/assets/L-Amygdala.glb",
-        lcaudate: "/assets/L-Caudate.glb",
-        lglobus: "/assets/L-Globus.glb",
-        lputamen: "/assets/L-Putamen.glb",
-        mamtract: "/assets/MamilloThalamicTract.glb",
-        mambodies: "/assets/MammillaryBodies.glb",
-        ramygdala: "/assets/R-Amygdala.glb",
-        rcaudate: "/assets/R-Caudate.glb",
-        rglobus: "/assets/R-Globus.glb",
-        rputamen: "/assets/R-Putamen.glb",
-        sinuses: "/assets/Sinuses.glb",
-        subnigra: "/assets/Substantia-Nigra.glb",
-        subthalamic: "/assets/Subthalamic-Nuclei.glb",
-        thalamus: "/assets/Thalamus.glb",
-        ventricles: "/assets/Ventricles.glb"
+        cortex: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fcortex.glb?v=1569018937514",
+        arteries: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Farteries.glb?v=1569023917900",
+        cerebellum: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fcerebellum.gltf?v=1568749643179",
+        fornix: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Ffornix.glb?v=1569018963022",
+        hippocampus: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fhippocampus.glb?v=1569018995173",
+        lamygdala: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FL-Amygdala.gltf?v=1568749647133",
+        lcaudate: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FL-caudate.glb?v=1569019022423",
+        lglobus: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FL-Globus.gltf?v=1568749646667",
+        lputamen: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FL-Putamen.gltf?v=1568749646531",
+        mamtract: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FMamilloThalamicTract.gltf?v=1568749646684",
+        mambodies: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FMammillaryBodies.gltf?v=1568749645589",
+        ramygdala: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FR-Amygdala.gltf?v=1568749645259",
+        rcaudate: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FR-caudate.glb?v=1569019044324",
+        rglobus: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FR-Globus.gltf?v=1568749644698",
+        rputamen: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FR-Putamen.gltf?v=1568749646382x",
+        sinuses: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fsinus.glb?v=1569019066725",
+        subnigra: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FSubstantia-Nigra.gltf?v=1568749643495",
+        subthalamic: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2FSubthalamic-Nuclei.gltf?v=1568749643194",
+        thalamus: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fthalamus.glb?v=1569019088308",
+        ventricles: "https://cdn.glitch.com/4d11bd5a-9e2e-4e8c-a373-d57ffc64d547%2Fventricles.glb?v=1569019102223"
     }
     var rules = {
         cortex: {
@@ -134,7 +134,7 @@ StructureManager = (function () {
                 disappear: true,
                 pos: "0 0 0"
             },
-            class: "arteries interactible",
+            class: "arteries",
             opacity: 0.6,
             gltfColor: "#950714",
             hoverHighlight: true,
@@ -148,7 +148,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "sinuses interactible",
+            class: "sinuses",
             opacity: 0.6,
             gltfColor: "#003366",
             hoverHighlight: true,
@@ -162,7 +162,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "amygdala interactible",
+            class: "amygdala",
             gltfColor: "#ff81b0",
             hoverHighlight: {
                 counterPart: "#lamygdala"
@@ -177,7 +177,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "amygdala interactible",
+            class: "amygdala",
             gltfColor: "#ff81b0",
             hoverHighlight: {
                 counterPart: "#ramygdala"
@@ -192,7 +192,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "mambodies interactible",
+            class: "mambodies",
             gltfColor: "#00ffff",
             hoverHighlight: true,
             visible: false
@@ -205,7 +205,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "mamtract interactible",
+            class: "mamtract",
             gltfColor: "#66cd00",
             hoverHighlight: true,
             visible: false
@@ -218,7 +218,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "hippocampus interactible",
+            class: "hippocampus",
             gltfColor: "#ffd700",
             hoverHighlight: true,
             visible: false
@@ -231,7 +231,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "fornix interactible",
+            class: "fornix",
             gltfColor: "#be29ec",
             hoverHighlight: true,
             visible: false
@@ -244,7 +244,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0",
             },
-            class: "ventricles interactible",
+            class: "ventricles",
             opacity: 0.6,
             gltfColor: "#3b5998",
             hoverHighlight: true,
@@ -258,7 +258,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "cerebellum interactible",
+            class: "cerebellum",
             gltfColor: "#ff7f50",
             hoverHighlight: true,
             visible: false
@@ -271,7 +271,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "thalamus interactible",
+            class: "thalamus",
             gltfColor: "#008080",
             hoverHighlight: true,
             visible: false
@@ -284,7 +284,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "subthalamic interactible",
+            class: "subthalamic",
             gltfColor: "#000000",
             hoverHighlight: true,
             visible: false
@@ -297,7 +297,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "caudate interactible",
+            class: "caudate",
             gltfColor: "#f6546a",
             hoverHighlight: {
                 counterPart: "#rcaudate"
@@ -312,7 +312,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "putamen interactible",
+            class: "putamen",
             gltfColor: "#45a54f",
             hoverHighlight: {
                 counterPart: "#rputamen"
@@ -327,7 +327,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "globuspallidus interactible",
+            class: "globuspallidus",
             gltfColor: "#6760aa",
             hoverHighlight: {
                 counterPart: "#rglobus"
@@ -342,7 +342,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "caudate interactible",
+            class: "caudate",
             gltfColor: "#f6546a",
             hoverHighlight: {
                 counterPart: "#lcaudate"
@@ -357,7 +357,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "putamen interactible",
+            class: "putamen",
             gltfColor: "#45a54f",
             hoverHighlight: {
                 counterPart: "#lputamen"
@@ -372,7 +372,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "substantianigra interactible",
+            class: "substantianigra",
             gltfColor: "#4d4e4f",
             hoverHighlight: true,
             visible: false
@@ -385,7 +385,7 @@ StructureManager = (function () {
             ogPosition: {
                 pos: "0 0 0"
             },
-            class: "globuspallidus interactible",
+            class: "globuspallidus",
             gltfColor: "#6760aa",
             hoverHighlight: {
                 counterPart: "#lglobus"

@@ -4,7 +4,7 @@ AFRAME.registerComponent('structure-loader', {
     },
 
     init: function () {
-        var cortex = this.data.cortex;
+        var cortex = this.data.cortex; // find the a-entity with the id of "cortex"
         var index = 0;
         const STRUCTURE_ITERATOR = Object.keys(StructureManager.src)
         var ERROR_COUNT = 0;
@@ -12,7 +12,7 @@ AFRAME.registerComponent('structure-loader', {
         var addModel = function () {
             if (STRUCTURE_ITERATOR.length <= index) { //done loading all structures
                 if(STRUCTURE_ITERATOR.length == index) {
-                    document.querySelector("a-scene").emit('structures-loaded')
+                    document.querySelector("a-scene").dispatchEvent(new Event('structures-loaded'))
                 }
                 return;
             } else {
